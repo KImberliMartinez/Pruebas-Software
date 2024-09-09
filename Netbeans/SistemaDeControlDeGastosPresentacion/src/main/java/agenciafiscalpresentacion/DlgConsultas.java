@@ -45,6 +45,9 @@ public class DlgConsultas extends javax.swing.JFrame {
         lblOpciones2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabla = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -99,12 +102,12 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 160, 50));
+        panelOpciones.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 160, 50));
 
         btnSeleccionar.setBackground(new java.awt.Color(0, 153, 0));
         btnSeleccionar.setFont(new java.awt.Font("Amazon Ember", 0, 24)); // NOI18N
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
-        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.setText("Consultar");
         btnSeleccionar.setBorderPainted(false);
         btnSeleccionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSeleccionar.setFocusable(false);
@@ -113,7 +116,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 160, 50));
+        panelOpciones.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 370, 160, 50));
 
         lblOpciones1.setFont(new java.awt.Font("Amazon Ember", 0, 36)); // NOI18N
         lblOpciones1.setForeground(new java.awt.Color(64, 53, 44));
@@ -154,6 +157,20 @@ public class DlgConsultas extends javax.swing.JFrame {
 
         panelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 670, 100));
 
+        jButton1.setText("AgregarNuevo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panelOpciones.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
+
+        jButton2.setText("Modificar");
+        panelOpciones.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, -1, -1));
+
+        jButton3.setText("Eliminar");
+        panelOpciones.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, -1, -1));
+
         getContentPane().add(panelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 450));
 
         pack();
@@ -188,6 +205,10 @@ public class DlgConsultas extends javax.swing.JFrame {
     private void txtCoincidenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoincidenciaKeyPressed
         buscarCoincidencias(txtCoincidencia.getText() + evt.getKeyChar());
     }//GEN-LAST:event_txtCoincidenciaKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
     private void buscarCoincidencias(String texto) {
         limpiarTabla();
         int sele = cbxBusqueda.getSelectedIndex();
@@ -258,6 +279,9 @@ public class DlgConsultas extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxBusqueda;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabla;
     private javax.swing.JLabel lblOpciones;
