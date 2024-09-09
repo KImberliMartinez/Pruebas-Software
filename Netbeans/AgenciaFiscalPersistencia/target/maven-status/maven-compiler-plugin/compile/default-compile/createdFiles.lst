@@ -1,0 +1,15 @@
+entidades\AgenciaFiscalPersistencia.class
+entidades\EnumTipoLicencia.class
+Encriptacion\EncriptacionDatos.class
+entidades\Placa.class
+daos\IPersonaDAO.class
+daos\ILicenciasDAO.class
+daos\IPlacasDAO.class
+entidades\Licencia.class
+entidades\Persona.class
+daos\LicenciasDAO.class
+daos\PersonasDAO.class
+daos\PlacasDAO.class
+entidades\EnumCostos.class
+entidades\EnumVigenciaLicencia.class
+entidades\Automovil.class
