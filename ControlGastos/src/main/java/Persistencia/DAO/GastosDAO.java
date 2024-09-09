@@ -7,33 +7,83 @@ package Persistencia.DAO;
 import Persistencia.entidades.Gastos;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
  * @author delll
  */
 public class GastosDAO implements IGastosDAO {
+        private EntityManagerFactory emf;
 
     public GastosDAO() {
+               emf = Persistence.createEntityManagerFactory("ConexionPU");
+
     }
 
     @Override
     public void Agregar(Gastos gastos) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+             em.persist(gastos);
+            gastos.toString();
+            System.out.println("enviado a la bd");
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+
+        } finally {
+            em.close();
+
+        }
     }
 
     @Override
     public List<Gastos> obtenerLista() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+          EntityManager em = emf.createEntityManager();
+        
+        String jpql = "SELECT g FROM Gastos g"; // JPQL para seleccionar todas las personas
+        Query query = em.createQuery(jpql);
+        return query.getResultList();
     }
 
     @Override
-    public void actualizarGastos(String categoria, String descripcion, Float gasto, Date fecha) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void actualizarGastos(long id,String categoria, String descripcion, Float gasto, Date fecha) {
+            EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = null;
+        try {
+            transaction = em.getTransaction();
+            transaction.begin();
+
+           // String jpql = "UPDATE Persona p SET p.nombre = :nom, p.apellidoP = :ApellidoP,p.apellidoM = :ApellidoM, p.telefono= = :tel, p.curp= = :curp,p.fechaNacimiento= = :fechaN WHERE p.rfc = :rfc";
+            String jpql = "UPDATE Gastos g SET g.Categoria= :categoria, g.Descripcion = :descripcion, g.Gasto = :gasto, p.Fecha = :fecha WHERE p.id = :id";
+           int up = em.createQuery(jpql)
+                     .setParameter("categoria", categoria)
+                     .setParameter("descricion", descripcion)
+                     .setParameter("gasto", gasto)
+                    .setParameter("fecha", fecha)
+                    .setParameter("id", id)
+                    .executeUpdate();
+
+            transaction.commit();
+            System.out.println("Se actualizo con exito " + up + ".");
+        } catch (RuntimeException e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();//si la transaccion no termina se devuelve y no guarda nada
+                // throw new IllegalArgumentException("Esta realizando una accion incorrecta.");
+            }
+            throw e; //exception rollback
+        }
+
     }
 
     @Override
-    public void Eliminar(String categoria, String descripcion, Float gasto, Date fecha) {
+    public void Eliminar(long id,String categoria, String descripcion, Float gasto, Date fecha) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

@@ -15,7 +15,7 @@ import java.util.List;
 public interface IGastosDAO {
     public void Agregar(Gastos gastos);
     public List<Gastos> obtenerLista();
-   public void actualizarGastos(String categoria,String descripcion,Float gasto,Date fecha);
-   public void Eliminar(String categoria,String descripcion,Float gasto,Date fecha);
+   public void actualizarGastos(long id,String categoria,String descripcion,Float gasto,Date fecha);
+   public void Eliminar(long id,String categoria,String descripcion,Float gasto,Date fecha);
 
 }

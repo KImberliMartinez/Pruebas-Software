@@ -11,6 +11,7 @@ import java.util.Date;
  * @author delll
  */
 public class gastosDTO {
+    long id;
     String categoria;
     String descripcion;
     float gasto;
@@ -53,6 +54,14 @@ public class gastosDTO {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override

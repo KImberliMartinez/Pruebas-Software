@@ -38,12 +38,12 @@ public class consultaGastos implements IconsultaGastos {
     }
 
     @Override
-    public void actualizarGastos(String categoria, String descripcion, float gasto, Date fecha) {
+    public void actualizarGastos(long id,String categoria, String descripcion, float gasto, Date fecha) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void Eliminar(String categoria, String descripcion, float gasto, Date fecha) {
+    public void Eliminar(long id,String categoria, String descripcion, float gasto, Date fecha) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
