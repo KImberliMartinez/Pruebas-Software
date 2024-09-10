@@ -17,23 +17,24 @@ import java.util.List;
  * @author delll
  */
 public class consultaGastos implements IconsultaGastos {
+
     IGastosDAO gasto;
-     private boolean registroEnviado = false;
+    private boolean registroEnviado = false;
 
     public consultaGastos() {
-        gasto= new GastosDAO();
+        gasto = new GastosDAO();
     }
 
     @Override
     public void registrar(gastosDTO p) {
-        Gastos nuevoGasto=new Gastos(p.getCategoria(), p.getDescripcion(), p.getGasto(), p.getFecha());
+        Gastos nuevoGasto = new Gastos(p.getCategoria(), p.getDescripcion(), p.getGasto(), p.getFecha());
         System.out.println("registrarGastos");
         gasto.Agregar(nuevoGasto);
     }
 
     @Override
     public List<gastosDTO> obtenerLista() {
-         List<Gastos> gas = gasto.obtenerLista(); // Obtener personas desde la base de datos
+        List<Gastos> gas = gasto.obtenerLista(); // Obtener personas desde la base de datos
         return convertirGastosADTOs(gas);
     }
 
@@ -44,13 +45,11 @@ public class consultaGastos implements IconsultaGastos {
 
         for (Gastos g : gastos) {
             gastosDTO gaDTO = new gastosDTO();
-            String fechaFormateada = sdf.format(g.getFecha());
             gaDTO.setId(g.getId());
             gaDTO.setCategoria(g.getCategoria());
             gaDTO.setDescripcion(g.getDescripcion());
             gaDTO.setGasto(g.getGasto());
             gaDTO.setFecha(g.getFecha());
-            
 
             gastoDTO.add(gaDTO);
         }
@@ -58,13 +57,25 @@ public class consultaGastos implements IconsultaGastos {
     }
 
     @Override
-    public void actualizarGastos(long id,String categoria, String descripcion, float gas) {
-      gasto.actualizarGastos(id, categoria, descripcion, gas);
+    public void actualizarGastos(long id, String categoria, String descripcion, float gas) {
+        gasto.actualizarGastos(id, categoria, descripcion, gas);
     }
 
     @Override
     public void Eliminar(long id) {
         gasto.Eliminar(id);
     }
-    
+
+    @Override
+    public Double obtenerGastosTotalesPorPeriodo(Date inicio, Date fin) {
+        return gasto.obtenerGastosTotalesPorPeriodo(inicio, fin);
+    }
+
+    @Override
+    public List<gastosDTO> listaPorPeriodo(Date startDate, Date endDate) {
+        List<Gastos> gastos = gasto.listaPorPeriodo(startDate, endDate);
+        System.out.println("Número de registros obtenidos: " + gastos.size());
+        return convertirGastosADTOs(gastos);
+    }
+
 }

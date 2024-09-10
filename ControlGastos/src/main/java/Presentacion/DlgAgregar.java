@@ -61,7 +61,7 @@ public class DlgAgregar extends javax.swing.JDialog {
         BotonRegreso1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("REGISTRO");
+        setTitle("Agregar");
 
         jPanel1.setBackground(new java.awt.Color(235, 250, 239));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

@@ -65,7 +65,7 @@ public class DlgModificar extends javax.swing.JDialog {
         BotonRegreso1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("REGISTRO");
+        setTitle("Modificar");
 
         jPanel1.setBackground(new java.awt.Color(235, 250, 239));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -182,6 +182,7 @@ public class DlgModificar extends javax.swing.JDialog {
          long num= Long.parseLong(idCambio);
          float mont=Float.valueOf(montCambio);
          Consulta.actualizarGastos(num, campoCat.getText(), campoDes.getText(), mont);
+         JOptionPane.showMessageDialog(this,"Accion realizada","",JOptionPane.INFORMATION_MESSAGE );
           DlgConsultas dlg=new DlgConsultas();
                     dlg.setVisible(true);
                     

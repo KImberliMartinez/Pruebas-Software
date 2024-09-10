@@ -19,4 +19,7 @@ public interface IconsultaGastos {
     public List<gastosDTO> convertirGastosADTOs(List<Gastos> gastos);
     public void actualizarGastos(long id,String categoria,String descripcion,float gas);
    public void Eliminar(long id);
+   public Double obtenerGastosTotalesPorPeriodo(Date inicio, Date fin);
+    public List<gastosDTO> listaPorPeriodo(Date startDate, Date endDate);
+
 }

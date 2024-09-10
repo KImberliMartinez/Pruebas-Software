@@ -17,4 +17,6 @@ public interface IGastosDAO {
     public List<Gastos> obtenerLista();
    public void actualizarGastos(long id,String categoria,String descripcion,Float gasto);
    public void Eliminar(long id);
+   public Double obtenerGastosTotalesPorPeriodo(Date inicio, Date fin);
+    public List<Gastos> listaPorPeriodo(Date startDate,Date endDate);
 }

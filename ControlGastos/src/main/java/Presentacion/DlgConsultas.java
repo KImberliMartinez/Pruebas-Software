@@ -4,6 +4,8 @@ package Presentacion;
 import Negocio.dtos.IconsultaGastos;
 import Negocio.dtos.consultaGastos;
 import Negocio.dtos.gastosDTO;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
@@ -11,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.PrintException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,6 +29,7 @@ public class DlgConsultas extends javax.swing.JFrame {
      * Creates new form FrmOpcionesCliente
      */
     public DlgConsultas() {
+        
         p=new consultaGastos();
         initComponents();
         this.setVisible(true);
@@ -58,10 +63,12 @@ public class DlgConsultas extends javax.swing.JFrame {
         dateChooserFin = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        resultadolabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelOpciones.setBackground(new java.awt.Color(204, 255, 204));
+        panelOpciones.setMaximumSize(new java.awt.Dimension(772, 440));
         panelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTituloSeccion.setFont(new java.awt.Font("Amazon Ember", 1, 48)); // NOI18N
@@ -113,8 +120,8 @@ public class DlgConsultas extends javax.swing.JFrame {
         });
         panelOpciones.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 160, 50));
 
-        btnSeleccionar.setBackground(new java.awt.Color(0, 153, 0));
-        btnSeleccionar.setFont(new java.awt.Font("Amazon Ember", 0, 24)); // NOI18N
+        btnSeleccionar.setBackground(new java.awt.Color(0, 204, 153));
+        btnSeleccionar.setFont(new java.awt.Font("Amazon Ember", 0, 18)); // NOI18N
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setText("Filtrar fecha");
         btnSeleccionar.setBorderPainted(false);
@@ -125,12 +132,12 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 370, 160, 50));
+        panelOpciones.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 160, 40));
 
         lblOpciones1.setFont(new java.awt.Font("Amazon Ember", 0, 36)); // NOI18N
         lblOpciones1.setForeground(new java.awt.Color(64, 53, 44));
-        lblOpciones1.setText("Opciones");
-        panelOpciones.add(lblOpciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
+        lblOpciones1.setText("Registros:");
+        panelOpciones.add(lblOpciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
 
         lblOpciones2.setFont(new java.awt.Font("Amazon Ember", 0, 24)); // NOI18N
         lblOpciones2.setForeground(new java.awt.Color(64, 53, 44));
@@ -164,31 +171,40 @@ public class DlgConsultas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTabla);
 
-        panelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 670, 100));
+        panelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 690, 110));
 
+        btnAgregar.setBackground(new java.awt.Color(0, 204, 153));
+        btnAgregar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("AgregarNuevo");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
+        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, 40));
 
+        btnModificar.setBackground(new java.awt.Color(0, 204, 153));
+        btnModificar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, -1, -1));
+        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 120, 40));
 
+        btnEliminar.setBackground(new java.awt.Color(0, 204, 153));
+        btnEliminar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, -1, -1));
+        panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 130, 40));
 
         lblOpciones3.setFont(new java.awt.Font("Amazon Ember", 0, 24)); // NOI18N
         lblOpciones3.setForeground(new java.awt.Color(64, 53, 44));
@@ -205,11 +221,16 @@ public class DlgConsultas extends javax.swing.JFrame {
         jLabel2.setText("Desde:");
         panelOpciones.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, -1));
 
+        resultadolabel.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
+        panelOpciones.add(resultadolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 80, 20));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,43 +245,38 @@ public class DlgConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxBusquedaActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-                     limpiarTabla();
+        java.util.Date fechaInicioUtil = dateChooserInicio.getDate();
+        java.util.Date fechaFinUtil = dateChooserFin.getDate();
 
-        Date fechaInicio = dateChooserInicio.getDate();
-    Date fechaFin = dateChooserFin.getDate();
-        if (fechaInicio != null && fechaFin != null) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                for (gastosDTO pn : gastos) {
-                    // Formatear fecha de nacimiento
-                    String fechaFormateada = sdf.format(pn.getFecha());
-                    
-                    // Convertir fecha de nacimiento a objeto Date para la comparación
-                    try {
-                        Date fechaNacimiento = sdf.parse(fechaFormateada);
-                        if (fechaNacimiento.compareTo(fechaInicio) >= 0 && fechaNacimiento.compareTo(fechaFin) <= 0) {
-                            insertarFila(pn);
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Por favor, ingrese el rango de fechas", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        if (fechaInicioUtil != null && fechaFinUtil != null) {
+            Date fechaInicio = new Date(fechaInicioUtil.getTime());
+            Date fechaFin = new Date(fechaFinUtil.getTime());
+            System.out.println(fechaInicio);
+            System.out.println(fechaFin);
+            List<gastosDTO> gast =p.listaPorPeriodo(fechaInicio, fechaFin);
+            // Limpiar la tabla antes de agregar nuevos datos
+             System.out.println("Número de registros obtenidos principal: " + gast.size());
+
+            modeloTabla.setRowCount(0);
+            for (gastosDTO gasto : gast) {
+                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  // Ajusta el formato según lo necesites
+    // Formatear la fecha
+            String formato = sdf.format(gasto.getFecha());
+                Object[] row = {
+                    gasto.getId(),
+                    gasto.getCategoria(),
+                    gasto.getDescripcion(),
+                    gasto.getGasto(),
+                    formato
+                };
+                modeloTabla.addRow(row);
             }
-//        int filaSeleccionada = jTabla.getSelectedRow();
-//
-//        if ( filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
-//            Object[] datosFila = new Object[jTabla.getColumnCount()];
-//
-//            for (int i = 0; i < jTabla.getColumnCount(); i++) {
-//                datosFila[i] = jTabla.getValueAt(filaSeleccionada, i);
-//            }
-//            String rfc=datosFila[1].toString();
-//             control.desplegarDlgHistorial(rfc);
-//            this.dispose();
-            
-        //}
-       
+            Double total=p.obtenerGastosTotalesPorPeriodo(fechaInicio, fechaFin);
+                    // Actualizar el label con el total
+                    resultadolabel.setText("Total: " + total);
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione ambas fechas.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }      
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -309,7 +325,25 @@ public class DlgConsultas extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_btnModificarActionPerformed
-
+   /**
+     * Centra la ventana en la pantalla.
+     * @param frame La ventana que se desea centrar.
+     */
+    public static void centrarVentana(JFrame frame) {
+        // Obtiene la dimensión de la pantalla
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension pantalla = toolkit.getScreenSize();
+        
+        // Obtiene la dimensión de la ventana
+        Dimension ventana = frame.getSize();
+        
+        // Calcula la posición x e y para centrar la ventana
+        int x = (pantalla.width - ventana.width) / 2;
+        int y = (pantalla.height - ventana.height) / 2;
+        
+        // Establece la posición de la ventana
+        frame.setLocation(x, y);
+    }
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
          int filaSeleccionada = jTabla.getSelectedRow();
@@ -323,8 +357,8 @@ public class DlgConsultas extends javax.swing.JFrame {
         
              String id=datosFila[0].toString();
             long num=Long.parseLong(id);
-        
-        p.Eliminar(num);
+            p.Eliminar(num);
+            JOptionPane.showMessageDialog(this,"Accion realizada","",JOptionPane.INFORMATION_MESSAGE );
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
     private void buscarCoincidencias(String texto) {
@@ -345,28 +379,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                     }
                 }
                 break;
-//            case 1:
-//                // Buscar por fecha en un rango
-//            if (fechaInicio != null && fechaFin != null) {
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                for (gastosDTO pn : gastos) {
-//                    // Formatear fecha de nacimiento
-//                    String fechaFormateada = sdf.format(pn.getFecha());
-//                    
-//                    // Convertir fecha de nacimiento a objeto Date para la comparación
-//                    try {
-//                        Date fechaNacimiento = sdf.parse(fechaFormateada);
-//                        if (fechaNacimiento.compareTo(fechaInicio) >= 0 && fechaNacimiento.compareTo(fechaFin) <= 0) {
-//                            insertarFila(pn);
-//                        }
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Por favor, ingrese el rango de fechas", "Advertencia", JOptionPane.WARNING_MESSAGE);
-//            }
-//            break;                
+           
                 case 1:
                     for (gastosDTO pn : gastos) {
                     if (pn.getDescripcion().contains(texto)) {
@@ -395,12 +408,18 @@ public class DlgConsultas extends javax.swing.JFrame {
     }
 
     private void insertarFila(gastosDTO p) {
+        // Crear un formateador de fecha
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  // Ajusta el formato según lo necesites
+
+    // Formatear la fecha
+    String formato = sdf.format(p.getFecha());
+
         Object[] fila = {
             p.getId(),
             p.getCategoria(),
             p.getDescripcion(),
             p.getGasto(),
-            p.getFecha(),
+            formato,
            
             };
         modeloTabla.addRow(fila);
@@ -459,6 +478,7 @@ public class DlgConsultas extends javax.swing.JFrame {
     private javax.swing.JLabel lblOpciones3;
     private javax.swing.JLabel lblTituloSeccion;
     private javax.swing.JPanel panelOpciones;
+    private javax.swing.JLabel resultadolabel;
     private javax.swing.JTextField txtCoincidencia;
     // End of variables declaration//GEN-END:variables
 
