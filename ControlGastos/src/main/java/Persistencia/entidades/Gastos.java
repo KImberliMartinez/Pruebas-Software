@@ -36,9 +36,8 @@ public class Gastos implements Serializable {
     private Float gasto;
       
     @Column(name = "Fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-
+    private java.util.Date fecha;
+    
     public Gastos(String categoria, String descripcion, Float gasto, Date fecha) {
         this.categoria = categoria;
         this.descripcion = descripcion;

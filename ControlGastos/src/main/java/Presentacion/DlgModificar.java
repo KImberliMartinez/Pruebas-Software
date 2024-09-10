@@ -60,9 +60,7 @@ public class DlgModificar extends javax.swing.JDialog {
         campoCat = new javax.swing.JTextField();
         campoDes = new javax.swing.JTextField();
         campoMont = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         BotonRegistro1 = new javax.swing.JButton();
-        date = new com.toedter.calendar.JDateChooser();
         BotonLimpiar = new javax.swing.JButton();
         BotonRegreso1 = new javax.swing.JButton();
 
@@ -121,10 +119,6 @@ public class DlgModificar extends javax.swing.JDialog {
         });
         jPanel2.add(campoMont, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 219, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Fecha:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, -1, -1));
-
         BotonRegistro1.setBackground(new java.awt.Color(51, 153, 0));
         BotonRegistro1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         BotonRegistro1.setForeground(new java.awt.Color(255, 255, 255));
@@ -135,7 +129,6 @@ public class DlgModificar extends javax.swing.JDialog {
             }
         });
         jPanel2.add(BotonRegistro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, -1, 42));
-        jPanel2.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 130, -1));
 
         BotonLimpiar.setBackground(new java.awt.Color(153, 255, 102));
         BotonLimpiar.setFont(new java.awt.Font("Segoe UI Black", 1, 8)); // NOI18N
@@ -178,6 +171,7 @@ public class DlgModificar extends javax.swing.JDialog {
         // Verifica si los campos están vacíos
         if ( campoCat.getText().isEmpty() ){
             campoCat.setText(catCambio);
+}
              if(campoDes.getText().isEmpty()){
                  campoDes.setText(desCambio);
              }
@@ -185,24 +179,9 @@ public class DlgModificar extends javax.swing.JDialog {
                  
                  campoMont.setText(montCambio);
              }
-             if(date.getDate()==null){
-                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-             try {
-                 // Convertir la cadena a tipo Date
-                 Date fecha = sdf.parse(fechaCambio);
-                 date.setDate(fecha);
-             } catch (ParseException e) {
-            System.out.println("Error: La cadena no tiene el formato de fecha valido.");
-            e.printStackTrace();            
-             }
-                 
-             }
-        } else {
-           
-        }
          long num= Long.parseLong(idCambio);
          float mont=Float.valueOf(montCambio);
-         Consulta.actualizarGastos(num, campoCat.getText(), campoDes.getText(), mont, date.getDate());
+         Consulta.actualizarGastos(num, campoCat.getText(), campoDes.getText(), mont);
           DlgConsultas dlg=new DlgConsultas();
                     dlg.setVisible(true);
                     
@@ -215,7 +194,7 @@ public class DlgModificar extends javax.swing.JDialog {
         campoCat.setText(" ");
         campoDes.setText(" ");
         campoMont.setText(" ");
-        date.setDate(null);
+        
         
     }//GEN-LAST:event_BotonLimpiarActionPerformed
    
@@ -301,11 +280,9 @@ public class DlgModificar extends javax.swing.JDialog {
     private javax.swing.JTextField campoCat;
     private javax.swing.JTextField campoDes;
     private javax.swing.JTextField campoMont;
-    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

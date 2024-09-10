@@ -73,7 +73,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         cbxBusqueda.setBackground(new java.awt.Color(132, 203, 132));
         cbxBusqueda.setFont(new java.awt.Font("Amazon Ember Light", 0, 18)); // NOI18N
         cbxBusqueda.setForeground(new java.awt.Color(51, 51, 51));
-        cbxBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "categoria", "monto" }));
+        cbxBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "categoria", "descrpcion" }));
         cbxBusqueda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(64, 53, 44), 2));
         cbxBusqueda.setFocusable(false);
         cbxBusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -321,7 +321,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 datosFila[i] = jTabla.getValueAt(filaSeleccionada, i);
             }
         
-             String id=datosFila[1].toString();
+             String id=datosFila[0].toString();
             long num=Long.parseLong(id);
         
         p.Eliminar(num);
@@ -345,29 +345,29 @@ public class DlgConsultas extends javax.swing.JFrame {
                     }
                 }
                 break;
-            case 1:
-                // Buscar por fecha en un rango
-            if (fechaInicio != null && fechaFin != null) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                for (gastosDTO pn : gastos) {
-                    // Formatear fecha de nacimiento
-                    String fechaFormateada = sdf.format(pn.getFecha());
-                    
-                    // Convertir fecha de nacimiento a objeto Date para la comparación
-                    try {
-                        Date fechaNacimiento = sdf.parse(fechaFormateada);
-                        if (fechaNacimiento.compareTo(fechaInicio) >= 0 && fechaNacimiento.compareTo(fechaFin) <= 0) {
-                            insertarFila(pn);
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Por favor, ingrese el rango de fechas", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }
-            break;                
-                case 2:
+//            case 1:
+//                // Buscar por fecha en un rango
+//            if (fechaInicio != null && fechaFin != null) {
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                for (gastosDTO pn : gastos) {
+//                    // Formatear fecha de nacimiento
+//                    String fechaFormateada = sdf.format(pn.getFecha());
+//                    
+//                    // Convertir fecha de nacimiento a objeto Date para la comparación
+//                    try {
+//                        Date fechaNacimiento = sdf.parse(fechaFormateada);
+//                        if (fechaNacimiento.compareTo(fechaInicio) >= 0 && fechaNacimiento.compareTo(fechaFin) <= 0) {
+//                            insertarFila(pn);
+//                        }
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Por favor, ingrese el rango de fechas", "Advertencia", JOptionPane.WARNING_MESSAGE);
+//            }
+//            break;                
+                case 1:
                     for (gastosDTO pn : gastos) {
                     if (pn.getDescripcion().contains(texto)) {
                         insertarFila(pn);

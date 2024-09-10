@@ -53,7 +53,7 @@ public class GastosDAO implements IGastosDAO {
     }
 
     @Override
-    public void actualizarGastos(long id,String categoria, String descripcion, Float gasto, Date fecha) {
+    public void actualizarGastos(long id,String categoria, String descripcion, Float gasto) {
             EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = null;
         try {
@@ -61,15 +61,15 @@ public class GastosDAO implements IGastosDAO {
             transaction.begin();
 
            // String jpql = "UPDATE Persona p SET p.nombre = :nom, p.apellidoP = :ApellidoP,p.apellidoM = :ApellidoM, p.telefono= = :tel, p.curp= = :curp,p.fechaNacimiento= = :fechaN WHERE p.rfc = :rfc";
-            String jpql = "UPDATE Gastos g SET g.Categoria= :categoria, g.Descripcion = :descripcion, g.Gasto = :gasto, p.Fecha = :fecha WHERE p.id = :id";
-           int up = em.createQuery(jpql)
-                     .setParameter("categoria", categoria)
-                     .setParameter("descricion", descripcion)
-                     .setParameter("gasto", gasto)
-                    .setParameter("fecha", fecha)
-                    .setParameter("id", id)
-                    .executeUpdate();
-
+            
+String jpql = "UPDATE Gastos g SET g.Categoria = :categoria, g.Descripcion = :descripcion, g.Gasto = :gasto WHERE g.id = :id";
+        
+        int up = em.createQuery(jpql)
+                   .setParameter("categoria", categoria)
+                   .setParameter("descripcion", descripcion) // Corregido el nombre del parámetro
+                   .setParameter("gasto", gasto)
+                   .setParameter("id", id)
+                   .executeUpdate();
             transaction.commit();
             System.out.println("Se actualizo con exito " + up + ".");
         } catch (RuntimeException e) {

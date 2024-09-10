@@ -45,6 +45,7 @@ public class consultaGastos implements IconsultaGastos {
         for (Gastos g : gastos) {
             gastosDTO gaDTO = new gastosDTO();
             String fechaFormateada = sdf.format(g.getFecha());
+            gaDTO.setId(g.getId());
             gaDTO.setCategoria(g.getCategoria());
             gaDTO.setDescripcion(g.getDescripcion());
             gaDTO.setGasto(g.getGasto());
@@ -57,12 +58,12 @@ public class consultaGastos implements IconsultaGastos {
     }
 
     @Override
-    public void actualizarGastos(long id,String categoria, String descripcion, float gas, Date fecha) {
-      gasto.actualizarGastos(id, categoria, descripcion, gas, fecha);
+    public void actualizarGastos(long id,String categoria, String descripcion, float gas) {
+      gasto.actualizarGastos(id, categoria, descripcion, gas);
     }
 
     @Override
-    public void Eliminar(java.lang.Long id) {
+    public void Eliminar(long id) {
         gasto.Eliminar(id);
     }
     
