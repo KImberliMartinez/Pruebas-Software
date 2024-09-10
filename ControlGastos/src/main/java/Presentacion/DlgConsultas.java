@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -222,6 +224,29 @@ public class DlgConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxBusquedaActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+                     limpiarTabla();
+
+        Date fechaInicio = dateChooserInicio.getDate();
+    Date fechaFin = dateChooserFin.getDate();
+        if (fechaInicio != null && fechaFin != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                for (gastosDTO pn : gastos) {
+                    // Formatear fecha de nacimiento
+                    String fechaFormateada = sdf.format(pn.getFecha());
+                    
+                    // Convertir fecha de nacimiento a objeto Date para la comparación
+                    try {
+                        Date fechaNacimiento = sdf.parse(fechaFormateada);
+                        if (fechaNacimiento.compareTo(fechaInicio) >= 0 && fechaNacimiento.compareTo(fechaFin) <= 0) {
+                            insertarFila(pn);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese el rango de fechas", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
 //        int filaSeleccionada = jTabla.getSelectedRow();
 //
 //        if ( filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
@@ -249,11 +274,15 @@ public class DlgConsultas extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+        DlgAgregar dl=new DlgAgregar();
+        dl.setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+        DlgModificar dl=new DlgModificar();
          int filaSeleccionada = jTabla.getSelectedRow();
 
         if ( filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
@@ -263,10 +292,21 @@ public class DlgConsultas extends javax.swing.JFrame {
                 datosFila[i] = jTabla.getValueAt(filaSeleccionada, i);
             }
         
-            String id=datosFila[1].toString();
-            //aqui mndar ala pagina para que modifique el los datos
-             //control.desplegarDlgHistorial(rfc);
-            this.dispose();
+            String id=datosFila[0].toString();
+            String categoria=datosFila[1].toString();
+            String descripcion=datosFila[2].toString();
+            String Monto=datosFila[3].toString();
+            String Fecha=datosFila[4].toString();
+             
+             dl.idCambio=id;
+             dl.catCambio=categoria;
+             dl.desCambio=descripcion;
+             dl.montCambio=Monto;
+             
+             
+             
+            dl.setVisible(true);
+            dispose();
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -382,13 +422,13 @@ public class DlgConsultas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

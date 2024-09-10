@@ -48,9 +48,14 @@
             <version>1.4</version>
         </dependency>
         <dependency>
-            <groupId>AbsoluteLayout</groupId>
+            <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
-            <version>1</version>
+            <version>RELEASE180</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version>
         </dependency>
     </dependencies>
     <repositories>

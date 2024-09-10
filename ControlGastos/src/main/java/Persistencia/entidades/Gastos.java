@@ -46,6 +46,9 @@ public class Gastos implements Serializable {
         this.fecha = fecha;
     }
 
+    public Gastos() {
+    }
+
 
 
     public Long getId() {
