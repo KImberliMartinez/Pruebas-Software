@@ -17,6 +17,10 @@ public class gastosDTO {
     float gasto;
     Date fecha;
 
+    public gastosDTO() {
+    }
+
+    
     public gastosDTO(String categoria, String descripcion, float gasto, Date fecha) {
         this.categoria = categoria;
         this.descripcion = descripcion;

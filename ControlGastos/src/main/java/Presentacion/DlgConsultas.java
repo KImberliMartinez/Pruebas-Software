@@ -71,7 +71,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         cbxBusqueda.setBackground(new java.awt.Color(132, 203, 132));
         cbxBusqueda.setFont(new java.awt.Font("Amazon Ember Light", 0, 18)); // NOI18N
         cbxBusqueda.setForeground(new java.awt.Color(51, 51, 51));
-        cbxBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CURP", "Anio Nacimiento", "Nombre" }));
+        cbxBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "categoria", "monto" }));
         cbxBusqueda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(64, 53, 44), 2));
         cbxBusqueda.setFocusable(false);
         cbxBusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +114,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         btnSeleccionar.setBackground(new java.awt.Color(0, 153, 0));
         btnSeleccionar.setFont(new java.awt.Font("Amazon Ember", 0, 24)); // NOI18N
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
-        btnSeleccionar.setText("Consultar");
+        btnSeleccionar.setText("Filtrar fecha");
         btnSeleccionar.setBorderPainted(false);
         btnSeleccionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSeleccionar.setFocusable(false);
@@ -142,14 +142,14 @@ public class DlgConsultas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Rfc", "ApellidoPaterno", "ApellidoMaterno", "FechaNacimiento", "Curp", "Telefono", "Activa"
+                "ID", "Categoria", "Descripcion", "Monto", "Fecha"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

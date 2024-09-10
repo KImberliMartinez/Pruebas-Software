@@ -17,6 +17,6 @@ public interface IconsultaGastos {
     //public Gastos BuscaPersonaPorRFC(String rfc);
     public List<gastosDTO> obtenerLista();
     public List<gastosDTO> convertirGastosADTOs(List<Gastos> gastos);
-    public void actualizarGastos(long id,String categoria,String descripcion,float gasto,Date fecha);
-   public void Eliminar(long id,String categoria,String descripcion,float gasto,Date fecha);
+    public void actualizarGastos(long id,String categoria,String descripcion,float gas,Date fecha);
+   public void Eliminar(long id);
 }

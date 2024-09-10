@@ -83,8 +83,34 @@ public class GastosDAO implements IGastosDAO {
     }
 
     @Override
-    public void Eliminar(long id,String categoria, String descripcion, Float gasto, Date fecha) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void Eliminar(long id) {
+        EntityManager em = emf.createEntityManager();
+    EntityTransaction transaction = null;
+    try {
+        transaction = em.getTransaction();
+        transaction.begin();
+
+        // Buscar el objeto Gasto con el ID especificado
+        Gastos gasto = em.find(Gastos.class, id);
+
+        // Verificar si el objeto existe antes de intentar eliminarlo
+        if (gasto != null) {
+            em.remove(gasto);
+            System.out.println("Gasto con ID " + id + " ha sido eliminado con éxito.");
+        } else {
+            System.out.println("No se encontró el gasto con ID " + id + ".");
+        }
+
+        transaction.commit();
+    } catch (RuntimeException e) {
+        if (transaction != null && transaction.isActive()) {
+            transaction.rollback(); // Si la transacción no termina se revierte
+        }
+        throw e; // Propagar la excepción
+    } finally {
+        em.close(); // Cerrar el EntityManager
+    }
+
     }
     
 }
