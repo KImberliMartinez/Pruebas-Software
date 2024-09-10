@@ -48,9 +48,9 @@ public class DlgConsultas extends javax.swing.JFrame {
         lblOpciones2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabla = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         lblOpciones3 = new javax.swing.JLabel();
         dateChooserInicio = new com.toedter.calendar.JDateChooser();
         dateChooserFin = new com.toedter.calendar.JDateChooser();
@@ -146,7 +146,7 @@ public class DlgConsultas extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -164,19 +164,29 @@ public class DlgConsultas extends javax.swing.JFrame {
 
         panelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 670, 100));
 
-        jButton1.setText("AgregarNuevo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setText("AgregarNuevo");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
-        panelOpciones.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
+        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
 
-        jButton2.setText("Modificar");
-        panelOpciones.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, -1, -1));
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, -1, -1));
 
-        jButton3.setText("Eliminar");
-        panelOpciones.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, -1, -1));
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, -1, -1));
 
         lblOpciones3.setFont(new java.awt.Font("Amazon Ember", 0, 24)); // NOI18N
         lblOpciones3.setForeground(new java.awt.Color(64, 53, 44));
@@ -237,9 +247,46 @@ public class DlgConsultas extends javax.swing.JFrame {
         buscarCoincidencias(txtCoincidencia.getText() + evt.getKeyChar());
     }//GEN-LAST:event_txtCoincidenciaKeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+         int filaSeleccionada = jTabla.getSelectedRow();
+
+        if ( filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
+            Object[] datosFila = new Object[jTabla.getColumnCount()];
+
+            for (int i = 0; i < jTabla.getColumnCount(); i++) {
+                datosFila[i] = jTabla.getValueAt(filaSeleccionada, i);
+            }
+        
+            String id=datosFila[1].toString();
+            //aqui mndar ala pagina para que modifique el los datos
+             //control.desplegarDlgHistorial(rfc);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+         int filaSeleccionada = jTabla.getSelectedRow();
+
+        if ( filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
+            Object[] datosFila = new Object[jTabla.getColumnCount()];
+
+            for (int i = 0; i < jTabla.getColumnCount(); i++) {
+                datosFila[i] = jTabla.getValueAt(filaSeleccionada, i);
+            }
+        
+             String id=datosFila[1].toString();
+            long num=Long.parseLong(id);
+        
+        p.Eliminar(num);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
     private void buscarCoincidencias(String texto) {
         limpiarTabla();
         int sele = cbxBusqueda.getSelectedIndex();
@@ -318,17 +365,50 @@ public class DlgConsultas extends javax.swing.JFrame {
             };
         modeloTabla.addRow(fila);
     }
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new DlgConsultas().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxBusqueda;
     private com.toedter.calendar.JDateChooser dateChooserFin;
     private com.toedter.calendar.JDateChooser dateChooserInicio;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

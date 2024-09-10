@@ -18,5 +18,5 @@ public interface IconsultaGastos {
     public List<gastosDTO> obtenerLista();
     public List<gastosDTO> convertirGastosADTOs(List<Gastos> gastos);
     public void actualizarGastos(long id,String categoria,String descripcion,float gas,Date fecha);
-   public void Eliminar(long id);
+   public void Eliminar(java.lang.Long id);
 }

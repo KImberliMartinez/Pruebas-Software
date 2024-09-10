@@ -62,7 +62,7 @@ public class consultaGastos implements IconsultaGastos {
     }
 
     @Override
-    public void Eliminar(long id) {
+    public void Eliminar(java.lang.Long id) {
         gasto.Eliminar(id);
     }
     
