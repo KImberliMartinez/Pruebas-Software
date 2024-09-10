@@ -4,6 +4,7 @@ package Presentacion;
 import Negocio.dtos.IconsultaGastos;
 import Negocio.dtos.consultaGastos;
 import Negocio.dtos.gastosDTO;
+import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,7 +58,6 @@ public class DlgConsultas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelOpciones.setBackground(new java.awt.Color(204, 255, 204));
         panelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -193,7 +193,16 @@ public class DlgConsultas extends javax.swing.JFrame {
         jLabel2.setText("Desde:");
         panelOpciones.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, -1));
 
-        getContentPane().add(panelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 450));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -234,7 +243,7 @@ public class DlgConsultas extends javax.swing.JFrame {
     private void buscarCoincidencias(String texto) {
         limpiarTabla();
         int sele = cbxBusqueda.getSelectedIndex();
-        gastos=p.obtenerListaPersonas();
+        gastos=p.obtenerLista();
          // Obtener las fechas del periodo desde los campos de entrada
     Date fechaInicio = dateChooserInicio.getDate();
     Date fechaFin = dateChooserFin.getDate();
@@ -242,7 +251,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         switch (sele) {
             case 0:
                 for (gastosDTO pn : gastos) {
-                    if (pn.getCurp().contains(texto)) {
+                    if (pn.getCategoria().contains(texto)) {
                         insertarFila(pn);
                                 
 
@@ -253,9 +262,9 @@ public class DlgConsultas extends javax.swing.JFrame {
                 // Buscar por fecha en un rango
             if (fechaInicio != null && fechaFin != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                for (PersonasDTO pn : personas) {
+                for (gastosDTO pn : gastos) {
                     // Formatear fecha de nacimiento
-                    String fechaFormateada = sdf.format(pn.getFechaNacimiento());
+                    String fechaFormateada = sdf.format(pn.getFecha());
                     
                     // Convertir fecha de nacimiento a objeto Date para la comparación
                     try {
@@ -273,7 +282,7 @@ public class DlgConsultas extends javax.swing.JFrame {
             break;                
                 case 2:
                     for (gastosDTO pn : gastos) {
-                    if (pn.getNombre().contains(texto)) {
+                    if (pn.getDescripcion().contains(texto)) {
                         insertarFila(pn);
                     }
                 }
@@ -300,14 +309,12 @@ public class DlgConsultas extends javax.swing.JFrame {
 
     private void insertarFila(gastosDTO p) {
         Object[] fila = {
-            p.getNombre(),
-            p.getRFC(),
-            p.getApellidoP(),
-            p.getApellidoM(),
+            p.getId(),
+            p.getCategoria(),
+            p.getDescripcion(),
+            p.getGasto(),
             p.getFecha(),
-            p.getCurp(),
-            p.getTelefono()
-            
+           
             };
         modeloTabla.addRow(fila);
     }

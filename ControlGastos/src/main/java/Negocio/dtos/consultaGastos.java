@@ -63,7 +63,7 @@ public class consultaGastos implements IconsultaGastos {
 
     @Override
     public void Eliminar(long id) {
-
+        gasto.Eliminar(id);
     }
     
 }
