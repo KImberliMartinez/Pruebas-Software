@@ -67,17 +67,16 @@ public class DlgConsultas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelOpciones.setBackground(new java.awt.Color(204, 255, 204));
+        panelOpciones.setBackground(new java.awt.Color(71, 100, 104));
         panelOpciones.setMaximumSize(new java.awt.Dimension(772, 440));
         panelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTituloSeccion.setFont(new java.awt.Font("Amazon Ember", 1, 48)); // NOI18N
-        lblTituloSeccion.setForeground(new java.awt.Color(64, 53, 44));
+        lblTituloSeccion.setFont(new java.awt.Font("Segoe UI Black", 2, 48)); // NOI18N
         lblTituloSeccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloSeccion.setText("Consultas");
-        panelOpciones.add(lblTituloSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 750, -1));
+        panelOpciones.add(lblTituloSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 350, 70));
 
-        cbxBusqueda.setBackground(new java.awt.Color(132, 203, 132));
+        cbxBusqueda.setBackground(new java.awt.Color(0, 204, 153));
         cbxBusqueda.setFont(new java.awt.Font("Amazon Ember Light", 0, 18)); // NOI18N
         cbxBusqueda.setForeground(new java.awt.Color(51, 51, 51));
         cbxBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "categoria", "descrpcion" }));
@@ -90,7 +89,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         });
         panelOpciones.add(cbxBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 230, 40));
 
-        txtCoincidencia.setBackground(new java.awt.Color(132, 203, 132));
+        txtCoincidencia.setBackground(new java.awt.Color(0, 204, 153));
         txtCoincidencia.setFont(new java.awt.Font("Amazon Ember Light", 0, 20)); // NOI18N
         txtCoincidencia.setForeground(new java.awt.Color(51, 51, 51));
         txtCoincidencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(64, 53, 44), 2));
@@ -101,14 +100,12 @@ public class DlgConsultas extends javax.swing.JFrame {
         });
         panelOpciones.add(txtCoincidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 260, 40));
 
-        lblOpciones.setFont(new java.awt.Font("Amazon Ember", 0, 24)); // NOI18N
-        lblOpciones.setForeground(new java.awt.Color(64, 53, 44));
-        lblOpciones.setText("Periodo:");
-        panelOpciones.add(lblOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, -1, -1));
+        lblOpciones.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
+        lblOpciones.setText("Periodo");
+        panelOpciones.add(lblOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, -1, -1));
 
-        btnCancelar.setBackground(new java.awt.Color(0, 153, 0));
-        btnCancelar.setFont(new java.awt.Font("Amazon Ember", 0, 24)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setBackground(new java.awt.Color(0, 204, 153));
+        btnCancelar.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setBorderPainted(false);
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -134,17 +131,15 @@ public class DlgConsultas extends javax.swing.JFrame {
         });
         panelOpciones.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 160, 40));
 
-        lblOpciones1.setFont(new java.awt.Font("Amazon Ember", 0, 36)); // NOI18N
-        lblOpciones1.setForeground(new java.awt.Color(64, 53, 44));
+        lblOpciones1.setFont(new java.awt.Font("Segoe UI Black", 2, 36)); // NOI18N
         lblOpciones1.setText("Registros:");
-        panelOpciones.add(lblOpciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
+        panelOpciones.add(lblOpciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
 
-        lblOpciones2.setFont(new java.awt.Font("Amazon Ember", 0, 24)); // NOI18N
-        lblOpciones2.setForeground(new java.awt.Color(64, 53, 44));
+        lblOpciones2.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
         lblOpciones2.setText("Busqueda por:");
-        panelOpciones.add(lblOpciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
+        panelOpciones.add(lblOpciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
 
-        jTabla.setBackground(new java.awt.Color(132, 203, 132));
+        jTabla.setBackground(new java.awt.Color(0, 204, 153));
         jTabla.setFont(new java.awt.Font("Amazon Ember", 0, 12)); // NOI18N
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -206,20 +201,19 @@ public class DlgConsultas extends javax.swing.JFrame {
         });
         panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 130, 40));
 
-        lblOpciones3.setFont(new java.awt.Font("Amazon Ember", 0, 24)); // NOI18N
-        lblOpciones3.setForeground(new java.awt.Color(64, 53, 44));
+        lblOpciones3.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
         lblOpciones3.setText("Coincidencia:");
-        panelOpciones.add(lblOpciones3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, -1, -1));
+        panelOpciones.add(lblOpciones3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, -1, -1));
         panelOpciones.add(dateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, -1, -1));
         panelOpciones.add(dateChooserFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 130, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         jLabel1.setText("Hasta:");
-        panelOpciones.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, -1, -1));
+        panelOpciones.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 100, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         jLabel2.setText("Desde:");
-        panelOpciones.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, -1));
+        panelOpciones.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, -1, -1));
 
         resultadolabel.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         panelOpciones.add(resultadolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 80, 20));

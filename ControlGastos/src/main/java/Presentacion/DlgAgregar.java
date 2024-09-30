@@ -59,6 +59,8 @@ public class DlgAgregar extends javax.swing.JDialog {
         date = new com.toedter.calendar.JDateChooser();
         BotonLimpiar = new javax.swing.JButton();
         BotonRegreso1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        lblTituloSeccion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar");
@@ -66,37 +68,37 @@ public class DlgAgregar extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(235, 250, 239));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel2.setBackground(new java.awt.Color(71, 100, 104));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         jLabel1.setText("Categoria:");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, 24));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, 24));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         jLabel2.setText("Descripcion:");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, 24));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, 24));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         jLabel3.setText("Monto:");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, 24));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, 24));
 
         campoCat.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 campoCatKeyTyped(evt);
             }
         });
-        jPanel2.add(campoCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 219, -1));
+        jPanel2.add(campoCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 219, -1));
 
         campoDesc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 campoDescKeyTyped(evt);
             }
         });
-        jPanel2.add(campoDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 219, -1));
+        jPanel2.add(campoDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 219, -1));
 
         campoMon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,15 +110,14 @@ public class DlgAgregar extends javax.swing.JDialog {
                 campoMonKeyTyped(evt);
             }
         });
-        jPanel2.add(campoMon, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 219, -1));
+        jPanel2.add(campoMon, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 219, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 3, 18)); // NOI18N
         jLabel6.setText("Fecha :");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, -1, -1));
 
-        BotonRegistro1.setBackground(new java.awt.Color(51, 153, 0));
-        BotonRegistro1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        BotonRegistro1.setForeground(new java.awt.Color(255, 255, 255));
+        BotonRegistro1.setBackground(new java.awt.Color(0, 204, 153));
+        BotonRegistro1.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         BotonRegistro1.setText("Agregar");
         BotonRegistro1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,35 +125,53 @@ public class DlgAgregar extends javax.swing.JDialog {
             }
         });
         jPanel2.add(BotonRegistro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, -1, 42));
-        jPanel2.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 130, -1));
+        jPanel2.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 130, -1));
 
-        BotonLimpiar.setBackground(new java.awt.Color(153, 255, 102));
-        BotonLimpiar.setFont(new java.awt.Font("Segoe UI Black", 1, 8)); // NOI18N
+        BotonLimpiar.setBackground(new java.awt.Color(0, 204, 153));
+        BotonLimpiar.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         BotonLimpiar.setText("Limpiar");
         BotonLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonLimpiarActionPerformed(evt);
             }
         });
-        jPanel2.add(BotonLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 70, 30));
+        jPanel2.add(BotonLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 370, 110, 30));
 
-        BotonRegreso1.setBackground(new java.awt.Color(153, 255, 102));
-        BotonRegreso1.setFont(new java.awt.Font("Segoe UI Black", 1, 8)); // NOI18N
+        BotonRegreso1.setBackground(new java.awt.Color(0, 204, 153));
+        BotonRegreso1.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         BotonRegreso1.setText("Volver");
         BotonRegreso1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonRegreso1ActionPerformed(evt);
             }
         });
-        jPanel2.add(BotonRegreso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 30));
+        jPanel2.add(BotonRegreso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 90, 30));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 620, 410));
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 260, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 300, 260));
+
+        lblTituloSeccion.setFont(new java.awt.Font("Segoe UI Black", 2, 48)); // NOI18N
+        lblTituloSeccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloSeccion.setText("Agregar Gasto");
+        jPanel2.add(lblTituloSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, -10, 350, 70));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 420));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,5 +294,7 @@ public class DlgAgregar extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblTituloSeccion;
     // End of variables declaration//GEN-END:variables
 }
