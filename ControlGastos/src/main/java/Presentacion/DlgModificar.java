@@ -3,6 +3,8 @@ package Presentacion;
 
 import Negocio.dtos.IconsultaGastos;
 import Negocio.dtos.consultaGastos;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,12 +19,13 @@ import javax.swing.JOptionPane;
 public class DlgModificar extends javax.swing.JDialog {
 
     IconsultaGastos Consulta;
+    public long guardarId;
     int vecesC=0;
-    String idCambio;
-    String catCambio;
-    String desCambio;
-    String montCambio;
-    String fechaCambio;
+   public String idCambio;
+    public String catCambio;
+    public String desCambio;
+    public String montCambio;
+    //String fechaCambio;
 
     /**
      * Creates new form DlgRegistro
@@ -40,7 +43,9 @@ public class DlgModificar extends javax.swing.JDialog {
     public DlgModificar() {
         initComponents();
         Consulta = new consultaGastos();
+        ingresarSoloNumeros();
         this.setVisible(true);
+        
     }
 
     /**
@@ -60,10 +65,8 @@ public class DlgModificar extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         campoMont = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        campoDes = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        campoCat = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        campoCat = new javax.swing.JComboBox<>();
         lblTituloSeccion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -115,35 +118,11 @@ public class DlgModificar extends javax.swing.JDialog {
         jLabel4.setText("Monto:");
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        campoDes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoDesActionPerformed(evt);
-            }
-        });
-        campoDes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                campoDesKeyTyped(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        jLabel3.setText("Descripcion:");
-        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-
-        campoCat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoCatActionPerformed(evt);
-            }
-        });
-        campoCat.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                campoCatKeyTyped(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         jLabel2.setText("Categoria:");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        campoCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alimentacion", "Transporte", "Ocio" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -151,31 +130,25 @@ public class DlgModificar extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(campoCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2)
-                    .addComponent(campoCat, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(campoDes, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(campoMont, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoMont, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoCat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoDes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoCat, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(campoMont, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGap(62, 62, 62))
         );
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 360, 260));
@@ -201,37 +174,53 @@ public class DlgModificar extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    public void pasarInfo(String monto){
+        System.out.println(idCambio+catCambio+desCambio+montCambio+guardarId);
+        campoMont.setText(monto);
+         //float mon=Float.valueOf(monto);
+    }
     private void BotonRegistro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistro1ActionPerformed
         // Verifica si los campos están vacíos
-        if ( campoCat.getText().isEmpty() ){
-            campoCat.setText(catCambio);
-}
-             if(campoDes.getText().isEmpty()){
-                 campoDes.setText(desCambio);
-             }
-             if(campoMont.getText().isEmpty()){
-                 
-                 campoMont.setText(montCambio);
-             }
-         long num= Long.parseLong(idCambio);
-         float mont=Float.valueOf(montCambio);
-         Consulta.actualizarGastos(num, campoCat.getText(), campoDes.getText(), mont);
+        int sele=campoCat.getSelectedIndex();
+         
+        if ( campoCat.getSelectedIndex()!=-1 ){
+            switch (sele) {
+                case 0:
+                    catCambio="Alimentacion";
+                    break;
+                case 1:
+                    catCambio="Transporte";
+                    break;
+                case 2:
+                    catCambio="Ocio";
+                    break;
+                default:
+                    
+                    return;
+            }
+        
+        if(campoMont.getText().isEmpty()){ 
+             campoMont.setText(montCambio);
+    
+        }else{
+        long num= Long.parseLong(idCambio);
+         float mont=Float.parseFloat(campoMont.getText());
+         Consulta.actualizarGastos(num,catCambio,mont);
+         
          JOptionPane.showMessageDialog(this,"Accion realizada","",JOptionPane.INFORMATION_MESSAGE );
           DlgConsultas dlg=new DlgConsultas();
+          System.out.println(guardarId);
+          dlg.idUsuarioRecibido=guardarId;
                     dlg.setVisible(true);
                     
-                    dispose();    
+                    dispose();
+        } 
+        }
     }//GEN-LAST:event_BotonRegistro1ActionPerformed
 
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
         // TODO add your handling code here:
-        
-        campoCat.setText(" ");
-        campoDes.setText(" ");
-        campoMont.setText(" ");
-        
-        
+        campoMont.setText(" "); 
     }//GEN-LAST:event_BotonLimpiarActionPerformed
    
     
@@ -242,29 +231,21 @@ public class DlgModificar extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_BotonRegreso1ActionPerformed
 
-    private void campoCatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCatKeyTyped
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_campoCatKeyTyped
-
-    private void campoDesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDesKeyTyped
-        // TODO add your handling code here:
-      
-    }//GEN-LAST:event_campoDesKeyTyped
-
     private void campoMontKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMontKeyTyped
         // TODO add your handling code here:
 
     }//GEN-LAST:event_campoMontKeyTyped
-
-    private void campoDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoDesActionPerformed
-
-    private void campoCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoCatActionPerformed
-
+private void ingresarSoloNumeros(){
+        campoMont.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                }
+            }
+        });
+}
     
 
     /**
@@ -313,11 +294,9 @@ public class DlgModificar extends javax.swing.JDialog {
     private javax.swing.JButton BotonLimpiar;
     private javax.swing.JButton BotonRegistro1;
     private javax.swing.JButton BotonRegreso1;
-    private javax.swing.JTextField campoCat;
-    private javax.swing.JTextField campoDes;
+    private javax.swing.JComboBox<String> campoCat;
     private javax.swing.JTextField campoMont;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

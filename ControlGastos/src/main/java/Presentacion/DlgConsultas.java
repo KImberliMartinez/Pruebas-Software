@@ -7,7 +7,6 @@ import Negocio.dtos.gastosDTO;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.text.ParseException;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,9 +20,11 @@ import javax.swing.table.DefaultTableModel;
 public class DlgConsultas extends javax.swing.JFrame {
 
     
-    List<gastosDTO> gastos;
-    IconsultaGastos p;
+   private List<gastosDTO> gastos;
+    private IconsultaGastos p;
     private DefaultTableModel modeloTabla;
+    public long idUsuarioRecibido;
+    
 
     /**
      * Creates new form FrmOpcionesCliente
@@ -33,6 +34,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         p=new consultaGastos();
         initComponents();
         this.setVisible(true);
+        //centrarVentana(this);
     }
 
     /**
@@ -72,14 +74,15 @@ public class DlgConsultas extends javax.swing.JFrame {
         panelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTituloSeccion.setFont(new java.awt.Font("Segoe UI Black", 2, 48)); // NOI18N
+        lblTituloSeccion.setForeground(new java.awt.Color(204, 204, 204));
         lblTituloSeccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloSeccion.setText("Consultas");
-        panelOpciones.add(lblTituloSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 350, 70));
+        panelOpciones.add(lblTituloSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 350, 70));
 
         cbxBusqueda.setBackground(new java.awt.Color(0, 204, 153));
         cbxBusqueda.setFont(new java.awt.Font("Amazon Ember Light", 0, 18)); // NOI18N
         cbxBusqueda.setForeground(new java.awt.Color(51, 51, 51));
-        cbxBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "categoria", "descrpcion" }));
+        cbxBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "categoria" }));
         cbxBusqueda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(64, 53, 44), 2));
         cbxBusqueda.setFocusable(false);
         cbxBusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -101,11 +104,13 @@ public class DlgConsultas extends javax.swing.JFrame {
         panelOpciones.add(txtCoincidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 260, 40));
 
         lblOpciones.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
+        lblOpciones.setForeground(new java.awt.Color(204, 204, 204));
         lblOpciones.setText("Periodo");
         panelOpciones.add(lblOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, -1, -1));
 
         btnCancelar.setBackground(new java.awt.Color(0, 204, 153));
         btnCancelar.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
         btnCancelar.setBorderPainted(false);
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -132,10 +137,12 @@ public class DlgConsultas extends javax.swing.JFrame {
         panelOpciones.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 160, 40));
 
         lblOpciones1.setFont(new java.awt.Font("Segoe UI Black", 2, 36)); // NOI18N
+        lblOpciones1.setForeground(new java.awt.Color(255, 255, 255));
         lblOpciones1.setText("Registros:");
         panelOpciones.add(lblOpciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
 
         lblOpciones2.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
+        lblOpciones2.setForeground(new java.awt.Color(204, 204, 204));
         lblOpciones2.setText("Busqueda por:");
         panelOpciones.add(lblOpciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
 
@@ -202,6 +209,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 130, 40));
 
         lblOpciones3.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
+        lblOpciones3.setForeground(new java.awt.Color(204, 204, 204));
         lblOpciones3.setText("Coincidencia:");
         panelOpciones.add(lblOpciones3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, -1, -1));
         panelOpciones.add(dateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, -1, -1));
@@ -241,7 +249,6 @@ public class DlgConsultas extends javax.swing.JFrame {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         java.util.Date fechaInicioUtil = dateChooserInicio.getDate();
         java.util.Date fechaFinUtil = dateChooserFin.getDate();
-
         if (fechaInicioUtil != null && fechaFinUtil != null) {
             Date fechaInicio = new Date(fechaInicioUtil.getTime());
             Date fechaFin = new Date(fechaFinUtil.getTime());
@@ -285,6 +292,8 @@ public class DlgConsultas extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         DlgAgregar dl=new DlgAgregar();
+        dl.idUsuario=idUsuarioRecibido;
+        System.out.println("idrecibido   "+idUsuarioRecibido);
         dl.setVisible(true);
         dispose();
         
@@ -292,7 +301,6 @@ public class DlgConsultas extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        DlgModificar dl=new DlgModificar();
          int filaSeleccionada = jTabla.getSelectedRow();
 
         if ( filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
@@ -307,14 +315,10 @@ public class DlgConsultas extends javax.swing.JFrame {
             String descripcion=datosFila[2].toString();
             String Monto=datosFila[3].toString();
             String Fecha=datosFila[4].toString();
+            DlgModificar dl=new DlgModificar();
              
-             dl.idCambio=id;
-             dl.catCambio=categoria;
-             dl.desCambio=descripcion;
-             dl.montCambio=Monto;
-             
-             
-             
+             dl.pasarInfo(Monto);
+             dl.guardarId=idUsuarioRecibido;
             dl.setVisible(true);
             dispose();
         }
@@ -353,12 +357,21 @@ public class DlgConsultas extends javax.swing.JFrame {
             long num=Long.parseLong(id);
             p.Eliminar(num);
             JOptionPane.showMessageDialog(this,"Accion realizada","",JOptionPane.INFORMATION_MESSAGE );
+            limpiarTabla();
+            gastos=p.obtenerLista(idUsuarioRecibido);
+            for (gastosDTO pn : gastos) {
+
+                        insertarFila(pn);
+            }
+            
+
+                    
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
     private void buscarCoincidencias(String texto) {
         limpiarTabla();
         int sele = cbxBusqueda.getSelectedIndex();
-        gastos=p.obtenerLista();
+        gastos=p.obtenerLista(idUsuarioRecibido);
          // Obtener las fechas del periodo desde los campos de entrada
     Date fechaInicio = dateChooserInicio.getDate();
     Date fechaFin = dateChooserFin.getDate();
@@ -367,16 +380,6 @@ public class DlgConsultas extends javax.swing.JFrame {
             case 0:
                 for (gastosDTO pn : gastos) {
                     if (pn.getCategoria().contains(texto)) {
-                        insertarFila(pn);
-                                
-
-                    }
-                }
-                break;
-           
-                case 1:
-                    for (gastosDTO pn : gastos) {
-                    if (pn.getDescripcion().contains(texto)) {
                         insertarFila(pn);
                     }
                 }
@@ -388,7 +391,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         }
         
 
-        }
+    }
 
     
 
@@ -418,40 +421,40 @@ public class DlgConsultas extends javax.swing.JFrame {
             };
         modeloTabla.addRow(fila);
     }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DlgConsultas().setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DlgConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new DlgConsultas().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

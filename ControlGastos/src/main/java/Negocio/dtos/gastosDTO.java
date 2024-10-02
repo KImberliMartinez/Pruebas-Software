@@ -16,18 +16,21 @@ public class gastosDTO {
     String descripcion;
     float gasto;
     Date fecha;
+    long usuarioId;
 
     public gastosDTO() {
     }
 
-    
-    public gastosDTO(String categoria, String descripcion, float gasto, Date fecha) {
+    public gastosDTO(String categoria, String descripcion, float gasto, Date fecha, long usuarioId) {
         this.categoria = categoria;
         this.descripcion = descripcion;
         this.gasto = gasto;
         this.fecha = fecha;
+        this.usuarioId = usuarioId;
     }
 
+    
+    
     public String getCategoria() {
         return categoria;
     }
@@ -68,9 +71,18 @@ public class gastosDTO {
         this.id = id;
     }
 
+    public long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
     @Override
     public String toString() {
-        return "gastosDTO{" + "categoria=" + categoria + ", descripcion=" + descripcion + ", gasto=" + gasto + ", fecha=" + fecha + '}';
+        return "gastosDTO{" + "id=" + id + ", categoria=" + categoria + ", descripcion=" + descripcion + ", gasto=" + gasto + ", fecha=" + fecha + ", usuarioId=" + usuarioId + '}';
     }
-     
+
+         
 }

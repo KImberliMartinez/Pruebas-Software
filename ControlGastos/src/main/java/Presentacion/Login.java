@@ -4,17 +4,23 @@
  */
 package Presentacion;
 
+import Negocio.dtos.IconsultaGastos;
+import Negocio.dtos.UsuariosDTO;
+import Negocio.dtos.consultaGastos;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Arell
  */
 public class Login extends javax.swing.JFrame {
-
+        IconsultaGastos Consulta;
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        Consulta = new consultaGastos();
     }
 
     /**
@@ -27,10 +33,11 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         NombreUsuario = new javax.swing.JTextField();
-        BtnLogin = new javax.swing.JLabel();
         Contraseña = new javax.swing.JPasswordField();
         Registrar = new javax.swing.JLabel();
         Login_Foto = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -45,13 +52,6 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(NombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 220, 30));
 
-        BtnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnLoginMouseClicked(evt);
-            }
-        });
-        getContentPane().add(BtnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 280, 40));
-
         Contraseña.setBackground(new java.awt.Color(71, 100, 104));
         Contraseña.setFont(new java.awt.Font("Segoe UI Black", 3, 24)); // NOI18N
         Contraseña.setBorder(null);
@@ -65,10 +65,27 @@ public class Login extends javax.swing.JFrame {
         Registrar.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         Registrar.setForeground(new java.awt.Color(255, 255, 255));
         Registrar.setText("¿No tienes Cuenta? Registrate aquí");
-        getContentPane().add(Registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 230, -1));
+        getContentPane().add(Registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 230, -1));
 
         Login_Foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/login.jpg"))); // NOI18N
         getContentPane().add(Login_Foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        btnLogin.setBorder(null);
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 280, 40));
+
+        btnNuevo.setText("jButton1");
+        btnNuevo.setActionCommand("registrar");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, 90, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -76,18 +93,44 @@ public class Login extends javax.swing.JFrame {
 
     private void NombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NombreUsuarioActionPerformed
 
-    private void BtnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLoginMouseClicked
-        // TODO add your handling code here:
-//        DlgConsultas consulta = new DlgConsultas();
-//        consulta.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_BtnLoginMouseClicked
+    }//GEN-LAST:event_NombreUsuarioActionPerformed
 
     private void ContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ContraseñaActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        UsuarioNuevo dl = new UsuarioNuevo();
+        dl.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+       
+        if (NombreUsuario.getText().isEmpty() || Contraseña.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }else{
+             
+            long id=Consulta.obtenerIDusuario(NombreUsuario.getText(),Contraseña.getText());
+             if (id !=0) {
+                 System.out.println("mandando usuario");
+                 DlgConsultas v = new DlgConsultas();
+                 System.out.println(id);
+                 v.idUsuarioRecibido=id;
+                    //JOptionPane.showMessageDialog(this, "Usuario registrado con éxito,regrese para iniciar sesion", "", JOptionPane.INFORMATION_MESSAGE);
+                       
+                    v.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Este usuario No existe", "aviso", JOptionPane.INFORMATION_MESSAGE);
+                NombreUsuario.setText("");
+                Contraseña.setText("");
+                }
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,10 +168,11 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel BtnLogin;
     private javax.swing.JPasswordField Contraseña;
     private javax.swing.JLabel Login_Foto;
     private javax.swing.JTextField NombreUsuario;
     private javax.swing.JLabel Registrar;
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnNuevo;
     // End of variables declaration//GEN-END:variables
 }

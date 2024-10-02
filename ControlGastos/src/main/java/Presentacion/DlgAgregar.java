@@ -4,16 +4,18 @@ package Presentacion;
 import Negocio.dtos.IconsultaGastos;
 import Negocio.dtos.consultaGastos;
 import Negocio.dtos.gastosDTO;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author molin
+ * 
  */
 public class DlgAgregar extends javax.swing.JDialog {
 
-    
+    long idUsuario;
     IconsultaGastos Consulta;
     int vecesC=0;
 
@@ -34,6 +36,7 @@ public class DlgAgregar extends javax.swing.JDialog {
         initComponents();
       
         Consulta = new consultaGastos();
+        ingresarSoloNumeros();
         this.setVisible(true);
     }
 
@@ -51,7 +54,6 @@ public class DlgAgregar extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        campoCat = new javax.swing.JTextField();
         campoDesc = new javax.swing.JTextField();
         campoMon = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -60,6 +62,7 @@ public class DlgAgregar extends javax.swing.JDialog {
         BotonLimpiar = new javax.swing.JButton();
         BotonRegreso1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        campoCat = new javax.swing.JComboBox<>();
         lblTituloSeccion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -85,13 +88,6 @@ public class DlgAgregar extends javax.swing.JDialog {
         jLabel3.setText("Monto:");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, 24));
-
-        campoCat.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                campoCatKeyTyped(evt);
-            }
-        });
-        jPanel2.add(campoCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 219, -1));
 
         campoDesc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -124,7 +120,7 @@ public class DlgAgregar extends javax.swing.JDialog {
                 BotonRegistro1ActionPerformed(evt);
             }
         });
-        jPanel2.add(BotonRegistro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, -1, 42));
+        jPanel2.add(BotonRegistro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, -1, 42));
         jPanel2.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 130, -1));
 
         BotonLimpiar.setBackground(new java.awt.Color(0, 204, 153));
@@ -147,15 +143,23 @@ public class DlgAgregar extends javax.swing.JDialog {
         });
         jPanel2.add(BotonRegreso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 90, 30));
 
+        campoCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alimentacion", "Transporte", "Ocio" }));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(campoCat, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(campoCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 300, 260));
@@ -184,26 +188,65 @@ public class DlgAgregar extends javax.swing.JDialog {
 
     private void BotonRegistro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistro1ActionPerformed
         // Verifica si los campos están vacíos
-        if (campoCat.getText().isEmpty() || campoDesc.getText().isEmpty() ||campoMon.getText().isEmpty()|| date.getDate() == null) {
+        int seleccion=campoCat.getSelectedIndex();
+        if (seleccion==-1 || campoDesc.getText().isEmpty() ||campoMon.getText().isEmpty()|| date.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
         } else {
-           float mon= Float.parseFloat(campoMon.getText());
-                  gastosDTO  Agregar=new gastosDTO(campoCat.getText(), campoDesc.getText(), mon, date.getDate());
+            
+       float mon= Float.parseFloat(campoMon.getText());
+       DlgConsultas dlg=new DlgConsultas();
+            switch (seleccion) {
+            case 0:
+                System.out.println(idUsuario);
+                  gastosDTO  Agregar=new gastosDTO("Alimentacion", campoDesc.getText(), mon, date.getDate(),idUsuario);
                     Consulta.registrar(Agregar);
 
                     JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
-                    DlgConsultas dlg=new DlgConsultas();
+                    
                     dlg.setVisible(true);
                     
                     dispose();
-                
-            }
-        
-    }//GEN-LAST:event_BotonRegistro1ActionPerformed
+                break;
+           
+                case 1:
+                  gastosDTO  Agregar1=new gastosDTO("Transporte", campoDesc.getText(),mon, date.getDate(),idUsuario);
+                    Consulta.registrar(Agregar1);
 
+                    JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                    dlg.setVisible(true);
+                    
+                    dispose();
+ 
+                break;
+                 case 2:
+                  gastosDTO  Agregar2=new gastosDTO("Ocio", campoDesc.getText(),mon, date.getDate(),idUsuario);
+                    Consulta.registrar(Agregar2);
+                    JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                    //dlg.idUsuarioRecibido=idUsuario;
+                    dlg.setVisible(true);
+                    
+                    dispose();
+ 
+                break;   
+            default:
+                JOptionPane.showMessageDialog(this, "Gasto no valido", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+        }
+      }                        
+    }//GEN-LAST:event_BotonRegistro1ActionPerformed
+private void ingresarSoloNumeros(){
+        campoMon.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                }
+            }
+        });
+}
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
         // TODO add your handling code here:
-        campoCat.setText(" ");
         campoDesc.setText(" ");
         campoMon.setText(" ");
       
@@ -224,13 +267,9 @@ public class DlgAgregar extends javax.swing.JDialog {
     }//GEN-LAST:event_campoDescKeyTyped
 
     private void campoMonKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMonKeyTyped
-        // TODO add your handling code here:
+        
        
     }//GEN-LAST:event_campoMonKeyTyped
-
-    private void campoCatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCatKeyTyped
-       
-    }//GEN-LAST:event_campoCatKeyTyped
 
     private void campoMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoMonActionPerformed
         // TODO add your handling code here:
@@ -284,7 +323,7 @@ public class DlgAgregar extends javax.swing.JDialog {
     private javax.swing.JButton BotonLimpiar;
     private javax.swing.JButton BotonRegistro1;
     private javax.swing.JButton BotonRegreso1;
-    private javax.swing.JTextField campoCat;
+    private javax.swing.JComboBox<String> campoCat;
     private javax.swing.JTextField campoDesc;
     private javax.swing.JTextField campoMon;
     private com.toedter.calendar.JDateChooser date;

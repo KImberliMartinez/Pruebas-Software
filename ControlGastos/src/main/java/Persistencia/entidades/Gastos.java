@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,12 +40,20 @@ public class Gastos implements Serializable {
     @Column(name = "Fecha")
     private java.util.Date fecha;
     
-    public Gastos(String categoria, String descripcion, Float gasto, Date fecha) {
+     @ManyToOne
+    @JoinColumn(name = "usuario_id") // Nombre de la columna en la tabla de gastos
+    private Usuarios usuario;
+
+    public Gastos(String categoria, String descripcion, Float gasto, Date fecha, Usuarios usuario) {
         this.categoria = categoria;
         this.descripcion = descripcion;
         this.gasto = gasto;
         this.fecha = fecha;
+        this.usuario = usuario;
     }
+     
+     
+   
 
     public Gastos() {
     }
@@ -90,10 +100,20 @@ public class Gastos implements Serializable {
         this.fecha = fecha;
     }
 
+    public Usuarios getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public String toString() {
-        return "Gastos{" + "id=" + id + ", categoria=" + categoria + ", descripcion=" + descripcion + ", gasto=" + gasto + ", fecha=" + fecha + '}';
+        return "Gastos{" + "id=" + id + ", categoria=" + categoria + ", descripcion=" + descripcion + ", gasto=" + gasto + ", fecha=" + fecha + ", usuario=" + usuario + '}';
     }
+    
+   
 
     
     
