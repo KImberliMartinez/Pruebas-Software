@@ -4,7 +4,9 @@
  */
 package Persistencia.DAO;
 
+import Negocio.dtos.gastosDTO;
 import Persistencia.entidades.Gastos;
+import Persistencia.entidades.GastosPorCategoria;
 import Persistencia.entidades.Usuarios;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,5 @@ public interface IGastosDAO {
     public long obtenerIDusuario(String nombre,String contra);
     public Usuarios obtenerSoloUusario(long id);
     public long usuarioExistente(String nombre);
-
-    
+  
 }

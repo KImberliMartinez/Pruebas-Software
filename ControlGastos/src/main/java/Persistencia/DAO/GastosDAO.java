@@ -4,8 +4,12 @@
  */
 package Persistencia.DAO;
 
+import Negocio.dtos.gastosDTO;
 import Persistencia.entidades.Gastos;
+import Persistencia.entidades.GastosPorCategoria;
 import Persistencia.entidades.Usuarios;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -230,4 +234,6 @@ public class GastosDAO implements IGastosDAO {
 
         return usuario; // Devuelve el usuario o null si no se encontró
         }
+    
+
     }

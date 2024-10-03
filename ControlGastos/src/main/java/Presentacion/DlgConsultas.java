@@ -59,13 +59,14 @@ public class DlgConsultas extends javax.swing.JFrame {
         jTabla = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
+        Reporte = new javax.swing.JButton();
         lblOpciones3 = new javax.swing.JLabel();
         dateChooserInicio = new com.toedter.calendar.JDateChooser();
         dateChooserFin = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         resultadolabel = new javax.swing.JLabel();
+        btnEliminar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,7 +135,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 160, 40));
+        panelOpciones.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 400, 160, 40));
 
         lblOpciones1.setFont(new java.awt.Font("Segoe UI Black", 2, 36)); // NOI18N
         lblOpciones1.setForeground(new java.awt.Color(255, 255, 255));
@@ -173,7 +174,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTabla);
 
-        panelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 690, 110));
+        panelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 690, 130));
 
         btnAgregar.setBackground(new java.awt.Color(0, 204, 153));
         btnAgregar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -184,7 +185,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, 40));
+        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, 40));
 
         btnModificar.setBackground(new java.awt.Color(0, 204, 153));
         btnModificar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -195,18 +196,18 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 120, 40));
+        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 120, 40));
 
-        btnEliminar.setBackground(new java.awt.Color(0, 204, 153));
-        btnEliminar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        Reporte.setBackground(new java.awt.Color(0, 204, 153));
+        Reporte.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
+        Reporte.setForeground(new java.awt.Color(255, 255, 255));
+        Reporte.setText("Reporte");
+        Reporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+                ReporteActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 130, 40));
+        panelOpciones.add(Reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 400, 130, 40));
 
         lblOpciones3.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
         lblOpciones3.setForeground(new java.awt.Color(204, 204, 204));
@@ -225,6 +226,17 @@ public class DlgConsultas extends javax.swing.JFrame {
 
         resultadolabel.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         panelOpciones.add(resultadolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 80, 20));
+
+        btnEliminar1.setBackground(new java.awt.Color(0, 204, 153));
+        btnEliminar1.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
+        btnEliminar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar1.setText("Eliminar");
+        btnEliminar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminar1ActionPerformed(evt);
+            }
+        });
+        panelOpciones.add(btnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, 130, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -342,32 +354,15 @@ public class DlgConsultas extends javax.swing.JFrame {
         // Establece la posición de la ventana
         frame.setLocation(x, y);
     }
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void ReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteActionPerformed
+DlgConsultas_1 dle = new DlgConsultas_1();
+dle.setVisible(true);
+            dispose();
+    }//GEN-LAST:event_ReporteActionPerformed
+
+    private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
         // TODO add your handling code here:
-         int filaSeleccionada = jTabla.getSelectedRow();
-
-        if ( filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
-            Object[] datosFila = new Object[jTabla.getColumnCount()];
-
-            for (int i = 0; i < jTabla.getColumnCount(); i++) {
-                datosFila[i] = jTabla.getValueAt(filaSeleccionada, i);
-            }
-        
-             String id=datosFila[0].toString();
-            long num=Long.parseLong(id);
-            p.Eliminar(num);
-            JOptionPane.showMessageDialog(this,"Accion realizada","",JOptionPane.INFORMATION_MESSAGE );
-            limpiarTabla();
-            gastos=p.obtenerLista(idUsuarioRecibido);
-            for (gastosDTO pn : gastos) {
-
-                        insertarFila(pn);
-            }
-            
-
-                    
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }//GEN-LAST:event_btnEliminar1ActionPerformed
     private void buscarCoincidencias(String texto) {
         limpiarTabla();
         int sele = cbxBusqueda.getSelectedIndex();
@@ -457,9 +452,10 @@ public class DlgConsultas extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Reporte;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEliminar1;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxBusqueda;
