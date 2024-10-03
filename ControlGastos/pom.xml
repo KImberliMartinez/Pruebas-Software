@@ -57,6 +57,46 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.0.33</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+    <version>3.3.4</version>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider-spring -->
+<dependency>
+    <groupId>au.com.dius</groupId>
+    <artifactId>pact-jvm-provider-spring</artifactId>
+    <version>4.0.10</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider-junit5-spring -->
+<dependency>
+    <groupId>au.com.dius</groupId>
+    <artifactId>pact-jvm-provider-junit5-spring</artifactId>
+    <version>4.0.10</version>
+</dependency>
+
+        
     </dependencies>
     <repositories>
     <repository>
