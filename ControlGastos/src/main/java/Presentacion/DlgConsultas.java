@@ -160,7 +160,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, 140, 40));
+        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, 140, 40));
 
         btnModificar.setBackground(new java.awt.Color(0, 204, 153));
         btnModificar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -171,7 +171,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, 140, 40));
+        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 140, 40));
 
         btnEliminar.setBackground(new java.awt.Color(0, 204, 153));
         btnEliminar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -182,7 +182,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 140, 40));
+        panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 260, 140, 40));
 
         lblOpciones3.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
         lblOpciones3.setForeground(new java.awt.Color(204, 204, 204));
