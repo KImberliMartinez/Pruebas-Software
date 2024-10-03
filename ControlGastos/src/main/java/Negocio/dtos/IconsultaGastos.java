@@ -8,6 +8,7 @@ import Persistencia.entidades.Gastos;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -25,6 +26,9 @@ public interface IconsultaGastos {
     public void AgregarUsuario(UsuariosDTO usuario);
     public long obtenerIDusuario(String nombre,String contra);
     public long usuarioExistente(String nombre);
+    public List<gastosDTO> listaPorPeriodoMensual(Date fecha);
+    public List<gastosDTO> listaPorPeriodoSemanal(Date fecha);
+public Map<String, Double> crearHistograma(List<gastosDTO> listaGastos);
     
 
 }

@@ -66,6 +66,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         resultadolabel = new javax.swing.JLabel();
+        Reporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,7 +135,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 160, 40));
+        panelOpciones.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 400, 160, 40));
 
         lblOpciones1.setFont(new java.awt.Font("Segoe UI Black", 2, 36)); // NOI18N
         lblOpciones1.setForeground(new java.awt.Color(255, 255, 255));
@@ -184,7 +185,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, 40));
+        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 130, 40));
 
         btnModificar.setBackground(new java.awt.Color(0, 204, 153));
         btnModificar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -195,7 +196,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 120, 40));
+        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 400, 120, 40));
 
         btnEliminar.setBackground(new java.awt.Color(0, 204, 153));
         btnEliminar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -206,7 +207,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 130, 40));
+        panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 130, 40));
 
         lblOpciones3.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
         lblOpciones3.setForeground(new java.awt.Color(204, 204, 204));
@@ -225,6 +226,17 @@ public class DlgConsultas extends javax.swing.JFrame {
 
         resultadolabel.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         panelOpciones.add(resultadolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 80, 20));
+
+        Reporte.setBackground(new java.awt.Color(0, 204, 153));
+        Reporte.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
+        Reporte.setForeground(new java.awt.Color(255, 255, 255));
+        Reporte.setText("Reporte");
+        Reporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReporteActionPerformed(evt);
+            }
+        });
+        panelOpciones.add(Reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 400, 130, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -368,6 +380,12 @@ public class DlgConsultas extends javax.swing.JFrame {
                     
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void ReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteActionPerformed
+        DlgReporte dle = new DlgReporte();
+        dle.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ReporteActionPerformed
     private void buscarCoincidencias(String texto) {
         limpiarTabla();
         int sele = cbxBusqueda.getSelectedIndex();
@@ -457,6 +475,7 @@ public class DlgConsultas extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Reporte;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;

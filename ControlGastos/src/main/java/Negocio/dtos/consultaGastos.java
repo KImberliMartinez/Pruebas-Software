@@ -11,7 +11,9 @@ import Persistencia.entidades.Usuarios;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -114,4 +116,30 @@ public class consultaGastos implements IconsultaGastos {
          return id; 
     }
 
+ public List<gastosDTO> listaPorPeriodoSemanal(Date fecha) {
+    // Calcular la fecha avanzando 6 días
+    Date fechaFin = new Date(fecha.getTime() + 6 * 24 * 60 * 60 * 1000);
+
+    // Obtener los gastos entre la fecha original y la fecha avanzanda
+    return convertirGastosADTOs(gasto.listaPorPeriodo(fecha, fechaFin));
+}
+
+public List<gastosDTO> listaPorPeriodoMensual(Date fecha) {
+    return convertirGastosADTOs(gasto.listaPorPeriodo(fecha, new Date(fecha.getTime() + (30L * 24 * 60 * 60 * 1000))));
+}
+@Override
+public Map<String, Double> crearHistograma(List<gastosDTO> listaGastos) {
+    Map<String, Double> histograma = new HashMap<>();
+    
+    // Recorrer la lista de gastos y agrupar por categoría
+    for (gastosDTO gasto : listaGastos) {
+        String categoria = gasto.getCategoria();
+        double valor = gasto.getGasto();
+        
+        // Sumar el gasto a la categoría correspondiente
+        histograma.put(categoria, histograma.getOrDefault(categoria, 0.0) + valor);
+    }
+    
+    return histograma;
+}
 }
