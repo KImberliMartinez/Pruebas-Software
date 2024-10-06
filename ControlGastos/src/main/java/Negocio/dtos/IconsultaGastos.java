@@ -26,8 +26,8 @@ public interface IconsultaGastos {
     public void AgregarUsuario(UsuariosDTO usuario);
     public long obtenerIDusuario(String nombre,String contra);
     public long usuarioExistente(String nombre);
-    public List<gastosDTO> listaPorPeriodoMensual(Date fecha);
-    public List<gastosDTO> listaPorPeriodoSemanal(Date fecha);
+    public List<gastosDTO> listaPorPeriodoMensual(Date fecha,long idUsuario);
+    public List<gastosDTO> listaPorPeriodoSemanal(Date fecha,long idUsuario);
 public Map<String, Double> crearHistograma(List<gastosDTO> listaGastos);
     
 

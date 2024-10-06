@@ -24,6 +24,7 @@ public interface IGastosDAO {
     public long obtenerIDusuario(String nombre,String contra);
     public Usuarios obtenerSoloUusario(long id);
     public long usuarioExistente(String nombre);
+    public List<Gastos> listaPorPeriodoYUsuario(Date startDate, Date endDate, long usuarioId);
 
     
 }

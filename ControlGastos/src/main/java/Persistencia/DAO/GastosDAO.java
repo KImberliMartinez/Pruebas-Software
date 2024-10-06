@@ -230,4 +230,33 @@ public class GastosDAO implements IGastosDAO {
 
         return usuario; // Devuelve el usuario o null si no se encontró
         }
+    @Override
+public List<Gastos> listaPorPeriodoYUsuario(Date startDate, Date endDate, long usuarioId) {
+    EntityManager em = emf.createEntityManager();
+
+    try {
+        em.getTransaction().begin();
+        
+        // Crear la consulta JPQL para filtrar por fecha y usuario ID
+        String jpql = "SELECT g FROM Gastos g WHERE g.fecha BETWEEN :startDate AND :endDate AND g.usuario.id = :usuarioId";
+        TypedQuery<Gastos> query = em.createQuery(jpql, Gastos.class);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        query.setParameter("usuarioId", usuarioId);
+        
+        List<Gastos> resultados = query.getResultList();
+        em.getTransaction().commit();
+        
+        return resultados;
+    } catch (Exception e) {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+        e.printStackTrace();
+        return null;
+    } finally {
+        em.close();
+    }
+}
+
     }

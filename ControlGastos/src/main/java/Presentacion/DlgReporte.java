@@ -23,17 +23,19 @@ import org.jfree.chart.plot.PlotOrientation;
 
 public class DlgReporte extends javax.swing.JFrame {
 IconsultaGastos consultaGastos = new consultaGastos();
-
+ long idUsuario;
     /**
      * Creates new form FrmOpcionesCliente
      */
     public DlgReporte() {
         initComponents();
       Pintar imagen = new Pintar();
-      this.setLocationRelativeTo(this);
+      this.setLocationRelativeTo(this);//
      imagen.PintarImagen(Alimento, "src\\\\main\\\\java\\\\Comida.jpg");
      imagen.PintarImagen(Transporte, "src\\\\main\\\\java\\\\transporte.jpg");
      imagen.PintarImagen(Entretenimiento, "src\\\\main\\\\java\\\\entretenimiento.jpg");
+     imagen.PintarImagen(TotalFoto, "src\\\\main\\\\java\\\\Total.jpeg");
+
     TextoTotalEntretenimiento.setText("0.0");
     TextoTotalAlimentacion.setText("0.0");
     TextoTotalTransporte.setText("0.0");
@@ -73,6 +75,9 @@ IconsultaGastos consultaGastos = new consultaGastos();
         dateChooserFin1 = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         PanelHistograma1 = new javax.swing.JPanel();
+        TotalFoto = new javax.swing.JLabel();
+        TextoTotal = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -119,7 +124,7 @@ IconsultaGastos consultaGastos = new consultaGastos();
                 btnReporteSemanalActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnReporteSemanal, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 250, 120, 40));
+        panelOpciones.add(btnReporteSemanal, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, 120, 40));
 
         btnReporteMensual.setBackground(new java.awt.Color(0, 204, 153));
         btnReporteMensual.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -130,7 +135,7 @@ IconsultaGastos consultaGastos = new consultaGastos();
                 btnReporteMensualActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnReporteMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 310, 120, 40));
+        panelOpciones.add(btnReporteMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, 120, 40));
 
         btnLimpiarHistograma.setBackground(new java.awt.Color(0, 204, 153));
         btnLimpiarHistograma.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -141,23 +146,23 @@ IconsultaGastos consultaGastos = new consultaGastos();
                 btnLimpiarHistogramaActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnLimpiarHistograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 370, 120, 40));
+        panelOpciones.add(btnLimpiarHistograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 370, 120, 40));
 
         Entretenimiento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        panelOpciones.add(Entretenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 120, 110));
+        panelOpciones.add(Entretenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 120, 110));
 
         Alimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelOpciones.add(Alimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 120, 110));
 
         Transporte.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        panelOpciones.add(Transporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 120, 110));
+        panelOpciones.add(Transporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 120, 110));
 
         TextoTotalEntretenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextoTotalEntretenimientoActionPerformed(evt);
             }
         });
-        panelOpciones.add(TextoTotalEntretenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 120, 30));
+        panelOpciones.add(TextoTotalEntretenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 120, 30));
 
         TextoTotalAlimentacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,11 +176,11 @@ IconsultaGastos consultaGastos = new consultaGastos();
                 TextoTotalTransporteActionPerformed(evt);
             }
         });
-        panelOpciones.add(TextoTotalTransporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 120, 30));
+        panelOpciones.add(TextoTotalTransporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 120, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel1.setText("Entretenimiento");
-        panelOpciones.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, -1, -1));
+        panelOpciones.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel7.setText("Alimentación");
@@ -183,18 +188,18 @@ IconsultaGastos consultaGastos = new consultaGastos();
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel4.setText("Transporte");
-        panelOpciones.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, -1, -1));
+        panelOpciones.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, -1));
 
         lblOpciones1.setBackground(new java.awt.Color(102, 102, 102));
         lblOpciones1.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
         lblOpciones1.setForeground(new java.awt.Color(102, 102, 102));
         lblOpciones1.setText("Fecha");
-        panelOpciones.add(lblOpciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, -1, -1));
-        panelOpciones.add(dateChooserFin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, -1, -1));
+        panelOpciones.add(lblOpciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, -1, -1));
+        panelOpciones.add(dateChooserFin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 190, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         jLabel9.setText("Inicio");
-        panelOpciones.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, -1, -1));
+        panelOpciones.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, -1, -1));
 
         PanelHistograma1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -210,6 +215,20 @@ IconsultaGastos consultaGastos = new consultaGastos();
         );
 
         panelOpciones.add(PanelHistograma1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 520, 170));
+
+        TotalFoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelOpciones.add(TotalFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 120, 110));
+
+        TextoTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextoTotalActionPerformed(evt);
+            }
+        });
+        panelOpciones.add(TextoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 120, 30));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
+        jLabel10.setText("Total");
+        panelOpciones.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,6 +252,8 @@ IconsultaGastos consultaGastos = new consultaGastos();
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
          //control.desplegarMenu();
+        DlgConsultas dlg=new DlgConsultas();
+        dlg.idUsuarioRecibido=idUsuario;
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -240,13 +261,13 @@ IconsultaGastos consultaGastos = new consultaGastos();
  // 1. Obtener la lista de gastos para el periodo semanal
     Date fechaSeleccionada = dateChooserFin1.getDate();
     // Aquí se llama al nuevo método que solo recibe una fecha
-List<gastosDTO> gastos = consultaGastos.listaPorPeriodoSemanal(fechaSeleccionada);
+List<gastosDTO> gastos = consultaGastos.listaPorPeriodoSemanal(fechaSeleccionada,idUsuario);
 
     // 2. Inicializar las variables para acumular los totales por categoría
     double totalEntretenimiento = 0;
     double totalAlimentacion = 0;
     double totalTransporte = 0;
-
+    double SumaTotal = 0;
     // 3. Calcular los totales recorriendo la lista de gastos
     for (gastosDTO gasto : gastos) {
         switch (gasto.getCategoria()) {
@@ -261,12 +282,14 @@ List<gastosDTO> gastos = consultaGastos.listaPorPeriodoSemanal(fechaSeleccionada
                 break;
         }
     }
-
+SumaTotal = totalEntretenimiento + totalAlimentacion + totalTransporte;
     // 4. Actualizar los campos de texto con los totales calculados
     TextoTotalEntretenimiento.setText(String.valueOf(totalEntretenimiento));
     TextoTotalAlimentacion.setText(String.valueOf(totalAlimentacion));
     TextoTotalTransporte.setText(String.valueOf(totalTransporte));
-  // 1. Crear el histograma a partir de la lista de gastos
+    TextoTotal.setText(String.valueOf(SumaTotal));
+
+   // 1. Crear el histograma a partir de la lista de gastos
 Map<String, Double> histograma = crearHistograma(gastos);
 
 // 2. Crear el gráfico de barras a partir del histograma
@@ -283,13 +306,14 @@ PanelHistograma1.repaint(); // Repintar el panel si es necesario
     private void btnReporteMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMensualActionPerformed
      Date fechaSeleccionada = dateChooserFin1.getDate();
     // Aquí se llama al nuevo método que solo recibe una fecha
-List<gastosDTO> gastos = consultaGastos.listaPorPeriodoMensual(fechaSeleccionada);
+List<gastosDTO> gastos = consultaGastos.listaPorPeriodoMensual(fechaSeleccionada,idUsuario);
 
 
     // 2. Inicializar las variables para acumular los totales por categoría
     double totalEntretenimiento = 0;
     double totalAlimentacion = 0;
     double totalTransporte = 0;
+    double SumaTotal = 0;
 
     // 3. Calcular los totales recorriendo la lista de gastos
     for (gastosDTO gasto : gastos) {
@@ -305,11 +329,13 @@ List<gastosDTO> gastos = consultaGastos.listaPorPeriodoMensual(fechaSeleccionada
                 break;
         }
     }
+SumaTotal = totalEntretenimiento + totalAlimentacion + totalTransporte;
 
     // 4. Actualizar los campos de texto con los totales calculados
     TextoTotalEntretenimiento.setText(String.valueOf(totalEntretenimiento));
     TextoTotalAlimentacion.setText(String.valueOf(totalAlimentacion));
     TextoTotalTransporte.setText(String.valueOf(totalTransporte));
+    TextoTotal.setText(String.valueOf(SumaTotal));
      // 1. Crear el histograma a partir de la lista de gastos
 Map<String, Double> histograma = crearHistograma(gastos);
 
@@ -347,6 +373,7 @@ PanelHistograma1.repaint(); // Repintar el panel si es necesario
  TextoTotalEntretenimiento.setText("0.0");
     TextoTotalAlimentacion.setText("0.0");
     TextoTotalTransporte.setText("0.0");
+    TextoTotal.setText("0.0");
     PanelHistograma1.removeAll(); // Elimina todos los componentes del panel
     PanelHistograma1.revalidate(); // Revalida el panel para asegurar que se actualice visualmente
     PanelHistograma1.repaint(); // Repinta el panel por si es necesario
@@ -363,6 +390,10 @@ PanelHistograma1.repaint(); // Repintar el panel si es necesario
     private void TextoTotalAlimentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextoTotalAlimentacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextoTotalAlimentacionActionPerformed
+
+    private void TextoTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextoTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextoTotalActionPerformed
  //Método para crear un histograma a partir de la lista de gastos
 private Map<String, Double> crearHistograma(List<gastosDTO> gastos) {
     Map<String, Double> histograma = new HashMap<>();
@@ -396,7 +427,6 @@ private ChartPanel crearGraficoDeBarras(Map<String, Double> histograma) {
     chartPanel.setPreferredSize(new Dimension(30, 260));
     return chartPanel;
 }
-
 
 //    /**
 //     * @param args the command line arguments
@@ -437,9 +467,11 @@ private ChartPanel crearGraficoDeBarras(Map<String, Double> histograma) {
     private javax.swing.JLabel Alimento;
     private javax.swing.JLabel Entretenimiento;
     private javax.swing.JPanel PanelHistograma1;
+    private javax.swing.JTextField TextoTotal;
     private javax.swing.JTextField TextoTotalAlimentacion;
     private javax.swing.JTextField TextoTotalEntretenimiento;
     private javax.swing.JTextField TextoTotalTransporte;
+    private javax.swing.JLabel TotalFoto;
     private javax.swing.JLabel Transporte;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnLimpiarHistograma;
@@ -448,6 +480,7 @@ private ChartPanel crearGraficoDeBarras(Map<String, Double> histograma) {
     private com.toedter.calendar.JDateChooser dateChooserFin;
     private com.toedter.calendar.JDateChooser dateChooserFin1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;

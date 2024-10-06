@@ -115,17 +115,17 @@ public class consultaGastos implements IconsultaGastos {
         }
          return id; 
     }
-
- public List<gastosDTO> listaPorPeriodoSemanal(Date fecha) {
+@Override
+ public List<gastosDTO> listaPorPeriodoSemanal(Date fecha,long idUsuario) {
     // Calcular la fecha avanzando 6 días
     Date fechaFin = new Date(fecha.getTime() + 6 * 24 * 60 * 60 * 1000);
 
     // Obtener los gastos entre la fecha original y la fecha avanzanda
-    return convertirGastosADTOs(gasto.listaPorPeriodo(fecha, fechaFin));
+    return convertirGastosADTOs(gasto.listaPorPeriodoYUsuario(fecha, fechaFin,idUsuario));
 }
-
-public List<gastosDTO> listaPorPeriodoMensual(Date fecha) {
-    return convertirGastosADTOs(gasto.listaPorPeriodo(fecha, new Date(fecha.getTime() + (30L * 24 * 60 * 60 * 1000))));
+@Override
+public List<gastosDTO> listaPorPeriodoMensual(Date fecha,long idUsuario) {
+    return convertirGastosADTOs(gasto.listaPorPeriodoYUsuario(fecha, new Date(fecha.getTime() + (30L * 24 * 60 * 60 * 1000)), idUsuario));
 }
 @Override
 public Map<String, Double> crearHistograma(List<gastosDTO> listaGastos) {

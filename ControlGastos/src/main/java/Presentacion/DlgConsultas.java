@@ -32,7 +32,7 @@ public class DlgConsultas extends javax.swing.JFrame {
     public DlgConsultas() {
         
         p=new consultaGastos();
-        initComponents();
+       initComponents();
         this.setVisible(true);
         //centrarVentana(this);
     }
@@ -49,7 +49,6 @@ public class DlgConsultas extends javax.swing.JFrame {
         panelOpciones = new javax.swing.JPanel();
         lblTituloSeccion = new javax.swing.JLabel();
         cbxBusqueda = new javax.swing.JComboBox<>();
-        txtCoincidencia = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         lblOpciones1 = new javax.swing.JLabel();
         lblOpciones2 = new javax.swing.JLabel();
@@ -58,7 +57,6 @@ public class DlgConsultas extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        lblOpciones3 = new javax.swing.JLabel();
         resultadolabel = new javax.swing.JLabel();
         Reporte = new javax.swing.JButton();
 
@@ -77,7 +75,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         cbxBusqueda.setBackground(new java.awt.Color(0, 204, 153));
         cbxBusqueda.setFont(new java.awt.Font("Amazon Ember Light", 0, 18)); // NOI18N
         cbxBusqueda.setForeground(new java.awt.Color(51, 51, 51));
-        cbxBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "categoria" }));
+        cbxBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alimentacion", "Ocio", "Transporte", "Todo" }));
         cbxBusqueda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(64, 53, 44), 2));
         cbxBusqueda.setFocusable(false);
         cbxBusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -85,18 +83,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 cbxBusquedaActionPerformed(evt);
             }
         });
-        panelOpciones.add(cbxBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 230, 40));
-
-        txtCoincidencia.setBackground(new java.awt.Color(0, 204, 153));
-        txtCoincidencia.setFont(new java.awt.Font("Amazon Ember Light", 0, 20)); // NOI18N
-        txtCoincidencia.setForeground(new java.awt.Color(51, 51, 51));
-        txtCoincidencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(64, 53, 44), 2));
-        txtCoincidencia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCoincidenciaKeyPressed(evt);
-            }
-        });
-        panelOpciones.add(txtCoincidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 260, 40));
+        panelOpciones.add(cbxBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 230, 40));
 
         btnCancelar.setBackground(new java.awt.Color(0, 204, 153));
         btnCancelar.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
@@ -115,12 +102,12 @@ public class DlgConsultas extends javax.swing.JFrame {
         lblOpciones1.setFont(new java.awt.Font("Segoe UI Black", 2, 36)); // NOI18N
         lblOpciones1.setForeground(new java.awt.Color(255, 255, 255));
         lblOpciones1.setText("Registros:");
-        panelOpciones.add(lblOpciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        panelOpciones.add(lblOpciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         lblOpciones2.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
         lblOpciones2.setForeground(new java.awt.Color(204, 204, 204));
         lblOpciones2.setText("Busqueda por:");
-        panelOpciones.add(lblOpciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
+        panelOpciones.add(lblOpciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, -1, -1));
 
         jTabla.setBackground(new java.awt.Color(0, 204, 153));
         jTabla.setFont(new java.awt.Font("Amazon Ember", 0, 12)); // NOI18N
@@ -149,7 +136,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTabla);
 
-        panelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 590, 220));
+        panelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 570, 260));
 
         btnAgregar.setBackground(new java.awt.Color(0, 204, 153));
         btnAgregar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -160,7 +147,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, 140, 40));
+        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 140, 40));
 
         btnModificar.setBackground(new java.awt.Color(0, 204, 153));
         btnModificar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -171,7 +158,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 140, 40));
+        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 180, 140, 40));
 
         btnEliminar.setBackground(new java.awt.Color(0, 204, 153));
         btnEliminar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -183,11 +170,6 @@ public class DlgConsultas extends javax.swing.JFrame {
             }
         });
         panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 260, 140, 40));
-
-        lblOpciones3.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
-        lblOpciones3.setForeground(new java.awt.Color(204, 204, 204));
-        lblOpciones3.setText("Coincidencia:");
-        panelOpciones.add(lblOpciones3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, -1, -1));
 
         resultadolabel.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         panelOpciones.add(resultadolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 80, 20));
@@ -201,7 +183,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 ReporteActionPerformed(evt);
             }
         });
-        panelOpciones.add(Reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, 130, 40));
+        panelOpciones.add(Reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, 130, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -217,10 +199,11 @@ public class DlgConsultas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbxBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBusquedaActionPerformed
-       
+        buscarCoincidencias();
     }//GEN-LAST:event_cbxBusquedaActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -229,10 +212,6 @@ public class DlgConsultas extends javax.swing.JFrame {
          login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void txtCoincidenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoincidenciaKeyPressed
-        buscarCoincidencias(txtCoincidencia.getText() + evt.getKeyChar());
-    }//GEN-LAST:event_txtCoincidenciaKeyPressed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
@@ -316,10 +295,11 @@ public class DlgConsultas extends javax.swing.JFrame {
 
     private void ReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteActionPerformed
         DlgReporte dle = new DlgReporte();
+        dle.idUsuario=idUsuarioRecibido;
         dle.setVisible(true);
         dispose();
     }//GEN-LAST:event_ReporteActionPerformed
-    private void buscarCoincidencias(String texto) {
+    private void buscarCoincidencias() {
         limpiarTabla();
         int sele = cbxBusqueda.getSelectedIndex();
         gastos=p.obtenerLista(idUsuarioRecibido);
@@ -327,23 +307,38 @@ public class DlgConsultas extends javax.swing.JFrame {
 //    Date fechaInicio = dateChooserInicio.getDate();
 //    Date fechaFin = dateChooserFin.getDate();
     
-        switch (sele) {
-            case 0:
-                for (gastosDTO pn : gastos) {
-                    if (pn.getCategoria().contains(texto)) {
-                        insertarFila(pn);
-                    }
-                }
-                break;
-                    
-            default:
-                JOptionPane.showMessageDialog(this, "Busqueda no valida", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+     switch (sele) {
+    case 0:
+        for (gastosDTO pn : gastos) {
+            if (pn.getCategoria().equals("Alimentacion")) {
+                insertarFila(pn);
+            }
         }
-        
-
-    }
-
+        break;
+    case 1:
+        for (gastosDTO pn : gastos) {
+            if (pn.getCategoria().equals("Ocio")) {
+                insertarFila(pn);
+            }
+        }
+        break;
+    case 2:
+        for (gastosDTO pn : gastos) {
+            if (pn.getCategoria().equals("Transporte")) {
+                insertarFila(pn);
+            }
+        }
+        break;
+    case 3:  // Nueva opción para mostrar todos los gastos
+        for (gastosDTO pn : gastos) {
+            insertarFila(pn);
+        }
+        break;
+    default:
+        JOptionPane.showMessageDialog(this, "Busqueda no valida", "Error", JOptionPane.ERROR_MESSAGE);
+        break;
+}
+}
     
 
     private void limpiarTabla() {
@@ -418,11 +413,9 @@ public class DlgConsultas extends javax.swing.JFrame {
     private javax.swing.JTable jTabla;
     private javax.swing.JLabel lblOpciones1;
     private javax.swing.JLabel lblOpciones2;
-    private javax.swing.JLabel lblOpciones3;
     private javax.swing.JLabel lblTituloSeccion;
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JLabel resultadolabel;
-    private javax.swing.JTextField txtCoincidencia;
     // End of variables declaration//GEN-END:variables
 
 }

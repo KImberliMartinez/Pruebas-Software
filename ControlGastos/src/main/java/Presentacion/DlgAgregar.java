@@ -202,7 +202,7 @@ public class DlgAgregar extends javax.swing.JDialog {
                     Consulta.registrar(Agregar);
 
                     JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
-                    
+                    dlg.idUsuarioRecibido=idUsuario;
                     dlg.setVisible(true);
                     
                     dispose();
@@ -213,8 +213,8 @@ public class DlgAgregar extends javax.swing.JDialog {
                     Consulta.registrar(Agregar1);
 
                     JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                    dlg.idUsuarioRecibido=idUsuario;
                     dlg.setVisible(true);
-                    
                     dispose();
  
                 break;
@@ -222,7 +222,7 @@ public class DlgAgregar extends javax.swing.JDialog {
                   gastosDTO  Agregar2=new gastosDTO("Ocio", campoDesc.getText(),mon, date.getDate(),idUsuario);
                     Consulta.registrar(Agregar2);
                     JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
-                    //dlg.idUsuarioRecibido=idUsuario;
+                    dlg.idUsuarioRecibido=idUsuario;
                     dlg.setVisible(true);
                     
                     dispose();
@@ -257,6 +257,7 @@ private void ingresarSoloNumeros(){
     private void BotonRegreso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegreso1ActionPerformed
         // TODO add your handling code here:
         DlgConsultas dlg=new DlgConsultas();
+        dlg.idUsuarioRecibido=idUsuario;
         dlg.setVisible(true);
         dispose();
     }//GEN-LAST:event_BotonRegreso1ActionPerformed
