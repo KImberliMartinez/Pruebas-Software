@@ -4,9 +4,9 @@
  */
 package Presentacion;
 
-import Negocio.dtos.IconsultaGastos;
-import Negocio.dtos.UsuariosDTO;
-import Negocio.dtos.consultaGastos;
+
+import SistemaUsuario.Negocio.ConsultaUsuario;
+import SistemaUsuario.Negocio.IConsultaUsuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
  * @author Arell
  */
 public class Login extends javax.swing.JFrame {
-        IconsultaGastos Consulta;
+        IConsultaUsuario Consulta;
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
-        Consulta = new consultaGastos();
+        Consulta = new ConsultaUsuario();
     }
 
     /**
@@ -117,9 +117,9 @@ public class Login extends javax.swing.JFrame {
             long id=Consulta.obtenerIDusuario(NombreUsuario.getText(),Contraseña.getText());
              if (id !=0) {
                  System.out.println("mandando usuario");
-                 DlgConsultas v = new DlgConsultas();
+                 DlgConsultas v = new DlgConsultas(id);
                  System.out.println(id);
-                 v.idUsuarioRecibido=id;
+                // v.idUsuarioRecibido=id;
                     //JOptionPane.showMessageDialog(this, "Usuario registrado con éxito,regrese para iniciar sesion", "", JOptionPane.INFORMATION_MESSAGE);
                        
                     v.setVisible(true);

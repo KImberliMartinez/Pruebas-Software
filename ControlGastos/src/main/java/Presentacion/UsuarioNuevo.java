@@ -4,9 +4,11 @@
  */
 package Presentacion;
 
-import Negocio.dtos.IconsultaGastos;
-import Negocio.dtos.UsuariosDTO;
-import Negocio.dtos.consultaGastos;
+import SistemaControlGastos.Negocio.IconsultaGastos;
+import SistemaUsuario.Negocio.UsuariosDTO;
+import SistemaControlGastos.Negocio.consultaGastos;
+import SistemaUsuario.Negocio.ConsultaUsuario;
+import SistemaUsuario.Negocio.IConsultaUsuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,14 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class UsuarioNuevo extends javax.swing.JFrame {
 
-    IconsultaGastos Consulta;
+    IConsultaUsuario Consulta;
 
     /**
      * Creates new form Login
      */
     public UsuarioNuevo() {
         initComponents();
-        Consulta = new consultaGastos();
+        Consulta = new ConsultaUsuario();
     }
 
     /**

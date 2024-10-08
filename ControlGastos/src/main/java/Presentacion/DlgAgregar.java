@@ -1,9 +1,9 @@
 package Presentacion;
 
 
-import Negocio.dtos.IconsultaGastos;
-import Negocio.dtos.consultaGastos;
-import Negocio.dtos.gastosDTO;
+import SistemaControlGastos.Negocio.IconsultaGastos;
+import SistemaControlGastos.Negocio.consultaGastos;
+import SistemaControlGastos.Negocio.gastosDTO;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -194,27 +194,32 @@ public class DlgAgregar extends javax.swing.JDialog {
         } else {
             
        float mon= Float.parseFloat(campoMon.getText());
-       DlgConsultas dlg=new DlgConsultas();
             switch (seleccion) {
+                
             case 0:
                 System.out.println(idUsuario);
+                       
+
                   gastosDTO  Agregar=new gastosDTO("Alimentacion", campoDesc.getText(), mon, date.getDate(),idUsuario);
                     Consulta.registrar(Agregar);
 
                     JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
-                    dlg.idUsuarioRecibido=idUsuario;
+                    //dlg.idUsuarioRecibido=idUsuario;
+                    DlgConsultas dlg=new DlgConsultas(idUsuario);
                     dlg.setVisible(true);
                     
                     dispose();
                 break;
            
                 case 1:
+
                   gastosDTO  Agregar1=new gastosDTO("Transporte", campoDesc.getText(),mon, date.getDate(),idUsuario);
                     Consulta.registrar(Agregar1);
 
                     JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
-                    dlg.idUsuarioRecibido=idUsuario;
-                    dlg.setVisible(true);
+                   // dlg.idUsuarioRecibido=idUsuario;
+                    DlgConsultas dlg2=new DlgConsultas(idUsuario);
+                    dlg2.setVisible(true);
                     dispose();
  
                 break;
@@ -222,8 +227,9 @@ public class DlgAgregar extends javax.swing.JDialog {
                   gastosDTO  Agregar2=new gastosDTO("Ocio", campoDesc.getText(),mon, date.getDate(),idUsuario);
                     Consulta.registrar(Agregar2);
                     JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
-                    dlg.idUsuarioRecibido=idUsuario;
-                    dlg.setVisible(true);
+                    //dlg.idUsuarioRecibido=idUsuario;
+                    DlgConsultas dlg3=new DlgConsultas(idUsuario);
+                    dlg3.setVisible(true);
                     
                     dispose();
  
@@ -256,7 +262,7 @@ private void ingresarSoloNumeros(){
    
     private void BotonRegreso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegreso1ActionPerformed
         // TODO add your handling code here:
-        DlgConsultas dlg=new DlgConsultas();
+        DlgConsultas dlg=new DlgConsultas(idUsuario);
         dlg.idUsuarioRecibido=idUsuario;
         dlg.setVisible(true);
         dispose();

@@ -20,7 +20,9 @@
 <dependency>
     <groupId>org.jfree</groupId>
     <artifactId>jfreechart</artifactId>
-    <version>1.5.0</version> </dependency>
+    <version>1.5.5</version>
+    <type>jar</type>
+</dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.asm</artifactId>

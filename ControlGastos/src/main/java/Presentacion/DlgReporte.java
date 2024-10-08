@@ -1,10 +1,10 @@
 package Presentacion;
 
-//import Control.ControlPresentacion;
-import Negocio.dtos.IconsultaGastos;
-import Negocio.dtos.consultaGastos;
-import Negocio.dtos.gastosDTO;
-import Negocio.dtos.Pintar;
+
+import SistemaControlGastos.Negocio.gastosDTO;
+import SistemaReporte.Negocio.Pintar;
+import SistemaReporte.Negocio.ConsultaReporte;
+import SistemaReporte.Negocio.IConsultaReporte;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Date;
@@ -22,7 +22,7 @@ import org.jfree.chart.plot.PlotOrientation;
 
 
 public class DlgReporte extends javax.swing.JFrame {
-IconsultaGastos consultaGastos = new consultaGastos();
+IConsultaReporte consulta = new ConsultaReporte();
  long idUsuario;
     /**
      * Creates new form FrmOpcionesCliente
@@ -252,8 +252,8 @@ IconsultaGastos consultaGastos = new consultaGastos();
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
          //control.desplegarMenu();
-        DlgConsultas dlg=new DlgConsultas();
-        dlg.idUsuarioRecibido=idUsuario;
+        DlgConsultas dlg=new DlgConsultas(idUsuario);
+        //dlg.idUsuarioRecibido=idUsuario;
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -261,7 +261,7 @@ IconsultaGastos consultaGastos = new consultaGastos();
  // 1. Obtener la lista de gastos para el periodo semanal
     Date fechaSeleccionada = dateChooserFin1.getDate();
     // Aquí se llama al nuevo método que solo recibe una fecha
-List<gastosDTO> gastos = consultaGastos.listaPorPeriodoSemanal(fechaSeleccionada,idUsuario);
+List<gastosDTO> gastos = consulta.listaPorPeriodoSemanal(fechaSeleccionada,idUsuario);
 
     // 2. Inicializar las variables para acumular los totales por categoría
     double totalEntretenimiento = 0;
@@ -306,7 +306,7 @@ PanelHistograma1.repaint(); // Repintar el panel si es necesario
     private void btnReporteMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMensualActionPerformed
      Date fechaSeleccionada = dateChooserFin1.getDate();
     // Aquí se llama al nuevo método que solo recibe una fecha
-List<gastosDTO> gastos = consultaGastos.listaPorPeriodoMensual(fechaSeleccionada,idUsuario);
+List<gastosDTO> gastos = consulta.listaPorPeriodoMensual(fechaSeleccionada,idUsuario);
 
 
     // 2. Inicializar las variables para acumular los totales por categoría

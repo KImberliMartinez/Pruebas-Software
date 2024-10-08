@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package Persistencia.DAO;
+package SistemaControlGastos.Persistencia.DAO;
 
-import Persistencia.entidades.Gastos;
-import Persistencia.entidades.Usuarios;
+import SistemaControlGastos.Persistencia.Entidades.Gastos;
+import SistemaUsuario.Persistencia.Entidades.Usuarios;
 import java.util.Date;
 import java.util.List;
 
@@ -20,11 +20,8 @@ public interface IGastosDAO {
    public void Eliminar(long id);
    public Double obtenerGastosTotalesPorPeriodo(Date inicio, Date fin);
     public List<Gastos> listaPorPeriodo(Date startDate,Date endDate);
-    public void AgregarUsuario(Usuarios usuario);
-    public long obtenerIDusuario(String nombre,String contra);
-    public Usuarios obtenerSoloUusario(long id);
-    public long usuarioExistente(String nombre);
-    public List<Gastos> listaPorPeriodoYUsuario(Date startDate, Date endDate, long usuarioId);
-
+    public Double GastosPorUusario(long id);
+    public Double GastosPorCategoriYusuario(long id,String categoria);
+    
     
 }

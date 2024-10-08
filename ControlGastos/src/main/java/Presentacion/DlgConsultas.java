@@ -1,39 +1,37 @@
 package Presentacion;
 
 //import Control.ControlPresentacion;
-import Negocio.dtos.IconsultaGastos;
-import Negocio.dtos.consultaGastos;
-import Negocio.dtos.gastosDTO;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.text.ParseException;
+import SistemaControlGastos.Negocio.IconsultaGastos;
+import SistemaControlGastos.Negocio.consultaGastos;
+import SistemaControlGastos.Negocio.gastosDTO;
+
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.print.PrintException;
-import javax.swing.JFrame;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class DlgConsultas extends javax.swing.JFrame {
 
-    
-   private List<gastosDTO> gastos;
+    private List<gastosDTO> gastos;
     private IconsultaGastos p;
     private DefaultTableModel modeloTabla;
     public long idUsuarioRecibido;
-    
 
     /**
      * Creates new form FrmOpcionesCliente
+     * @param idUsuarioRecibido
      */
-    public DlgConsultas() {
-        
-        p=new consultaGastos();
-       initComponents();
+    public DlgConsultas(long idUsuarioRecibido) {
+
+        p = new consultaGastos();
+        initComponents();
+        this.idUsuarioRecibido = idUsuarioRecibido;
+        llenarTabla();
+        llenarTotal();
         this.setVisible(true);
+
         //centrarVentana(this);
     }
 
@@ -59,6 +57,7 @@ public class DlgConsultas extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         resultadolabel = new javax.swing.JLabel();
         Reporte = new javax.swing.JButton();
+        labelTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,7 +146,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 140, 40));
+        panelOpciones.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 140, 40));
 
         btnModificar.setBackground(new java.awt.Color(0, 204, 153));
         btnModificar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -158,7 +157,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 180, 140, 40));
+        panelOpciones.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 140, 40));
 
         btnEliminar.setBackground(new java.awt.Color(0, 204, 153));
         btnEliminar.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 18)); // NOI18N
@@ -169,7 +168,7 @@ public class DlgConsultas extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 260, 140, 40));
+        panelOpciones.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 280, 140, 40));
 
         resultadolabel.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         panelOpciones.add(resultadolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 80, 20));
@@ -183,7 +182,11 @@ public class DlgConsultas extends javax.swing.JFrame {
                 ReporteActionPerformed(evt);
             }
         });
-        panelOpciones.add(Reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, 130, 40));
+        panelOpciones.add(Reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 140, 40));
+
+        labelTotal.setFont(new java.awt.Font("Segoe UI Variable", 3, 20)); // NOI18N
+        labelTotal.setForeground(new java.awt.Color(255, 255, 255));
+        panelOpciones.add(labelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 380, 210, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,145 +204,158 @@ public class DlgConsultas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    // Método para llenar la tabla
+private void llenarTotal(){
+   double total=p.GastosPorUusario(idUsuarioRecibido);
+   labelTotal.setText("Total:  "+total);
+    System.out.println(""+total);
+}
 
+    private void llenarTabla() {
+        limpiarTabla(); // Limpia la tabla antes de llenarla
+        gastos = p.obtenerLista(idUsuarioRecibido);
+        for (gastosDTO pn : gastos) {
+            insertarFila(pn);
+        }
+    }
     private void cbxBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBusquedaActionPerformed
         buscarCoincidencias();
     }//GEN-LAST:event_cbxBusquedaActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-         //control.desplegarMenu();
-         Login login = new Login();
-         login.setVisible(true);
+        //control.desplegarMenu();
+        Login login = new Login();
+        login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        DlgAgregar dl=new DlgAgregar();
-        dl.idUsuario=idUsuarioRecibido;
-        System.out.println("idrecibido   "+idUsuarioRecibido);
+        DlgAgregar dl = new DlgAgregar();
+        dl.idUsuario = idUsuarioRecibido;
+        System.out.println("idrecibido   " + idUsuarioRecibido);
         dl.setVisible(true);
         dispose();
-        
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-         int filaSeleccionada = jTabla.getSelectedRow();
+        int filaSeleccionada = jTabla.getSelectedRow();
 
-        if ( filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
+        if (filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
             Object[] datosFila = new Object[jTabla.getColumnCount()];
 
             for (int i = 0; i < jTabla.getColumnCount(); i++) {
                 datosFila[i] = jTabla.getValueAt(filaSeleccionada, i);
             }
-        
-            String id=datosFila[0].toString();
-            String categoria=datosFila[1].toString();
-            String descripcion=datosFila[2].toString();
-            String Monto=datosFila[3].toString();
-            String Fecha=datosFila[4].toString();
-            DlgModificar dl=new DlgModificar();
-             
-             dl.pasarInfo(Monto);
-             dl.guardarId=idUsuarioRecibido;
+
+            String id = datosFila[0].toString();
+            String categoria = datosFila[1].toString();
+            String descripcion = datosFila[2].toString();
+            String Monto = datosFila[3].toString();
+            String Fecha = datosFila[4].toString();
+            DlgModificar dl = new DlgModificar(id, categoria, Monto, idUsuarioRecibido);
+
+            dl.pasarInfo(Monto);
+//             dl.idCambio=id;
+//             dl.catCambio=categoria;
+//             dl.montCambio=Monto;
+//             dl.guardarId=idUsuarioRecibido;
             dl.setVisible(true);
             dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un gasto para continuar", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnModificarActionPerformed
-   /**
+    /**
      * Centra la ventana en la pantalla.
+     *
      * @param frame La ventana que se desea centrar.
      */
-    public static void centrarVentana(JFrame frame) {
-        // Obtiene la dimensión de la pantalla
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension pantalla = toolkit.getScreenSize();
-        
-        // Obtiene la dimensión de la ventana
-        Dimension ventana = frame.getSize();
-        
-        // Calcula la posición x e y para centrar la ventana
-        int x = (pantalla.width - ventana.width) / 2;
-        int y = (pantalla.height - ventana.height) / 2;
-        
-        // Establece la posición de la ventana
-        frame.setLocation(x, y);
-    }
+
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-         int filaSeleccionada = jTabla.getSelectedRow();
+        int filaSeleccionada = jTabla.getSelectedRow();
 
-        if ( filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
+        if (filaSeleccionada != -1) { // Verificar si se ha seleccionado alguna fila
             Object[] datosFila = new Object[jTabla.getColumnCount()];
 
             for (int i = 0; i < jTabla.getColumnCount(); i++) {
                 datosFila[i] = jTabla.getValueAt(filaSeleccionada, i);
             }
-        
-             String id=datosFila[0].toString();
-            long num=Long.parseLong(id);
+
+            String id = datosFila[0].toString();
+            long num = Long.parseLong(id);
             p.Eliminar(num);
-            JOptionPane.showMessageDialog(this,"Accion realizada","",JOptionPane.INFORMATION_MESSAGE );
+            JOptionPane.showMessageDialog(this, "Accion realizada", "", JOptionPane.INFORMATION_MESSAGE);
             limpiarTabla();
-            gastos=p.obtenerLista(idUsuarioRecibido);
+            gastos = p.obtenerLista(idUsuarioRecibido);
             for (gastosDTO pn : gastos) {
 
-                        insertarFila(pn);
+                insertarFila(pn);
             }
-            
-
-                    
+            llenarTotal();
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un gasto para continuar", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void ReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteActionPerformed
         DlgReporte dle = new DlgReporte();
-        dle.idUsuario=idUsuarioRecibido;
+        dle.idUsuario = idUsuarioRecibido;
         dle.setVisible(true);
         dispose();
     }//GEN-LAST:event_ReporteActionPerformed
     private void buscarCoincidencias() {
         limpiarTabla();
         int sele = cbxBusqueda.getSelectedIndex();
-        gastos=p.obtenerLista(idUsuarioRecibido);
-         // Obtener las fechas del periodo desde los campos de entrada
+        gastos = p.obtenerLista(idUsuarioRecibido);
+        // Obtener las fechas del periodo desde los campos de entrada
 //    Date fechaInicio = dateChooserInicio.getDate();
 //    Date fechaFin = dateChooserFin.getDate();
-    
-     switch (sele) {
-    case 0:
-        for (gastosDTO pn : gastos) {
-            if (pn.getCategoria().equals("Alimentacion")) {
-                insertarFila(pn);
-            }
+
+        switch (sele) {
+            case 0:
+                for (gastosDTO pn : gastos) {
+                    if (pn.getCategoria().equals("Alimentacion")) {
+                        insertarFila(pn);
+                    }
+                }
+                double totalAlimento=p.GastosPorCategoriYusuario(idUsuarioRecibido, "Alimentacion");
+                    labelTotal.setText("Total:  "+totalAlimento);
+                break;
+            case 1:
+                for (gastosDTO pn : gastos) {
+                    if (pn.getCategoria().equals("Ocio")) {
+                        insertarFila(pn);
+                    }
+                }
+                double totalOcio=p.GastosPorCategoriYusuario(idUsuarioRecibido, "Ocio");
+                    labelTotal.setText("Total:  "+totalOcio);
+
+                break;
+            case 2:
+                for (gastosDTO pn : gastos) {
+                    if (pn.getCategoria().equals("Transporte")) {
+                        insertarFila(pn);
+                    }
+                }
+                double totalTransporte=p.GastosPorCategoriYusuario(idUsuarioRecibido, "Transporte");
+                    labelTotal.setText("Total:  "+totalTransporte);
+                break;
+            case 3:  // Nueva opción para mostrar todos los gastos
+                for (gastosDTO pn : gastos) {
+                    insertarFila(pn);
+                }
+                double totalTodo=p.GastosPorUusario(idUsuarioRecibido);
+                    labelTotal.setText("Total:  "+totalTodo);
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Busqueda no valida", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
         }
-        break;
-    case 1:
-        for (gastosDTO pn : gastos) {
-            if (pn.getCategoria().equals("Ocio")) {
-                insertarFila(pn);
-            }
-        }
-        break;
-    case 2:
-        for (gastosDTO pn : gastos) {
-            if (pn.getCategoria().equals("Transporte")) {
-                insertarFila(pn);
-            }
-        }
-        break;
-    case 3:  // Nueva opción para mostrar todos los gastos
-        for (gastosDTO pn : gastos) {
-            insertarFila(pn);
-        }
-        break;
-    default:
-        JOptionPane.showMessageDialog(this, "Busqueda no valida", "Error", JOptionPane.ERROR_MESSAGE);
-        break;
-}
-}
-    
+    }
 
     private void limpiarTabla() {
         modeloTabla = (DefaultTableModel) jTabla.getModel();
@@ -352,19 +368,17 @@ public class DlgConsultas extends javax.swing.JFrame {
 
     private void insertarFila(gastosDTO p) {
         // Crear un formateador de fecha
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  // Ajusta el formato según lo necesites
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  // Ajusta el formato según lo necesites
 
-    // Formatear la fecha
-    String formato = sdf.format(p.getFecha());
+        // Formatear la fecha
+        String formato = sdf.format(p.getFecha());
 
         Object[] fila = {
             p.getId(),
             p.getCategoria(),
             p.getDescripcion(),
             p.getGasto(),
-            formato,
-           
-            };
+            formato,};
         modeloTabla.addRow(fila);
     }
 //    /**
@@ -411,6 +425,7 @@ public class DlgConsultas extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxBusqueda;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabla;
+    private javax.swing.JLabel labelTotal;
     private javax.swing.JLabel lblOpciones1;
     private javax.swing.JLabel lblOpciones2;
     private javax.swing.JLabel lblTituloSeccion;

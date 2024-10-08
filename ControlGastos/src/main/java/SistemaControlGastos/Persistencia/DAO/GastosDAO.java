@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Persistencia.DAO;
+package SistemaControlGastos.Persistencia.DAO;
 
-import Persistencia.entidades.Gastos;
-import Persistencia.entidades.Usuarios;
+import SistemaControlGastos.Persistencia.DAO.IGastosDAO;
+import SistemaControlGastos.Persistencia.Entidades.Gastos;
+import SistemaUsuario.Persistencia.Entidades.Usuarios;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -133,8 +134,7 @@ public class GastosDAO implements IGastosDAO {
             em.close();
         }
     }
-
-    @Override
+@Override
     public List<Gastos> listaPorPeriodo(Date startDate, Date endDate) {
         System.out.println(startDate);
         System.out.println(endDate);
@@ -151,112 +151,56 @@ public class GastosDAO implements IGastosDAO {
         }
     }
 
-    @Override
-    public void AgregarUsuario(Usuarios usuario) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(usuario);
-            usuario.toString();
-            System.out.println("enviado a la bd");
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.getMessage();
-
-        } finally {
-            em.close();
-
-        }
-    }
+  
 
     @Override
-    public long obtenerIDusuario(String nombre, String contra) {
-        EntityManager em = emf.createEntityManager();
-        String jpql = "SELECT u.id FROM Usuarios u WHERE u.usuario = :nombre AND u.contra = :contra";
-        TypedQuery<Long> query = em.createQuery(jpql, Long.class);
-        query.setParameter("nombre", nombre);
-        query.setParameter("contra", contra);
-
-        long id = 0;
-        try {
-            id = query.getSingleResult();
-        } catch (NoResultException e) {
-            // Manejar caso cuando no se encuentra un usuario
-            System.out.println("Usuario no encontrado.");
-
-        }
-
-        return id; // Devuelve 0 si no se encuentra el usuario
-    }
-
-    @Override
-    public long usuarioExistente(String nombre) {
-        EntityManager em = emf.createEntityManager();
-        String jpql = "SELECT u.id FROM Usuarios u WHERE u.usuario = :nombre";
-        TypedQuery<Long> query = em.createQuery(jpql, Long.class);
-        query.setParameter("nombre", nombre);
-
-        long id = 0;
-        try {
-            id = query.getSingleResult();
-        } catch (NoResultException e) {
-            // Si no se encuentra el usuario, se devuelve 0
-        }
-
-        return id; // Devuelve el ID o 0 si no se encontró
-    }
-
-    @Override
-    public Usuarios obtenerSoloUusario(long id) {
-        EntityManager em = emf.createEntityManager();
-        Usuarios usuario = null;
-
-        try {
-            // Log para verificar el ID recibido
-            System.out.println("Buscando usuario con ID: " + id);
-
-            // Buscar usuario por ID
-            usuario = em.find(Usuarios.class, id);
-
-            // Log para verificar el resultado
-            if (usuario != null) {
-                System.out.println("Usuario encontrado: " + usuario.getUsuario());
-            } else {
-                System.out.println("Usuario no encontrado.");
-            }
-        } finally {
-            em.close(); // Cerrar el EntityManager
-        }
-
-        return usuario; // Devuelve el usuario o null si no se encontró
-        }
-    @Override
-public List<Gastos> listaPorPeriodoYUsuario(Date startDate, Date endDate, long usuarioId) {
-    EntityManager em = emf.createEntityManager();
+    public Double GastosPorUusario(long id) {
+         EntityManager em = null;
+    Double totalGastos = null;
 
     try {
-        em.getTransaction().begin();
-        
-        // Crear la consulta JPQL para filtrar por fecha y usuario ID
-        String jpql = "SELECT g FROM Gastos g WHERE g.fecha BETWEEN :startDate AND :endDate AND g.usuario.id = :usuarioId";
-        TypedQuery<Gastos> query = em.createQuery(jpql, Gastos.class);
-        query.setParameter("startDate", startDate);
-        query.setParameter("endDate", endDate);
-        query.setParameter("usuarioId", usuarioId);
-        
-        List<Gastos> resultados = query.getResultList();
-        em.getTransaction().commit();
-        
-        return resultados;
+        em = emf.createEntityManager(); 
+
+        String jpql = "SELECT SUM(g.gasto) FROM Gastos g WHERE g.usuario.id = :usuarioId";
+        Query query = em.createQuery(jpql);
+        query.setParameter("usuarioId", id); 
+
+        totalGastos = (Double) query.getSingleResult(); // Obtener el resultado como Double
+
+    } catch (NoResultException e) {
+        // Si no hay resultados el totalGastos se queda como null
+        totalGastos = 0.0; 
     } catch (Exception e) {
-        if (em.getTransaction().isActive()) {
-            em.getTransaction().rollback();
+        e.printStackTrace(); 
+    } finally {
+        if (em != null) {
+            em.close(); 
         }
-        e.printStackTrace();
-        return null;
+    }
+
+    return totalGastos; // regresar el total de gastos
+
+    }
+
+    @Override
+    public Double GastosPorCategoriYusuario(long id, String categoria) {
+        EntityManager em = emf.createEntityManager();
+    Double total = 0.0;
+
+    try {
+        String jpql = "SELECT SUM(g.gasto) FROM Gastos g WHERE g.usuario.id = :usuarioId AND g.categoria = :categoria";
+        Query query = em.createQuery(jpql);
+        query.setParameter("usuarioId", id);
+        query.setParameter("categoria", categoria);
+        
+        total = (Double) query.getSingleResult();
+    } catch (Exception e) {
+        e.printStackTrace(); // Maneja la excepción como prefieras
     } finally {
         em.close();
     }
-}
 
+    return total != null ? total : 0.0; // Devuelve 0.0 si no hay gastos
     }
+
+ }

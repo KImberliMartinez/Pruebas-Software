@@ -1,8 +1,8 @@
 package Presentacion;
 
 
-import Negocio.dtos.IconsultaGastos;
-import Negocio.dtos.consultaGastos;
+import SistemaControlGastos.Negocio.IconsultaGastos;
+import SistemaControlGastos.Negocio.consultaGastos;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -23,7 +23,7 @@ public class DlgModificar extends javax.swing.JDialog {
     int vecesC=0;
    public String idCambio;
     public String catCambio;
-    public String desCambio;
+    //public String desCambio;
     public String montCambio;
     //String fechaCambio;
 
@@ -40,7 +40,11 @@ public class DlgModificar extends javax.swing.JDialog {
 
     }
 
-    public DlgModificar() {
+    public DlgModificar(String idCambio,String catCambio,String montCambio,long guardarId ) {
+        this.guardarId=guardarId;
+        this.idCambio=idCambio;
+        this.catCambio=catCambio;
+         this.montCambio=montCambio;
         initComponents();
         Consulta = new consultaGastos();
         ingresarSoloNumeros();
@@ -123,6 +127,11 @@ public class DlgModificar extends javax.swing.JDialog {
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         campoCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alimentacion", "Transporte", "Ocio" }));
+        campoCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCatActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -175,7 +184,7 @@ public class DlgModificar extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     public void pasarInfo(String monto){
-        System.out.println(idCambio+catCambio+desCambio+montCambio+guardarId);
+        System.out.println(idCambio+catCambio+montCambio+guardarId);
         campoMont.setText(monto);
          //float mon=Float.valueOf(monto);
     }
@@ -208,9 +217,9 @@ public class DlgModificar extends javax.swing.JDialog {
          Consulta.actualizarGastos(num,catCambio,mont);
          
          JOptionPane.showMessageDialog(this,"Accion realizada","",JOptionPane.INFORMATION_MESSAGE );
-          DlgConsultas dlg=new DlgConsultas();
+          DlgConsultas dlg=new DlgConsultas(guardarId);
           System.out.println(guardarId);
-          dlg.idUsuarioRecibido=guardarId;
+          //dlg.idUsuarioRecibido=guardarId;
                     dlg.setVisible(true);
                     
                     dispose();
@@ -226,7 +235,7 @@ public class DlgModificar extends javax.swing.JDialog {
     
     private void BotonRegreso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegreso1ActionPerformed
         // TODO add your handling code here:
-        DlgConsultas dlg=new DlgConsultas();
+        DlgConsultas dlg=new DlgConsultas(guardarId);
         dlg.setVisible(true);
         dispose();
     }//GEN-LAST:event_BotonRegreso1ActionPerformed
@@ -235,6 +244,10 @@ public class DlgModificar extends javax.swing.JDialog {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_campoMontKeyTyped
+
+    private void campoCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCatActionPerformed
 private void ingresarSoloNumeros(){
         campoMont.addKeyListener(new KeyAdapter() {
             @Override

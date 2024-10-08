@@ -2,12 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Negocio.dtos;
+package SistemaControlGastos.Negocio;
 
-import Persistencia.DAO.GastosDAO;
-import Persistencia.DAO.IGastosDAO;
-import Persistencia.entidades.Gastos;
-import Persistencia.entidades.Usuarios;
+import SistemaUsuario.Negocio.UsuariosDTO;
+import SistemaControlGastos.Negocio.IconsultaGastos;
+import SistemaControlGastos.Persistencia.DAO.GastosDAO;
+import SistemaControlGastos.Persistencia.DAO.IGastosDAO;
+import SistemaControlGastos.Persistencia.Entidades.Gastos;
+import SistemaUsuario.Persistencia.Entidades.Usuarios;
+import SistemaUsuario.Persistencia.DAO.IUsuarioDAO;
+import SistemaUsuario.Persistencia.DAO.UsuarioDAO;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,15 +26,17 @@ import java.util.Map;
 public class consultaGastos implements IconsultaGastos {
 
     IGastosDAO gasto;
-    private boolean registroEnviado = false;
+    IUsuarioDAO usuarios;
+//    private boolean registroEnviado = false;
 
     public consultaGastos() {
         gasto = new GastosDAO();
+        usuarios=new UsuarioDAO();
     }
 
     @Override
     public void registrar(gastosDTO p) {
-        Usuarios usuario= gasto.obtenerSoloUusario(p.getUsuarioId());
+        Usuarios usuario= usuarios.obtenerSoloUusario(p.getUsuarioId());
         System.out.println(usuario);
         if(usuario!=null){
         Gastos nuevoGasto = new Gastos(p.getCategoria(),p.getDescripcion(),p.getGasto(), p.getFecha(), usuario);
@@ -88,58 +94,16 @@ public class consultaGastos implements IconsultaGastos {
         return convertirGastosADTOs(gastos);
     }
 
+  
+
+
     @Override
-    public void AgregarUsuario(UsuariosDTO usuario) {
-        Usuarios usu=new Usuarios(usuario.getNombreUsuario(), usuario.getContra());
-        gasto.AgregarUsuario(usu);
+    public Double GastosPorUusario(long id) {
+        return gasto.GastosPorUusario(id);
     }
 
     @Override
-    public long obtenerIDusuario(String nombre, String contra) {
-        long id=gasto.obtenerIDusuario(nombre, contra);
-        if (id!=0){
-            System.out.println("Usuario existente");
-        }else{
-             System.out.println("Usuario no encontrado");
-        }
-       return id;     
+    public Double GastosPorCategoriYusuario(long id, String categoria) {
+        return gasto.GastosPorCategoriYusuario(id, categoria);
     }
-
-    @Override
-    public long usuarioExistente(String nombre) {
-        long id=gasto.usuarioExistente(nombre);
-       if (id!=0){
-            System.out.println("Usuario existente");
-        }else{
-          System.out.println("Usuario no encontrado"); 
-        }
-         return id; 
-    }
-@Override
- public List<gastosDTO> listaPorPeriodoSemanal(Date fecha,long idUsuario) {
-    // Calcular la fecha avanzando 6 días
-    Date fechaFin = new Date(fecha.getTime() + 6 * 24 * 60 * 60 * 1000);
-
-    // Obtener los gastos entre la fecha original y la fecha avanzanda
-    return convertirGastosADTOs(gasto.listaPorPeriodoYUsuario(fecha, fechaFin,idUsuario));
-}
-@Override
-public List<gastosDTO> listaPorPeriodoMensual(Date fecha,long idUsuario) {
-    return convertirGastosADTOs(gasto.listaPorPeriodoYUsuario(fecha, new Date(fecha.getTime() + (30L * 24 * 60 * 60 * 1000)), idUsuario));
-}
-@Override
-public Map<String, Double> crearHistograma(List<gastosDTO> listaGastos) {
-    Map<String, Double> histograma = new HashMap<>();
-    
-    // Recorrer la lista de gastos y agrupar por categoría
-    for (gastosDTO gasto : listaGastos) {
-        String categoria = gasto.getCategoria();
-        double valor = gasto.getGasto();
-        
-        // Sumar el gasto a la categoría correspondiente
-        histograma.put(categoria, histograma.getOrDefault(categoria, 0.0) + valor);
-    }
-    
-    return histograma;
-}
 }
