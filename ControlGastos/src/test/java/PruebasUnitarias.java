@@ -2,10 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-import Negocio.dtos.IconsultaGastos;
-import Negocio.dtos.UsuariosDTO;
-import Negocio.dtos.consultaGastos;
-import Negocio.dtos.gastosDTO;
+
+import SistemaControlGastos.Negocio.IconsultaGastos;
+import SistemaControlGastos.Negocio.consultaGastos;
+import SistemaControlGastos.Negocio.gastosDTO;
+import SistemaUsuario.Negocio.ConsultaUsuario;
+import SistemaUsuario.Negocio.IConsultaUsuario;
+import SistemaUsuario.Negocio.UsuariosDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,9 +27,11 @@ private com.toedter.calendar.JDateChooser date;
     
     @Mock
     private IconsultaGastos gastoRepositorio;
+    private IConsultaUsuario usuario;
     
     @InjectMocks
     private consultaGastos consulta;
+    private ConsultaUsuario consu;
     
     
     
@@ -54,9 +59,9 @@ private com.toedter.calendar.JDateChooser date;
     @Test
     public void agregarUsuarioTest(){
         UsuariosDTO esperado = new UsuariosDTO("Juan", "123");
-        consulta.AgregarUsuario(esperado);
+        consu.AgregarUsuario(esperado);
         
-        Mockito.verify(gastoRepositorio, Mockito.times(1)).AgregarUsuario(esperado);
+        Mockito.verify(usuario, Mockito.times(1)).AgregarUsuario(esperado);
         
     }
             

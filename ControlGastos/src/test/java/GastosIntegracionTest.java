@@ -1,6 +1,6 @@
 
-import Persistencia.entidades.Gastos;
-import Persistencia.entidades.Usuarios;
+import SistemaControlGastos.Persistencia.Entidades.Gastos;
+import SistemaUsuario.Persistencia.Entidades.Usuarios;
 import java.util.Calendar;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
