@@ -8,6 +8,7 @@ import SistemaControlGastos.Negocio.gastosDTO;
 import java.text.SimpleDateFormat;
 
 import java.util.List;
+import javax.swing.JDialog;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +22,7 @@ public class DlgConsultas extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmOpcionesCliente
+     *
      * @param idUsuarioRecibido
      */
     public DlgConsultas(long idUsuarioRecibido) {
@@ -28,8 +30,12 @@ public class DlgConsultas extends javax.swing.JFrame {
         p = new consultaGastos();
         initComponents();
         this.idUsuarioRecibido = idUsuarioRecibido;
+        inicializarTabla();
         llenarTabla();
         llenarTotal();
+        // this.setSize(800, 600); // Ajusta el tamaño según lo necesites
+        this.setResizable(false); // Evita que la ventana se pueda redimensionar
+        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setVisible(true);
 
         //centrarVentana(this);
@@ -119,7 +125,7 @@ public class DlgConsultas extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -205,11 +211,16 @@ public class DlgConsultas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     // Método para llenar la tabla
-private void llenarTotal(){
-   double total=p.GastosPorUusario(idUsuarioRecibido);
-   labelTotal.setText("Total:  "+total);
-    System.out.println(""+total);
-}
+
+    private void llenarTotal() {
+        double total = p.GastosPorUusario(idUsuarioRecibido);
+        if (total > 0) {
+            labelTotal.setText("Total: " + total);
+            System.out.println("" + total);
+        } else {
+            labelTotal.setText("Total:  0.0 ");
+        }
+    }
 
     private void llenarTabla() {
         limpiarTabla(); // Limpia la tabla antes de llenarla
@@ -238,7 +249,15 @@ private void llenarTotal(){
         dispose();
 
     }//GEN-LAST:event_btnAgregarActionPerformed
+    private void inicializarTabla() {
+        // Asumiendo que ya tienes un modelo de tabla configurado
+        // jTabla.setModel(modeloTabla); // Configura tu modelo de tabla aquí
 
+        // Oculta la columna del ID (suponiendo que es la primera columna)
+        jTabla.getColumnModel().getColumn(0).setMinWidth(0);
+        jTabla.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTabla.getColumnModel().getColumn(0).setPreferredWidth(0);
+    }
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         int filaSeleccionada = jTabla.getSelectedRow();
@@ -287,15 +306,25 @@ private void llenarTotal(){
 
             String id = datosFila[0].toString();
             long num = Long.parseLong(id);
-            p.Eliminar(num);
-            JOptionPane.showMessageDialog(this, "Accion realizada", "", JOptionPane.INFORMATION_MESSAGE);
-            limpiarTabla();
-            gastos = p.obtenerLista(idUsuarioRecibido);
-            for (gastosDTO pn : gastos) {
+            int confirmacion = JOptionPane.showConfirmDialog(this,
+                    "¿Está seguro de que desea eliminar este gasto?",
+                    "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            // Verificar la respuesta del usuario
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                p.Eliminar(num); // Eliminar el gasto
+                JOptionPane.showMessageDialog(this, "Acción realizada", "", JOptionPane.INFORMATION_MESSAGE);
+                limpiarTabla(); // Limpiar la tabla
 
-                insertarFila(pn);
+                // Obtener la nueva lista de gastos y volver a insertar las filas
+                gastos = p.obtenerLista(idUsuarioRecibido);
+                for (gastosDTO pn : gastos) {
+                    insertarFila(pn);
+                }
+                llenarTotal(); // Actualizar el total
+            } else {
+                // El usuario ha decidido no eliminar
+                JOptionPane.showMessageDialog(this, "El gasto no fue eliminado", "", JOptionPane.INFORMATION_MESSAGE);
             }
-            llenarTotal();
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un gasto para continuar", "", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -322,8 +351,8 @@ private void llenarTotal(){
                         insertarFila(pn);
                     }
                 }
-                double totalAlimento=p.GastosPorCategoriYusuario(idUsuarioRecibido, "Alimentacion");
-                    labelTotal.setText("Total:  "+totalAlimento);
+                double totalAlimento = p.GastosPorCategoriYusuario(idUsuarioRecibido, "Alimentacion");
+                labelTotal.setText("Total:  " + totalAlimento);
                 break;
             case 1:
                 for (gastosDTO pn : gastos) {
@@ -331,8 +360,8 @@ private void llenarTotal(){
                         insertarFila(pn);
                     }
                 }
-                double totalOcio=p.GastosPorCategoriYusuario(idUsuarioRecibido, "Ocio");
-                    labelTotal.setText("Total:  "+totalOcio);
+                double totalOcio = p.GastosPorCategoriYusuario(idUsuarioRecibido, "Ocio");
+                labelTotal.setText("Total:  " + totalOcio);
 
                 break;
             case 2:
@@ -341,15 +370,15 @@ private void llenarTotal(){
                         insertarFila(pn);
                     }
                 }
-                double totalTransporte=p.GastosPorCategoriYusuario(idUsuarioRecibido, "Transporte");
-                    labelTotal.setText("Total:  "+totalTransporte);
+                double totalTransporte = p.GastosPorCategoriYusuario(idUsuarioRecibido, "Transporte");
+                labelTotal.setText("Total:  " + totalTransporte);
                 break;
             case 3:  // Nueva opción para mostrar todos los gastos
                 for (gastosDTO pn : gastos) {
                     insertarFila(pn);
                 }
-                double totalTodo=p.GastosPorUusario(idUsuarioRecibido);
-                    labelTotal.setText("Total:  "+totalTodo);
+                double totalTodo = p.GastosPorUusario(idUsuarioRecibido);
+                labelTotal.setText("Total:  " + totalTodo);
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Busqueda no valida", "Error", JOptionPane.ERROR_MESSAGE);

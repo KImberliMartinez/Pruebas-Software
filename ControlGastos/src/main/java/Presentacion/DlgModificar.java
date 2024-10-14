@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author molin
+ * @author dell
  */
 public class DlgModificar extends javax.swing.JDialog {
 

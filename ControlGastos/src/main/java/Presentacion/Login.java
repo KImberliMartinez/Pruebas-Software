@@ -7,11 +7,12 @@ package Presentacion;
 
 import SistemaUsuario.Negocio.ConsultaUsuario;
 import SistemaUsuario.Negocio.IConsultaUsuario;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Arell
+ * @author dell
  */
 public class Login extends javax.swing.JFrame {
         IConsultaUsuario Consulta;
@@ -21,6 +22,9 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         Consulta = new ConsultaUsuario();
+        this.setResizable(false); // Evita que la ventana se pueda redimensionar
+        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        //this.setVisible(true);
     }
 
     /**

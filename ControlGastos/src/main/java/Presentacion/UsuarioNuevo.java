@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Arell
+ * @author dell
  */
 public class UsuarioNuevo extends javax.swing.JFrame {
 
@@ -162,7 +162,8 @@ public class UsuarioNuevo extends javax.swing.JFrame {
                 ConfirmaContra.setText("");
                 }
             }else{
-             JOptionPane.showMessageDialog(this, "No coincide con la contaseña anterior", "aviso", JOptionPane.INFORMATION_MESSAGE);
+             JOptionPane.showMessageDialog(this, "No coincide las contaseñas ", "aviso", JOptionPane.INFORMATION_MESSAGE);
+             ConfirmaContra.setText("");
             }
          }
     }//GEN-LAST:event_agregarActionPerformed

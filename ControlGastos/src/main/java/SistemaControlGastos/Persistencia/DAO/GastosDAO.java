@@ -155,9 +155,8 @@ public class GastosDAO implements IGastosDAO {
 
     @Override
     public Double GastosPorUusario(long id) {
-         EntityManager em = null;
-    Double totalGastos = null;
-
+    EntityManager em = null;
+    Double totalGastos = 0.0; // Inicializa totalGastos como 0.0
     try {
         em = emf.createEntityManager(); 
 
@@ -165,10 +164,18 @@ public class GastosDAO implements IGastosDAO {
         Query query = em.createQuery(jpql);
         query.setParameter("usuarioId", id); 
 
-        totalGastos = (Double) query.getSingleResult(); // Obtener el resultado como Double
+        // Almacena el resultado en un objeto
+        Object result = query.getSingleResult(); // Obtener el resultado como Object
+
+        // Verifica si el resultado es null
+        if (result != null) {
+            totalGastos = (Double) result; // Asigna el valor si no es null
+        } else {
+            totalGastos = 0.0; // Asegúrate de que totalGastos sea 0.0 si el resultado es null
+        }
 
     } catch (NoResultException e) {
-        // Si no hay resultados el totalGastos se queda como null
+        // Si no hay resultados, totalGastos se queda como 0.0
         totalGastos = 0.0; 
     } catch (Exception e) {
         e.printStackTrace(); 
@@ -178,14 +185,12 @@ public class GastosDAO implements IGastosDAO {
         }
     }
 
-    return totalGastos; // regresar el total de gastos
-
-    }
-
+    return totalGastos; // Regresar el total de gastos
+}
     @Override
     public Double GastosPorCategoriYusuario(long id, String categoria) {
-        EntityManager em = emf.createEntityManager();
-    Double total = 0.0;
+    EntityManager em = emf.createEntityManager();
+    Double total = 0.0; // Inicializa total como 0.0
 
     try {
         String jpql = "SELECT SUM(g.gasto) FROM Gastos g WHERE g.usuario.id = :usuarioId AND g.categoria = :categoria";
@@ -193,14 +198,22 @@ public class GastosDAO implements IGastosDAO {
         query.setParameter("usuarioId", id);
         query.setParameter("categoria", categoria);
         
-        total = (Double) query.getSingleResult();
+        // Obtén el resultado de la consulta
+        Object result = query.getSingleResult();
+        
+        // Verifica si el resultado es null antes de hacer la conversión
+        if (result != null) {
+            total = (Double) result; // Asigna el valor si no es null
+        } else {
+            total = 0.0; // Asegúrate de que total sea 0.0 si el resultado es null
+        }
     } catch (Exception e) {
         e.printStackTrace(); // Maneja la excepción como prefieras
     } finally {
         em.close();
     }
 
-    return total != null ? total : 0.0; // Devuelve 0.0 si no hay gastos
+    return total; // Devuelve total
     }
 
  }
