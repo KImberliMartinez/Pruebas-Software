@@ -134,32 +134,4 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>com.mycompany.controlgastos.ControlGastos</exec.mainClass>
     </properties>
-    <build>
-    <plugins>
-        <!-- Plugin de JaCoCo -->
-        <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.10</version> <!-- Asegúrate de usar la última versión -->
-            <executions>
-                <!-- Configuración para preparar el agente -->
-                <execution>
-                    <goals>
-                        <goal>prepare-agent</goal>
-                    </goals>
-                </execution>
-                <!-- Configuración para generar reportes -->
-                <execution>
-                    <id>report</id>
-                    <phase>verify</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <!-- Otros plugins pueden ir aquí -->
-    </plugins>
-</build>
-
 </project>

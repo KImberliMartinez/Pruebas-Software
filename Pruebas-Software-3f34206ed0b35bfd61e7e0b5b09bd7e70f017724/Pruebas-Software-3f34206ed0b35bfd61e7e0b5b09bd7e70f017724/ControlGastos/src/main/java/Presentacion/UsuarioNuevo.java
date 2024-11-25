@@ -142,7 +142,7 @@ public class UsuarioNuevo extends javax.swing.JFrame {
     }//GEN-LAST:event_ContraActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-// Verificar que no haya campos vacíos
+ // Verificar que no haya campos vacíos
     if (NombreUsuario.getText().isEmpty() || Contra.getText().isEmpty() || ConfirmaContra.getText().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
         return; // Salir del método si hay campos vacíos
@@ -209,7 +209,6 @@ private boolean isValidPassword(String password) {
     String passwordRegex = "^[a-zA-Z0-9]{6,}$";
     return password != null && password.matches(passwordRegex);
 }
-
     /**
      * @param args the command line arguments
      */
