@@ -117,7 +117,6 @@ public class Login extends javax.swing.JFrame {
         if (NombreUsuario.getText().isEmpty() || Contraseña.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
         }else{
-             
             long id=Consulta.obtenerIDusuario(NombreUsuario.getText(),Contraseña.getText());
              if (id !=0) {
                  System.out.println("mandando usuario");

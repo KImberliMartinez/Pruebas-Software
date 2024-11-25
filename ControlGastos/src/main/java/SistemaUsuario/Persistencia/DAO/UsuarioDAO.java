@@ -43,23 +43,36 @@ public class UsuarioDAO implements IUsuarioDAO {
         }
     }
 
-    @Override
+   @Override
 public long obtenerIDusuario(String nombre, String contra) {
     EntityManager em = emf.createEntityManager();
-    String jpql = "SELECT u FROM Usuarios u WHERE u.usuario = :nombre"; // Ya no se compara la contraseña aquí
+    String jpql = "SELECT u FROM Usuarios u WHERE u.usuario = :nombre"; // Consulta basada solo en el nombre de usuario
     TypedQuery<Usuarios> query = em.createQuery(jpql, Usuarios.class);
     query.setParameter("nombre", nombre);
 
     long id = 0;
     try {
-        Usuarios usuario = query.getSingleResult(); // Obtener el usuario
+        Usuarios usuario = query.getSingleResult(); // Obtener el usuario de la base de datos
 
-        // Verificar la contraseña encriptada
-        if (usuario != null && BCrypt.checkpw(contra, usuario.getContra())) {
-            // Si la contraseña es válida, devolver el ID del usuario
-            id = usuario.getId();
-        } else {
-            System.out.println("Contraseña incorrecta.");
+        if (usuario != null) {
+            // Verificar la contraseña almacenada
+            String storedPassword = usuario.getContra();
+
+            if (isBCryptHash(storedPassword)) {
+                // Si la contraseña está encriptada, verificar con BCrypt
+                if (BCrypt.checkpw(contra, storedPassword)) {
+                    id = usuario.getId(); // Contraseña válida, devolver ID
+                } else {
+                    System.out.println("Contraseña incorrecta.");
+                }
+            } else {
+                // Si la contraseña no está encriptada, comparar directamente
+                if (contra.equals(storedPassword)) {
+                    id = usuario.getId(); // Contraseña válida, devolver ID
+                } else {
+                    System.out.println("Contraseña incorrecta.");
+                }
+            }
         }
 
     } catch (NoResultException e) {
@@ -71,6 +84,12 @@ public long obtenerIDusuario(String nombre, String contra) {
 
     return id; // Devuelve 0 si no se encuentra el usuario o si la contraseña es incorrecta
 }
+
+// Método auxiliar para verificar si una contraseña almacenada es un hash de BCrypt
+private boolean isBCryptHash(String hashedPassword) {
+    return hashedPassword != null && hashedPassword.startsWith("$2a$");
+}
+
 
 
     @Override
