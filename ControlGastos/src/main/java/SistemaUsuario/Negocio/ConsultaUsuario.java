@@ -13,7 +13,7 @@ import SistemaUsuario.Persistencia.DAO.UsuarioDAO;
  * @author delll
  */
 public class ConsultaUsuario implements IConsultaUsuario{
-        IUsuarioDAO usuarios;
+        public IUsuarioDAO usuarios;
 
     public ConsultaUsuario() {
          usuarios=new UsuarioDAO();

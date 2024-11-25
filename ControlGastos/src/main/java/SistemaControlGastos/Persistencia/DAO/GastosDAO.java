@@ -215,5 +215,18 @@ public class GastosDAO implements IGastosDAO {
 
     return total; // Devuelve total
     }
-
+public Gastos obtenerUltimoGastoPorUsuario(Long usuarioId) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        String jpql = "SELECT g FROM Gastos g WHERE g.usuario.id = :usuarioId ORDER BY g.id DESC";
+        return em.createQuery(jpql, Gastos.class)
+                 .setParameter("usuarioId", usuarioId)
+                 .setMaxResults(1)
+                 .getSingleResult();
+    } catch (NoResultException e) {
+        return null;
+    } finally {
+        em.close();
+    }
+  }
  }
