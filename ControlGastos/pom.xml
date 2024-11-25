@@ -159,6 +159,15 @@
             </executions>
         </plugin>
         <!-- Otros plugins pueden ir aquí -->
+           <plugin>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-maven</artifactId>
+            <version>1.9.11</version> <!-- Cambia a la última versión disponible -->
+            <configuration>
+                <targetClasses>com.mycompany.controlgastos.*</targetClasses> <!-- Paquete objetivo -->
+                <targetTests>com.mycompany.controlgastos.*</targetTests>   <!-- Pruebas objetivo -->
+            </configuration>
+        </plugin>
     </plugins>
 </build>
 
