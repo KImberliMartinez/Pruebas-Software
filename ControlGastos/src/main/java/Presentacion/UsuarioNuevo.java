@@ -142,30 +142,53 @@ public class UsuarioNuevo extends javax.swing.JFrame {
     }//GEN-LAST:event_ContraActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        // TODO add your handling code here:
-        if (NombreUsuario.getText().isEmpty() || Contra.getText().isEmpty() || ConfirmaContra.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
-        } else {
-            if (Contra.getText().equals(ConfirmaContra.getText())) {
-                long existe = Consulta.usuarioExistente(NombreUsuario.getText());
-                if (existe ==0) {
-                    UsuariosDTO usuario = new UsuariosDTO(NombreUsuario.getText(), Contra.getText());
-                    Consulta.AgregarUsuario(usuario);
-                    JOptionPane.showMessageDialog(this, "Usuario registrado con éxito,regrese para iniciar sesion", "", JOptionPane.INFORMATION_MESSAGE);
-                    Login v = new Login();
-                    v.setVisible(true);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Este usuario ya existe,intente nuevamente", "aviso", JOptionPane.INFORMATION_MESSAGE);
-                NombreUsuario.setText("");
-                Contra.setText("");
-                ConfirmaContra.setText("");
-                }
-            }else{
-             JOptionPane.showMessageDialog(this, "No coincide las contaseñas ", "aviso", JOptionPane.INFORMATION_MESSAGE);
-             ConfirmaContra.setText("");
-            }
-         }
+ // Verificar que no haya campos vacíos
+    if (NombreUsuario.getText().isEmpty() || Contra.getText().isEmpty() || ConfirmaContra.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
+        return; // Salir del método si hay campos vacíos
+    }
+
+    // Validar nombre
+    if (!isValidName(NombreUsuario.getText())) {
+        JOptionPane.showMessageDialog(this, "El nombre solo puede contener letras y espacios.", "Error", JOptionPane.WARNING_MESSAGE);
+        NombreUsuario.setText(""); // Limpiar el campo del nombre
+        return; // Salir del método si el nombre no es válido
+    }
+
+    // Validar contraseña
+    if (!isValidPassword(Contra.getText())) {
+        JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos 6 caracteres y contener solo letras y números.", "Error", JOptionPane.WARNING_MESSAGE);
+        Contra.setText(""); // Limpiar el campo de la contraseña
+        ConfirmaContra.setText(""); // Limpiar la confirmación de contraseña
+        return; // Salir del método si la contraseña no es válida
+    }
+
+    // Comprobar que las contraseñas coinciden
+    if (!Contra.getText().equals(ConfirmaContra.getText())) {
+        JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.WARNING_MESSAGE);
+        ConfirmaContra.setText(""); // Limpiar la confirmación de contraseña
+        return; // Salir del método si las contraseñas no coinciden
+    }
+
+    // Verificar si el usuario ya existe
+    long existe = Consulta.usuarioExistente(NombreUsuario.getText());
+    if (existe == 0) {
+        // Crear el objeto usuario y agregarlo a la base de datos
+        UsuariosDTO usuario = new UsuariosDTO(NombreUsuario.getText(), Contra.getText());
+        Consulta.AgregarUsuario(usuario);
+
+        // Mensaje de éxito y redirección al login
+        JOptionPane.showMessageDialog(this, "Usuario registrado con éxito, regrese para iniciar sesión", "", JOptionPane.INFORMATION_MESSAGE);
+        Login v = new Login();
+        v.setVisible(true);
+        dispose();
+    } else {
+        // Mensaje si el usuario ya existe
+        JOptionPane.showMessageDialog(this, "Este usuario ya existe, intente nuevamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        NombreUsuario.setText(""); // Limpiar el campo del nombre
+        Contra.setText(""); // Limpiar la contraseña
+        ConfirmaContra.setText(""); // Limpiar la confirmación de contraseña
+    }
     }//GEN-LAST:event_agregarActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
@@ -175,7 +198,17 @@ public class UsuarioNuevo extends javax.swing.JFrame {
         dispose();
 
     }//GEN-LAST:event_salirActionPerformed
+// Validar nombre
+private boolean isValidName(String name) {
+    String nameRegex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+    return name != null && name.matches(nameRegex);
+}
 
+// Validar contraseña
+private boolean isValidPassword(String password) {
+    String passwordRegex = "^[a-zA-Z0-9]{6,}$";
+    return password != null && password.matches(passwordRegex);
+}
     /**
      * @param args the command line arguments
      */
