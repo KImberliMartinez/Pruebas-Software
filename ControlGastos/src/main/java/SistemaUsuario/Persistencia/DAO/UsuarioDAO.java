@@ -10,7 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import org.mindrot.jbcrypt.BCrypt;
+
 /**
  *
  * @author delll
@@ -27,9 +27,6 @@ public class UsuarioDAO implements IUsuarioDAO {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            // Encriptar la contraseña antes de persistir el usuario
-            String hashedPassword = BCrypt.hashpw(usuario.getContra(), BCrypt.gensalt());
-            usuario.setContra(hashedPassword);  // Establecer la contraseña encriptada
             em.persist(usuario);
             usuario.toString();
             System.out.println("enviado a la bd");
@@ -43,54 +40,25 @@ public class UsuarioDAO implements IUsuarioDAO {
         }
     }
 
-   @Override
-public long obtenerIDusuario(String nombre, String contra) {
-    EntityManager em = emf.createEntityManager();
-    String jpql = "SELECT u FROM Usuarios u WHERE u.usuario = :nombre"; // Consulta basada solo en el nombre de usuario
-    TypedQuery<Usuarios> query = em.createQuery(jpql, Usuarios.class);
-    query.setParameter("nombre", nombre);
+    @Override
+    public long obtenerIDusuario(String nombre, String contra) {
+        EntityManager em = emf.createEntityManager();
+        String jpql = "SELECT u.id FROM Usuarios u WHERE u.usuario = :nombre AND u.contra = :contra";
+        TypedQuery<Long> query = em.createQuery(jpql, Long.class);
+        query.setParameter("nombre", nombre);
+        query.setParameter("contra", contra);
 
-    long id = 0;
-    try {
-        Usuarios usuario = query.getSingleResult(); // Obtener el usuario de la base de datos
+        long id = 0;
+        try {
+            id = query.getSingleResult();
+        } catch (NoResultException e) {
+            // Manejar caso cuando no se encuentra un usuario
+            System.out.println("Usuario no encontrado.");
 
-        if (usuario != null) {
-            // Verificar la contraseña almacenada
-            String storedPassword = usuario.getContra();
-
-            if (isBCryptHash(storedPassword)) {
-                // Si la contraseña está encriptada, verificar con BCrypt
-                if (BCrypt.checkpw(contra, storedPassword)) {
-                    id = usuario.getId(); // Contraseña válida, devolver ID
-                } else {
-                    System.out.println("Contraseña incorrecta.");
-                }
-            } else {
-                // Si la contraseña no está encriptada, comparar directamente
-                if (contra.equals(storedPassword)) {
-                    id = usuario.getId(); // Contraseña válida, devolver ID
-                } else {
-                    System.out.println("Contraseña incorrecta.");
-                }
-            }
         }
 
-    } catch (NoResultException e) {
-        // Manejar caso cuando no se encuentra un usuario
-        System.out.println("Usuario no encontrado.");
-    } finally {
-        em.close();
+        return id; // Devuelve 0 si no se encuentra el usuario
     }
-
-    return id; // Devuelve 0 si no se encuentra el usuario o si la contraseña es incorrecta
-}
-
-// Método auxiliar para verificar si una contraseña almacenada es un hash de BCrypt
-private boolean isBCryptHash(String hashedPassword) {
-    return hashedPassword != null && hashedPassword.startsWith("$2a$");
-}
-
-
 
     @Override
     public long usuarioExistente(String nombre) {
@@ -133,14 +101,4 @@ private boolean isBCryptHash(String hashedPassword) {
 
         return usuario; // Devuelve el usuario o null si no se encontró
         }
-    
-     // Método para encriptar la contraseña usando BCrypt
-    private String hashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
-    }
-    
-    // Método para verificar la contraseña (al hacer login)
-    public boolean verifyPassword(String password, String storedHashedPassword) {
-        return BCrypt.checkpw(password, storedHashedPassword);
-    }
 }
