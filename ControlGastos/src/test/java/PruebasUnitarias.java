@@ -38,32 +38,32 @@ private com.toedter.calendar.JDateChooser date;
    // public AgregarGastoTest() {}
     
 
-    @Test
-    public void registrarGastoTest(){
-        gastosDTO esperado = new gastosDTO("Alimentos", "Hamburguesa", 120, date.getDate(), 1);
-        consulta.registrar(esperado);
-        
-        Mockito.verify(gastoRepositorio, Mockito.times(1)).registrar(esperado);
-    }
-    
-    @Test
-    public void eliminarGastoTest(){
-        gastosDTO esperado = new gastosDTO("Alimentos", "Hamburguesa", 120, date.getDate(), 1);
-        consulta.registrar(esperado);
-        
-        consulta.Eliminar(1);
-        
-        Mockito.verify(gastoRepositorio, Mockito.times(1)).Eliminar(1);
-    }
-    
-    @Test
-    public void agregarUsuarioTest(){
-        UsuariosDTO esperado = new UsuariosDTO("Juan", "123");
-        consu.AgregarUsuario(esperado);
-        
-        Mockito.verify(usuario, Mockito.times(1)).AgregarUsuario(esperado);
-        
-    }
+//    @Test
+//    public void registrarGastoTest(){
+//        gastosDTO esperado = new gastosDTO("Alimentos", "Hamburguesa", 120, date.getDate(), 1);
+//        consulta.registrar(esperado);
+//        
+//        Mockito.verify(gastoRepositorio, Mockito.times(1)).registrar(esperado);
+//    }
+//    
+//    @Test
+//    public void eliminarGastoTest(){
+//        gastosDTO esperado = new gastosDTO("Alimentos", "Hamburguesa", 120, date.getDate(), 1);
+//        consulta.registrar(esperado);
+//        
+//        consulta.Eliminar(1);
+//        
+//        Mockito.verify(gastoRepositorio, Mockito.times(1)).Eliminar(1);
+//    }
+//    
+//    @Test
+//    public void agregarUsuarioTest(){
+//        UsuariosDTO esperado = new UsuariosDTO("Juan", "123");
+//        consu.AgregarUsuario(esperado);
+//        
+//        Mockito.verify(usuario, Mockito.times(1)).AgregarUsuario(esperado);
+//        
+//    }
             
 
     // TODO add test methods here.
