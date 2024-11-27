@@ -111,7 +111,13 @@
         <artifactId>jbcrypt</artifactId>
         <version>0.4</version>
     </dependency>
-        
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.3.1</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <repositories>
     <repository>
@@ -135,24 +141,31 @@
         <!-- Plugin de JaCoCo -->
         <plugin>
             <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.10</version> <!-- Asegúrate de usar la última versión -->
-            <executions>
-                <!-- Configuración para preparar el agente -->
-                <execution>
-                    <goals>
-                        <goal>prepare-agent</goal>
-                    </goals>
-                </execution>
-                <!-- Configuración para generar reportes -->
-                <execution>
-                    <id>report</id>
-                    <phase>verify</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                </execution>
-            </executions>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.8</version>
+    <configuration>
+        <excludes>
+            <!-- Excluir todas las clases en el paquete presentacion -->
+            <exclude>**/Presentacion/**</exclude>
+            <!-- Excluir todas las interfaces -->
+            
+            <exclude>**/I*.class</exclude>
+        </excludes>
+    </configuration>
+    <executions>
+        <execution>
+            <goals>
+                <goal>prepare-agent</goal>
+            </goals>
+        </execution>
+        <execution>
+            <id>report</id>
+            <phase>verify</phase>
+            <goals>
+                <goal>report</goal>
+            </goals>
+        </execution>
+    </executions>
         </plugin>
         <!-- Otros plugins pueden ir aquí -->
            <plugin>

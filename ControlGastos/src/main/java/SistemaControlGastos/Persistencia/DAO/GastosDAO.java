@@ -23,7 +23,7 @@ import javax.persistence.TypedQuery;
  */
 public class GastosDAO implements IGastosDAO {
 
-    private EntityManagerFactory emf;
+    public EntityManagerFactory emf;
 
     public GastosDAO() {
         emf = Persistence.createEntityManagerFactory("ConexionPU");

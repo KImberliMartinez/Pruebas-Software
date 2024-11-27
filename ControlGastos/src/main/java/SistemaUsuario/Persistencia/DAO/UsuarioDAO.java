@@ -16,7 +16,7 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author delll
  */
 public class UsuarioDAO implements IUsuarioDAO {
-     private EntityManagerFactory emf;
+     public EntityManagerFactory emf;
 
     public UsuarioDAO() {
       emf = Persistence.createEntityManagerFactory("ConexionPU");

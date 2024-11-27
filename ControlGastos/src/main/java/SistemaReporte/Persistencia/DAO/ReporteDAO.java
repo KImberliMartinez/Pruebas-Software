@@ -17,7 +17,7 @@ import javax.persistence.TypedQuery;
  * @author delll
  */
 public class ReporteDAO implements IReporteDAO {
-  private EntityManagerFactory emf;
+  public EntityManagerFactory emf;
     public ReporteDAO() {
           emf = Persistence.createEntityManagerFactory("ConexionPU");
 

@@ -20,18 +20,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
  *
  * @author Angel Santos
  */
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
 
 public class PruebasUnitarias {
-private com.toedter.calendar.JDateChooser date;
-    
-    @Mock
-    private IconsultaGastos gastoRepositorio;
-    private IConsultaUsuario usuario;
-    
-    @InjectMocks
-    private consultaGastos consulta;
-    private ConsultaUsuario consu;
+//private com.toedter.calendar.JDateChooser date;
+//    
+//    @Mock
+//    private IconsultaGastos gastoRepositorio;
+//    private IConsultaUsuario usuario;
+//    
+//    @InjectMocks
+//    private consultaGastos consulta;
+//    private ConsultaUsuario consu;
     
     
     
