@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
  */
 
+import SistemaControlGastos.Negocio.IconsultaGastos;
+import SistemaControlGastos.Negocio.consultaGastos;
+import SistemaControlGastos.Negocio.gastosDTO;
 import SistemaControlGastos.Persistencia.DAO.GastosDAO;
 import SistemaControlGastos.Persistencia.Entidades.Gastos;
 import org.junit.jupiter.api.*;
@@ -26,28 +29,28 @@ public class GastosDAOTest {
     @Mock
     private EntityTransaction transactionMock;
 
-    private GastosDAO gastosDAO;
+    private IconsultaGastos gastosDAO;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         when(emfMock.createEntityManager()).thenReturn(emMock);
         when(emMock.getTransaction()).thenReturn(transactionMock);
-        gastosDAO = new GastosDAO() {
+        gastosDAO = new consultaGastos(){
             {
-                emf = emfMock; // Inyectar el mock
+                EntityManagerFactory emf = emfMock; // Inyectar el mock
             }
         };
     }
 
     @Test
     void testAgregar() {
-        Gastos gasto = new Gastos();
+        gastosDTO gasto = new gastosDTO();
 
         doNothing().when(emMock).persist(gasto);
         doNothing().when(transactionMock).commit();
 
-        assertDoesNotThrow(() -> gastosDAO.Agregar(gasto));
+        assertDoesNotThrow(() -> gastosDAO.registrar(gasto));
         verify(emMock).persist(gasto);
         verify(transactionMock).commit();
         verify(emMock).close();
@@ -55,11 +58,11 @@ public class GastosDAOTest {
 
     @Test
     void testAgregarConExcepcion() {
-        Gastos gasto = new Gastos();
+        gastosDTO gasto = new gastosDTO();
 
         doThrow(new RuntimeException("Error simulado")).when(emMock).persist(gasto);
 
-        assertDoesNotThrow(() -> gastosDAO.Agregar(gasto));
+        assertDoesNotThrow(() -> gastosDAO.registrar(gasto));
         verify(emMock).close();
     }
 
@@ -114,7 +117,7 @@ public class GastosDAOTest {
         when(queryMock.setParameter(anyString(), any())).thenReturn(queryMock);
         when(queryMock.getResultList()).thenReturn(expectedList);
 
-        List<Gastos> result = gastosDAO.listaPorPeriodo(new Date(), new Date());
+        List<gastosDTO> result = gastosDAO.listaPorPeriodo(new Date(), new Date());
         assertEquals(expectedList, result);
         verify(emMock).close();
     }
@@ -149,13 +152,13 @@ public class GastosDAOTest {
     void testObtenerUltimoGastoPorUsuario() {
         TypedQuery<Gastos> queryMock = mock(TypedQuery.class);
         Gastos expectedGasto = new Gastos();
-
+        GastosDAO g= new GastosDAO();
         when(emMock.createQuery(anyString(), eq(Gastos.class))).thenReturn(queryMock);
         when(queryMock.setParameter(anyString(), any())).thenReturn(queryMock);
         when(queryMock.setMaxResults(1)).thenReturn(queryMock);
         when(queryMock.getSingleResult()).thenReturn(expectedGasto);
 
-        Gastos result = gastosDAO.obtenerUltimoGastoPorUsuario(1L);
+        Gastos result = g.obtenerUltimoGastoPorUsuario(1L);
         assertEquals(expectedGasto, result);
         verify(emMock).close();
     }
