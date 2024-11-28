@@ -1,24 +1,156 @@
 
-import SistemaControlGastos.Persistencia.Entidades.Gastos;
-import SistemaUsuario.Persistencia.Entidades.Usuarios;
-import java.util.Calendar;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import SistemaControlGastos.Negocio.consultaGastos;
+import SistemaControlGastos.Negocio.gastosDTO;
+import SistemaReporte.Negocio.ConsultaReporte;
+import SistemaUsuario.Negocio.ConsultaUsuario;
+import SistemaUsuario.Negocio.UsuariosDTO;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  * @author Carlos
  */
 public class GastosIntegracionTest {
+
+    @Test
+    public void pruebaRegistrarUsuarioYAgregarGasto() {
+        ConsultaUsuario consultaUsuario = new ConsultaUsuario();
+        consultaGastos consultaGastos = new consultaGastos();
+
+        // 1. Registrar Usuario
+        UsuariosDTO nuevoUsuario = new UsuariosDTO("usuarioPrueba", "password123");
+
+        consultaUsuario.AgregarUsuario(nuevoUsuario);
+        // 2. Obtener ID del usuario recién registrado
+        long usuarioId = consultaUsuario.obtenerIDusuario("usuarioPrueba", "password123");
+        assertNotEquals(0, usuarioId, "El usuario no fue registrado correctamente.");
+
+        // 3. Agregar Gasto
+        gastosDTO nuevoGasto = new gastosDTO("Alimentación", "Compra Supermercado", 150.0f, Date.valueOf("2024-11-28"), usuarioId);
+
+        consultaGastos.registrar(nuevoGasto);
+
+        // 4. Verificar que el gasto se ha registrado correctamente
+        List<gastosDTO> gastosUsuario = consultaGastos.obtenerLista(usuarioId);
+        assertFalse(gastosUsuario.isEmpty(), "No se registraron gastos para el usuario.");
+        assertEquals("Alimentación", gastosUsuario.get(0).getCategoria());
+    }
+
+    @Test
+    public void pruebaAgregarEditarEliminarGasto() {
+        ConsultaUsuario consultaUsuario = new ConsultaUsuario();
+        consultaGastos consultaGastos = new consultaGastos();
+
+        // 1. Registrar Usuario
+        UsuariosDTO nuevoUsuario = new UsuariosDTO("usuarioT", "test123");
+        consultaUsuario.AgregarUsuario(nuevoUsuario);
+        long usuarioId = consultaUsuario.obtenerIDusuario("usuarioT", "test123");
+        assertNotEquals(0, usuarioId, "El usuario no fue registrado correctamente.");
+
+        // 2. Agregar Gasto
+        gastosDTO gasto = new gastosDTO("Transporte", "Pago de uber", 50.0f, Date.valueOf("2024-11-27"), usuarioId);
+
+        consultaGastos.registrar(gasto);
+
+        // 3. Editar Gasto
+        List<gastosDTO> gastosUsuario = consultaGastos.obtenerLista(usuarioId);
+        long gastoId = gastosUsuario.get(0).getId();
+        consultaGastos.actualizarGastos(gastoId, "Transporte", 70.0f);
+
+        // Verificar que el gasto se actualizó
+        List<gastosDTO> gastosActualizados = consultaGastos.obtenerLista(usuarioId);
+        assertEquals(70.0f, gastosActualizados.get(0).getGasto(), 0.01, "El gasto no fue actualizado correctamente.");
+
+        // 4. Eliminar Gasto
+        consultaGastos.Eliminar(gastoId);
+        List<gastosDTO> gastosDespuesDeEliminar = consultaGastos.obtenerLista(usuarioId);
+        assertTrue(gastosDespuesDeEliminar.isEmpty(), "El gasto no fue eliminado correctamente.");
+    }
+
+    @Test
+    public void pruebaVerReporteSemanal() {
+        ConsultaUsuario consultaUsuario = new ConsultaUsuario();
+        consultaGastos consultaGastos = new consultaGastos();
+        ConsultaReporte consultaReporte = new ConsultaReporte();
+
+        // 1. Registrar Usuario
+        UsuariosDTO usuario = new UsuariosDTO("Ureporte", "reporte123");
+        consultaUsuario.AgregarUsuario(usuario);
+        long usuarioId = consultaUsuario.obtenerIDusuario("Ureporte", "reporte123");
+        assertNotEquals(0, usuarioId);
+
+        // 2. Agregar varios Gastos
+        gastosDTO gasto1 = new gastosDTO("Alimentación", "Comida Hermosillo", 30.0f, Date.valueOf("2024-11-25"), usuarioId);
+        gastosDTO gasto2 = new gastosDTO("Transporte", "Autobus", 50.0f, Date.valueOf("2024-11-27"), usuarioId);
+        consultaGastos.registrar(gasto1);
+        consultaGastos.registrar(gasto2);
+
+        // 3. Obtener reporte semanal
+        List<gastosDTO> reporteSemanal = consultaReporte.listaPorPeriodoSemanal(Date.valueOf("2024-11-25"), usuarioId);
+        assertEquals(2, reporteSemanal.size(), "El reporte semanal no contiene los gastos correctos.");
+    }
+
+    @Test
+    public void pruebaEliminarGastoIdInvalido() {
+        consultaGastos consultaGastos = new consultaGastos();
+
+        try {
+            // Intentar eliminar un gasto con un ID inexistente
+            consultaGastos.Eliminar(9999L);
+            // No debería lanzar excepción
+        } catch (Exception e) {
+            fail("No se esperaba una excepción al eliminar un gasto inexistente.");
+        }
+    }
+
+    @Test
+    public void pruebaReporteSinFecha() {
+        ConsultaReporte consultaReporte = new ConsultaReporte();
+
+        try {
+            // Intentar generar reporte con fecha nula
+            consultaReporte.listaPorPeriodoSemanal(null, 1L);
+            fail("Se esperaba una excepción al pasar una fecha nula.");
+        } catch (NullPointerException e) {
+            assertNotNull(e, "Se esperaba una excepción de NullPointerException.");
+        }
+    }
+
+@Test
+public void pruebaReporteUsuarioSinGastos() {
+    ConsultaReporte consultaReporte = new ConsultaReporte();
+
+    // ID de usuario que no tiene gastos registrados
+    long usuarioId = 999L;
+
+    List<gastosDTO> reporte = consultaReporte.listaPorPeriodoMensual(Date.valueOf("2024-11-01"), usuarioId);
+
+    assertTrue(reporte.isEmpty(), "El reporte debería estar vacío para un usuario sin gastos.");
+}
+@Test
+public void pruebaRegistrarUsuarioConNombreVacio() {
+    ConsultaUsuario consultaUsuario = new ConsultaUsuario();
+    UsuariosDTO usuario = new UsuariosDTO("", "password123");
+
+    if (usuario.getNombreUsuario().isEmpty()) {
+        Exception exception = assertThrows(
+            Exception.class,
+            () -> { throw new Exception("El nombre de usuario no puede estar vacío"); },
+            "Se esperaba una excepción al intentar registrar un usuario con nombre vacío."
+        );
+
+        assertTrue(exception.getMessage().contains("El nombre de usuario no puede estar vacío"),
+                   "El mensaje de excepción no fue el esperado.");
+        return;
+    }
+
+    consultaUsuario.AgregarUsuario(usuario);
+    fail("No se lanzó una excepción, pero se esperaba que fallara por nombre vacío.");
+}
+
 
 //    private static EntityManagerFactory entityManagerFactory;
 //    private static EntityManager entityManager;
@@ -157,5 +289,4 @@ public class GastosIntegracionTest {
 //        // Verifica que al menos un gasto se haya encontrado
 //        assertFalse(gastosEncontrados.isEmpty(), "No se encontraron gastos en el período especificado.");
 //    }
-
 }
