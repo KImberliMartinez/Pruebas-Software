@@ -1,3 +1,5 @@
+package TestPersistencia;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
@@ -129,53 +131,10 @@ public void testUsuarioExistente() {
 
 
 
-//@Test
-//public void testObtenerSoloUsuario() {
-//    UsuarioDAO dao = new UsuarioDAO();
-//    long id = 1; // Usar un ID válido existente en tu base de datos para la prueba
-//
-//    Usuarios usuario = dao.obtenerSoloUusario(id);
-//
-//    assertNotNull(usuario); // Validar que el usuario no es nulo
-//    assertEquals(id, usuario.getId()); // Validar que el ID coincide
-//}
+
 
     
 }
 
 
 
-//    @Test
-//    public void testAgregarUsuario() {
-//        // Configurar el mock de EntityManager y EntityManagerFactory
-//        EntityManager emMock = Mockito.mock(EntityManager.class);
-//        EntityManagerFactory emfMock = Mockito.mock(EntityManagerFactory.class);
-//
-//        // Configurar la fábrica para devolver el EntityManager simulado
-//        when(emfMock.createEntityManager()).thenReturn(emMock);
-//
-//        // Crear un mock de transacción para manejar begin() y commit()
-//        EntityTransaction transactionMock = Mockito.mock(EntityTransaction.class);
-//        when(emMock.getTransaction()).thenReturn(transactionMock);
-//
-//        // Instanciar la clase DAO con el mock de la fábrica
-//        UsuarioDAO dao = new UsuarioDAO() {
-//            {
-//                emf = emfMock;
-//            }
-//        };
-//
-//        // Crear un usuario para agregar
-//        Usuarios usuario = new Usuarios();
-//        usuario.setUsuario("usuarioTest");
-//        usuario.setContra("contraseñaTest");
-//
-//        // Ejecutar el método
-//        dao.AgregarUsuario(usuario);
-//
-//        // Verificar que las operaciones de persistencia se ejecutaron correctamente
-//        verify(emMock).persist(any(Usuarios.class)); // Validar que persist fue llamado
-//        verify(transactionMock).begin(); // Validar que la transacción inició
-//        verify(transactionMock).commit(); // Validar que la transacción se confirmó
-//        verify(emMock).close(); // Validar que el EntityManager se cerró
-//    }

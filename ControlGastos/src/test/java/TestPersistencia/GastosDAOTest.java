@@ -1,11 +1,11 @@
+package TestPersistencia;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
  */
 
-import SistemaControlGastos.Negocio.IconsultaGastos;
-import SistemaControlGastos.Negocio.consultaGastos;
-import SistemaControlGastos.Negocio.gastosDTO;
+
 import SistemaControlGastos.Persistencia.DAO.GastosDAO;
 import SistemaControlGastos.Persistencia.Entidades.Gastos;
 import org.junit.jupiter.api.*;
@@ -29,28 +29,28 @@ public class GastosDAOTest {
     @Mock
     private EntityTransaction transactionMock;
 
-    private IconsultaGastos gastosDAO;
+     private GastosDAO gastosDAO;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         when(emfMock.createEntityManager()).thenReturn(emMock);
         when(emMock.getTransaction()).thenReturn(transactionMock);
-        gastosDAO = new consultaGastos(){
+        gastosDAO = new GastosDAO() {
             {
-                EntityManagerFactory emf = emfMock; // Inyectar el mock
+                 emf = emfMock; // Inyectar el mock
             }
         };
     }
 
     @Test
     void testAgregar() {
-        gastosDTO gasto = new gastosDTO();
+        Gastos gasto = new Gastos();
 
         doNothing().when(emMock).persist(gasto);
         doNothing().when(transactionMock).commit();
 
-        assertDoesNotThrow(() -> gastosDAO.registrar(gasto));
+        assertDoesNotThrow(() -> gastosDAO.Agregar(gasto));
         verify(emMock).persist(gasto);
         verify(transactionMock).commit();
         verify(emMock).close();
@@ -58,11 +58,11 @@ public class GastosDAOTest {
 
     @Test
     void testAgregarConExcepcion() {
-        gastosDTO gasto = new gastosDTO();
+        Gastos gasto = new Gastos();
 
         doThrow(new RuntimeException("Error simulado")).when(emMock).persist(gasto);
 
-        assertDoesNotThrow(() -> gastosDAO.registrar(gasto));
+        assertDoesNotThrow(() -> gastosDAO.Agregar(gasto));
         verify(emMock).close();
     }
 
@@ -117,7 +117,7 @@ public class GastosDAOTest {
         when(queryMock.setParameter(anyString(), any())).thenReturn(queryMock);
         when(queryMock.getResultList()).thenReturn(expectedList);
 
-        List<gastosDTO> result = gastosDAO.listaPorPeriodo(new Date(), new Date());
+        List<Gastos> result = gastosDAO.listaPorPeriodo(new Date(), new Date());
         assertEquals(expectedList, result);
         verify(emMock).close();
     }
@@ -152,24 +152,27 @@ public class GastosDAOTest {
     void testObtenerUltimoGastoPorUsuario() {
         TypedQuery<Gastos> queryMock = mock(TypedQuery.class);
         Gastos expectedGasto = new Gastos();
-        GastosDAO g= new GastosDAO();
+        
         when(emMock.createQuery(anyString(), eq(Gastos.class))).thenReturn(queryMock);
         when(queryMock.setParameter(anyString(), any())).thenReturn(queryMock);
         when(queryMock.setMaxResults(1)).thenReturn(queryMock);
         when(queryMock.getSingleResult()).thenReturn(expectedGasto);
 
-        Gastos result = g.obtenerUltimoGastoPorUsuario(1L);
+        Gastos result = gastosDAO.obtenerUltimoGastoPorUsuario(1L);
         assertEquals(expectedGasto, result);
         verify(emMock).close();
     }
 
     @Test
     void testActualizarGastosConExcepcion() {
-        // Simula una excepción al ejecutar la consulta de actualización
-        when(emMock.createQuery(anyString())).thenThrow(new RuntimeException("Error en actualización"));
+        // Simula la creación de la consulta
+    when(emMock.createQuery(anyString())).thenThrow(new RuntimeException("Error en actualización"));
 
-        assertDoesNotThrow(() -> gastosDAO.actualizarGastos(1L, "Comida", 100.0F));
-        verify(emMock).close();
+    // Ejecutar el método y verificar que no se lanza ninguna excepción
+    assertDoesNotThrow(() -> gastosDAO.actualizarGastos(1L, "Comida", 100.0F));
+
+    // Verificar que el EntityManager fue cerrado
+    verify(emMock).close();
     }
 
     @Test
@@ -192,60 +195,15 @@ public class GastosDAOTest {
 
     @Test
     void testGastosPorCategoriaYUsuarioConExcepcion() {
-        // Simula una excepción al intentar obtener gastos por categoría y usuario
-        when(emMock.createQuery(anyString())).thenThrow(new RuntimeException("Error en consulta de categoría"));
+        // Simula que se lanza una excepción cuando se crea la consulta
+    when(emMock.createQuery(anyString())).thenThrow(new RuntimeException("Error en consulta de categoría"));
 
-        assertDoesNotThrow(() -> gastosDAO.GastosPorCategoriYusuario(1L, "Comida"));
-        verify(emMock).close();
+    // Verificar que no se lanza una excepción al llamar al método
+    assertDoesNotThrow(() -> gastosDAO.GastosPorCategoriYusuario(1L, "Comida"));
+
+    // Verificar que el método close() se llama para cerrar el EntityManager
+    verify(emMock).close();
     }
 
-//@Test
-//void testObtenerUltimoGastoPorUsuarioConExcepcion() {
-//    // Simula una excepción al intentar obtener el último gasto de un usuario
-//    when(emMock.createQuery(anyString(), eq(Gastos.class)))
-//            .thenThrow(new RuntimeException("Error en consulta de último gasto"));
-//
-//    assertDoesNotThrow(() -> gastosDAO.obtenerUltimoGastoPorUsuario(1L));
-//    verify(emMock).close();
-//}
-//    @Test
-//    void testObtenerLista() {
-//        List<Gastos> expectedList = new ArrayList<>();
-//        TypedQuery<Gastos> queryMock = mock(TypedQuery.class);
-//
-//        when(emMock.createQuery(anyString())).thenReturn(queryMock);
-//        when(queryMock.setParameter(anyString(), anyLong())).thenReturn(queryMock);
-//        when(queryMock.getResultList()).thenReturn(expectedList);
-//
-//        List<Gastos> result = gastosDAO.obtenerLista(45L);
-//
-//        assertEquals(expectedList, result);
-//        verify(emMock).close();
-//    }
-//@Test
-//void testObtenerGastosTotalesPorPeriodoConExcepcion() {
-//    // Simula una excepción en la consulta de suma de gastos
-//    when(emMock.createQuery(anyString(), eq(Double.class)))
-//            .thenThrow(new RuntimeException("Error en la consulta de suma"));
-//
-//    assertDoesNotThrow(() -> gastosDAO.obtenerGastosTotalesPorPeriodo(new Date(), new Date()));
-//    verify(emMock).close();
-//}
-//@Test
-//void testListaPorPeriodoConExcepcion() {
-//    // Simula una excepción al intentar obtener la lista de gastos por periodo
-//    when(emMock.createQuery(anyString(), eq(Gastos.class)))
-//            .thenThrow(new RuntimeException("Error en consulta por periodo"));
-//
-//    assertDoesNotThrow(() -> gastosDAO.listaPorPeriodo(new Date(), new Date()));
-//    verify(emMock).close();
-//}
-//    @Test
-//void testObtenerListaConExcepcion() {
-//    // Simula una excepción en la creación de consulta
-//    when(emMock.createQuery(anyString())).thenThrow(new RuntimeException("Error en JPQL"));
-//
-//    assertDoesNotThrow(() -> gastosDAO.obtenerLista(1L));
-//    verify(emMock).close();
-//}
+
 }

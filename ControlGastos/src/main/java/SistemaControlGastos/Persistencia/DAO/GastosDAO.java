@@ -61,26 +61,27 @@ public class GastosDAO implements IGastosDAO {
     @Override
     public void actualizarGastos(long id,String categoria, Float gasto) {
         EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
+    try {
+        em.getTransaction().begin();
 
-            // Crear la consulta JPQL para actualizar el gasto
-            String jpql = "UPDATE Gastos g SET g.categoria = :categoria, g.gasto = :gasto WHERE g.id = :id";
-            em.createQuery(jpql)
-                    .setParameter("categoria", categoria)
-                    .setParameter("gasto", gasto)
-                    .setParameter("id", id)
-                    .executeUpdate();
+        // Crear la consulta JPQL para actualizar el gasto
+        String jpql = "UPDATE Gastos g SET g.categoria = :categoria, g.gasto = :gasto WHERE g.id = :id";
+        em.createQuery(jpql)
+            .setParameter("categoria", categoria)
+            .setParameter("gasto", gasto)
+            .setParameter("id", id)
+            .executeUpdate();
 
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            em.close();
+        em.getTransaction().commit();
+    } catch (Exception e) {
+        // Si ocurre un error, hacer rollback y solo imprimir el mensaje de la excepción
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
         }
+        System.err.println("Error en actualización: " + e.getMessage());
+    } finally {
+        em.close();
+    }
 
     }
 
@@ -178,7 +179,8 @@ public class GastosDAO implements IGastosDAO {
         // Si no hay resultados, totalGastos se queda como 0.0
         totalGastos = 0.0; 
     } catch (Exception e) {
-        e.printStackTrace(); 
+         
+        System.out.println("Error al obtener los gastos por Usuario");
     } finally {
         if (em != null) {
             em.close(); 
@@ -208,7 +210,8 @@ public class GastosDAO implements IGastosDAO {
             total = 0.0; // Asegúrate de que total sea 0.0 si el resultado es null
         }
     } catch (Exception e) {
-        e.printStackTrace(); // Maneja la excepción como prefieras
+        
+        System.out.println("Error al obtener los gastos");
     } finally {
         em.close();
     }

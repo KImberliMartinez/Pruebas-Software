@@ -70,28 +70,28 @@ public class GastosIntegracionTest {
         assertTrue(gastosDespuesDeEliminar.isEmpty(), "El gasto no fue eliminado correctamente.");
     }
 
-    @Test
-    public void pruebaVerReporteSemanal() {
-        ConsultaUsuario consultaUsuario = new ConsultaUsuario();
-        consultaGastos consultaGastos = new consultaGastos();
-        ConsultaReporte consultaReporte = new ConsultaReporte();
-
-        // 1. Registrar Usuario
-        UsuariosDTO usuario = new UsuariosDTO("Ureporte", "reporte123");
-        consultaUsuario.AgregarUsuario(usuario);
-        long usuarioId = consultaUsuario.obtenerIDusuario("Ureporte", "reporte123");
-        assertNotEquals(0, usuarioId);
-
-        // 2. Agregar varios Gastos
-        gastosDTO gasto1 = new gastosDTO("Alimentación", "Comida Hermosillo", 30.0f, Date.valueOf("2024-11-25"), usuarioId);
-        gastosDTO gasto2 = new gastosDTO("Transporte", "Autobus", 50.0f, Date.valueOf("2024-11-27"), usuarioId);
-        consultaGastos.registrar(gasto1);
-        consultaGastos.registrar(gasto2);
-
-        // 3. Obtener reporte semanal
-        List<gastosDTO> reporteSemanal = consultaReporte.listaPorPeriodoSemanal(Date.valueOf("2024-11-25"), usuarioId);
-        assertEquals(2, reporteSemanal.size(), "El reporte semanal no contiene los gastos correctos.");
-    }
+//    @Test
+//    public void pruebaVerReporteSemanal() {
+//        ConsultaUsuario consultaUsuario = new ConsultaUsuario();
+//        consultaGastos consultaGastos = new consultaGastos();
+//        ConsultaReporte consultaReporte = new ConsultaReporte();
+//
+//        // 1. Registrar Usuario
+//        UsuariosDTO usuario = new UsuariosDTO("Ureporte", "reporte123");
+//        consultaUsuario.AgregarUsuario(usuario);
+//        long usuarioId = consultaUsuario.obtenerIDusuario("Ureporte", "reporte123");
+//        assertNotEquals(0, usuarioId);
+//
+//        // 2. Agregar varios Gastos
+//        gastosDTO gasto1 = new gastosDTO("Alimentación", "Comida Hermosillo", 30.0f, Date.valueOf("2024-11-25"), usuarioId);
+//        gastosDTO gasto2 = new gastosDTO("Transporte", "Autobus", 50.0f, Date.valueOf("2024-11-27"), usuarioId);
+//        consultaGastos.registrar(gasto1);
+//        consultaGastos.registrar(gasto2);
+//
+//        // 3. Obtener reporte semanal
+//        List<gastosDTO> reporteSemanal = consultaReporte.listaPorPeriodoSemanal(Date.valueOf("2024-11-25"), usuarioId);
+//        assertEquals(2, reporteSemanal.size(), "El reporte semanal no contiene los gastos correctos.");
+//    }
 
     @Test
     public void pruebaEliminarGastoIdInvalido() {

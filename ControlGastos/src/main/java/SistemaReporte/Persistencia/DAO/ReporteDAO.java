@@ -42,7 +42,7 @@ public class ReporteDAO implements IReporteDAO {
 
         @Override
 public List<Gastos> listaPorPeriodoYUsuario(Date startDate, Date endDate, long usuarioId) {
-    EntityManager em = emf.createEntityManager();
+     EntityManager em = emf.createEntityManager();
 
     try {
         em.getTransaction().begin();
@@ -59,12 +59,15 @@ public List<Gastos> listaPorPeriodoYUsuario(Date startDate, Date endDate, long u
         
         return resultados;
     } catch (Exception e) {
+        // Si la transacción está activa, hacer rollback
         if (em.getTransaction().isActive()) {
             em.getTransaction().rollback();
         }
-        e.printStackTrace();
-        return null;
+        // Aquí solo imprimimos el mensaje de la excepción
+        System.err.println("Error en la consulta: " + e.getMessage());
+        return null;  // Retornar null si ocurre un error
     } finally {
+        // Cerrar el EntityManager
         em.close();
     }
 }

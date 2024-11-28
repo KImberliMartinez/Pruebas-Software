@@ -25,8 +25,8 @@ import java.util.Map;
  */
 public class consultaGastos implements IconsultaGastos {
 
-    IGastosDAO gasto;
-    IUsuarioDAO usuarios;
+    public IGastosDAO gasto;
+    public IUsuarioDAO usuarios;
 //    private boolean registroEnviado = false;
 
     public consultaGastos() {

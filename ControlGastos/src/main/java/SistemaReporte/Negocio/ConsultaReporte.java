@@ -22,7 +22,7 @@ import java.util.Map;
  * @author delll
  */
 public class ConsultaReporte implements IConsultaReporte {
-    IReporteDAO reporte;
+    public IReporteDAO reporte;
 
     public ConsultaReporte() {
          reporte = new ReporteDAO();
