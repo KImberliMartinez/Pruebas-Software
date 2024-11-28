@@ -64,7 +64,6 @@ public class DlgModificar extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         BotonRegistro1 = new javax.swing.JButton();
-        BotonLimpiar = new javax.swing.JButton();
         BotonRegreso1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         campoMont = new javax.swing.JTextField();
@@ -91,16 +90,6 @@ public class DlgModificar extends javax.swing.JDialog {
             }
         });
         jPanel2.add(BotonRegistro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, -1, 42));
-
-        BotonLimpiar.setBackground(new java.awt.Color(0, 204, 153));
-        BotonLimpiar.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        BotonLimpiar.setText("Limpiar");
-        BotonLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonLimpiarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BotonLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 370, 110, 30));
 
         BotonRegreso1.setBackground(new java.awt.Color(0, 204, 153));
         BotonRegreso1.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
@@ -210,10 +199,19 @@ public class DlgModificar extends javax.swing.JDialog {
         
         if(campoMont.getText().isEmpty()){ 
              campoMont.setText(montCambio);
-    
+             float mont=Float.parseFloat(campoMont.getText());
+            if(mont<1){ 
+             JOptionPane.showMessageDialog(this, "Ingrese una cantidad mayor a 0.99", "Alerta", JOptionPane.WARNING_MESSAGE);
+              }
         }else{
         long num= Long.parseLong(idCambio);
          float mont=Float.parseFloat(campoMont.getText());
+            if(mont<1){ 
+             JOptionPane.showMessageDialog(this, "Ingrese una cantidad mayor a 0.99", "Alerta", JOptionPane.WARNING_MESSAGE);
+           }else{
+                if(mont>10000000){
+                JOptionPane.showMessageDialog(this, "No puede ingresar un gasto mayor a $10,000,00 mxn", "Alerta", JOptionPane.WARNING_MESSAGE);
+                }else{
          Consulta.actualizarGastos(num,catCambio,mont);
          
          JOptionPane.showMessageDialog(this,"Accion realizada","",JOptionPane.INFORMATION_MESSAGE );
@@ -223,14 +221,11 @@ public class DlgModificar extends javax.swing.JDialog {
                     dlg.setVisible(true);
                     
                     dispose();
+                }
+          }
         } 
-        }
+       }
     }//GEN-LAST:event_BotonRegistro1ActionPerformed
-
-    private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
-        // TODO add your handling code here:
-        campoMont.setText(" "); 
-    }//GEN-LAST:event_BotonLimpiarActionPerformed
    
     
     private void BotonRegreso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegreso1ActionPerformed
@@ -304,7 +299,6 @@ private void ingresarSoloNumeros(){
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonLimpiar;
     private javax.swing.JButton BotonRegistro1;
     private javax.swing.JButton BotonRegreso1;
     private javax.swing.JComboBox<String> campoCat;

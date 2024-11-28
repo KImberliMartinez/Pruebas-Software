@@ -192,8 +192,13 @@ public class DlgAgregar extends javax.swing.JDialog {
         if (seleccion==-1 || campoDesc.getText().isEmpty() ||campoMon.getText().isEmpty()|| date.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
         } else {
-            
+           
        float mon= Float.parseFloat(campoMon.getText());
+            if(mon<1){ 
+             JOptionPane.showMessageDialog(this, "Ingrese una cantidad mayor a 0.99", "Alerta", JOptionPane.WARNING_MESSAGE);
+           }else{
+               
+           
             switch (seleccion) {
                 
             case 0:
@@ -201,6 +206,9 @@ public class DlgAgregar extends javax.swing.JDialog {
                        
 
                   gastosDTO  Agregar=new gastosDTO("Alimentacion", campoDesc.getText(), mon, date.getDate(),idUsuario);
+                  if(mon>1000000){
+                JOptionPane.showMessageDialog(this, "No puede ingresar un gasto mayor a $10,000,00 mxn", "Alerta", JOptionPane.WARNING_MESSAGE);
+                }else{
                     Consulta.registrar(Agregar);
 
                     JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
@@ -209,11 +217,15 @@ public class DlgAgregar extends javax.swing.JDialog {
                     dlg.setVisible(true);
                     
                     dispose();
+                  }
                 break;
            
                 case 1:
 
                   gastosDTO  Agregar1=new gastosDTO("Transporte", campoDesc.getText(),mon, date.getDate(),idUsuario);
+                   if(mon>10000000){
+                JOptionPane.showMessageDialog(this, "No puede ingresar un gasto mayor a $10,000,00 mxn", "Alerta", JOptionPane.WARNING_MESSAGE);
+                }else{
                     Consulta.registrar(Agregar1);
 
                     JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
@@ -221,10 +233,13 @@ public class DlgAgregar extends javax.swing.JDialog {
                     DlgConsultas dlg2=new DlgConsultas(idUsuario);
                     dlg2.setVisible(true);
                     dispose();
- 
+                   }
                 break;
                  case 2:
                   gastosDTO  Agregar2=new gastosDTO("Ocio", campoDesc.getText(),mon, date.getDate(),idUsuario);
+                   if(mon>1000000){
+                JOptionPane.showMessageDialog(this, "No puede ingresar un gasto mayor a $10,000,00 mxn", "Alerta", JOptionPane.WARNING_MESSAGE);
+                }else{
                     Consulta.registrar(Agregar2);
                     JOptionPane.showMessageDialog(this, "gasto agregada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
                     //dlg.idUsuarioRecibido=idUsuario;
@@ -232,13 +247,14 @@ public class DlgAgregar extends javax.swing.JDialog {
                     dlg3.setVisible(true);
                     
                     dispose();
- 
+                   }
                 break;   
             default:
                 JOptionPane.showMessageDialog(this, "Gasto no valido", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
         }
-      }                        
+      }
+    }
     }//GEN-LAST:event_BotonRegistro1ActionPerformed
 private void ingresarSoloNumeros(){
         campoMon.addKeyListener(new KeyAdapter() {

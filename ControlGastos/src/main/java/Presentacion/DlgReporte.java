@@ -16,6 +16,7 @@ import org.jfree.chart.JFreeChart;
 import java.util.Map;
 import java.awt.BorderLayout;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import org.jfree.data.category.DefaultCategoryDataset;
 import javax.swing.JPanel;
 import org.jfree.chart.plot.PlotOrientation;
@@ -258,7 +259,8 @@ IConsultaReporte consulta = new ConsultaReporte();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnReporteSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteSemanalActionPerformed
- // 1. Obtener la lista de gastos para el periodo semanal
+   JOptionPane.showMessageDialog(this, "El reporte se mostrara apartir de la fecha seleccionada hasta 6 dias despues", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+// 1. Obtener la lista de gastos para el periodo semanal
     Date fechaSeleccionada = dateChooserFin1.getDate();
     // Aquí se llama al nuevo método que solo recibe una fecha
 List<gastosDTO> gastos = consulta.listaPorPeriodoSemanal(fechaSeleccionada,idUsuario);
@@ -304,7 +306,9 @@ PanelHistograma1.repaint(); // Repintar el panel si es necesario
     }//GEN-LAST:event_btnReporteSemanalActionPerformed
 
     private void btnReporteMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMensualActionPerformed
-     Date fechaSeleccionada = dateChooserFin1.getDate();
+   JOptionPane.showMessageDialog(this, "El reporte se mostrara apartir de la fecha seleccionada hasta 30 dias despues", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+        Date fechaSeleccionada = dateChooserFin1.getDate();
     // Aquí se llama al nuevo método que solo recibe una fecha
 List<gastosDTO> gastos = consulta.listaPorPeriodoMensual(fechaSeleccionada,idUsuario);
 

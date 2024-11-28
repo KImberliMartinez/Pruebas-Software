@@ -54,6 +54,11 @@ public class Login extends javax.swing.JFrame {
                 NombreUsuarioActionPerformed(evt);
             }
         });
+        NombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NombreUsuarioKeyTyped(evt);
+            }
+        });
         getContentPane().add(NombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 220, 30));
 
         Contraseña.setBackground(new java.awt.Color(71, 100, 104));
@@ -134,6 +139,19 @@ public class Login extends javax.swing.JFrame {
                 }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void NombreUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NombreUsuarioKeyTyped
+        // TODO // Obtiene el carácter que se ha escrito
+    char c = evt.getKeyChar();
+
+    // Permitir solo letras, números y espacios
+    if (!Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
+        evt.consume();  // Ignora el carácter no permitido
+
+        // Opción: mostrar un mensaje de error (opcional)
+        JOptionPane.showMessageDialog(this, "Solo se permiten letras, números y espacios", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_NombreUsuarioKeyTyped
 
     /**
      * @param args the command line arguments
