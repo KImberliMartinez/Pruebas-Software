@@ -4,10 +4,12 @@ import SistemaControlGastos.Negocio.gastosDTO;
 import SistemaReporte.Negocio.ConsultaReporte;
 import SistemaUsuario.Negocio.ConsultaUsuario;
 import SistemaUsuario.Negocio.UsuariosDTO;
-import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Date;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
 
 /**
  *
@@ -151,7 +153,38 @@ public void pruebaRegistrarUsuarioConNombreVacio() {
     fail("No se lanzó una excepción, pero se esperaba que fallara por nombre vacío.");
 }
 
+    @Test
+    public void testGastosPorCategoriaYusuario() {
+        consultaGastos consultaGastos = new consultaGastos();
+        // Prepara los datos de prueba en la base de datos
+        long usuarioId = 1L; // Cambia según un ID válido en tu base de datos de prueba
+        String categoria = "Alimentación"; // Categoría existente en los datos
 
+        // Ejecuta el método
+        Double totalGastos = consultaGastos.GastosPorCategoriYusuario(usuarioId, categoria);
+
+        // Valida que el total de gastos no sea nulo y tenga un valor esperado
+        assertNotNull(totalGastos, "El total de gastos no debería ser nulo");
+        assertTrue(totalGastos >= 0, "El total de gastos debería ser mayor o igual a 0");
+    }
+
+    @Test
+    public void testGastosPorCategoriaERROR() {
+        consultaGastos consultaGastos = new consultaGastos();
+        long usuarioId = 1L; // Usuario válido
+        String categoria = "CategoríaInexistente"; // Categoría que no existe
+
+        // Ejecuta el método
+        Double totalGastos = consultaGastos.GastosPorCategoriYusuario(usuarioId, categoria);
+
+        // Valida que el resultado sea 0.0 cuando no hay gastos en esa categoría
+        assertEquals(0.0, totalGastos, "El total de gastos debería ser 0.0 para categorías inexistentes");
+    }
+
+   
+    
+    
+    
 //    private static EntityManagerFactory entityManagerFactory;
 //    private static EntityManager entityManager;
 //    private static Usuarios usuario;
