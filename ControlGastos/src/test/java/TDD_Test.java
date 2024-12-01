@@ -7,59 +7,59 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import java.util.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 /**
  *
  * @author Arell
  */
+@ExtendWith(MockitoExtension.class)
 public class TDD_Test {
 
- @InjectMocks
-    private ConsultaReporte consultaReporte;
-
     @Mock
-    private ReporteDAO reporteDAO;
+    private ReporteDAO reporteDAO; // Mock del DAO
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    } 
-    
+    @InjectMocks
+    private ConsultaReporte ConsultaReporte; // Clase bajo prueba
+
+@Test
+void testListaPorPeriodoAnualConMocks() {
+    // Crear mock de Gastos
+    Gastos gasto1 = mock(Gastos.class);
+    Gastos gasto2 = mock(Gastos.class);
+
+    when(gasto1.getId()).thenReturn(1L);
+    when(gasto2.getId()).thenReturn(2L);
+
+    List<Gastos> gastosMock = List.of(gasto1, gasto2);
+    when(reporteDAO.listaPorPeriodoYUsuario(any(Date.class), any(Date.class), eq(1L)))
+            .thenReturn(gastosMock);
+
+    // Fecha de inicio ficticia
+    Date fechaInicio = new Date();
+
+    // Llamar al método bajo prueba
+    List<gastosDTO> resultado = ConsultaReporte.listaPorPeriodoAnual(fechaInicio, 1L);
+
+    // Verificar resultados
+    assertNotNull(resultado);
+    assertEquals(2, resultado.size());
+    verify(reporteDAO).listaPorPeriodoYUsuario(eq(fechaInicio), any(Date.class), eq(1L));
+}
+
+
+
     @Test
-    public void testListaPorPeriodoAnual() {
-        // Arrange
-        Date fecha = new Date();
-        long idUsuario = 1L;
-        List<Gastos> expectedGastos = Arrays.asList(new Gastos(), new Gastos());
-        List<gastosDTO> expectedDTOs = Arrays.asList(new gastosDTO(), new gastosDTO());
+    void testListaPorPeriodoAnualConExcepcion() {
+        // Simula una excepción en el DAO
+        when(reporteDAO.listaPorPeriodoYUsuario(any(Date.class), any(Date.class), anyLong()))
+                .thenThrow(new RuntimeException("Error de base de datos"));
 
-        when(reporteDAO.listaPorPeriodoYUsuario(any(Date.class), any(Date.class), eq(idUsuario)))
-                .thenReturn(expectedGastos);
-        when(consultaReporte.convertirGastosADTOs(expectedGastos)).thenReturn(expectedDTOs);
+        // Verificar que el método lanza la excepción esperada
+        Date fechaInicio = new Date();
+        assertThrows(RuntimeException.class, () -> ConsultaReporte.listaPorPeriodoAnual(fechaInicio, 1L));
 
-        // Act
-        List<gastosDTO> actualDTOs = consultaReporte.listaPorPeriodoAnual(fecha, idUsuario);
-
-        // Assert
-        assertEquals(expectedDTOs, actualDTOs);
-    }
-
-    @Test
-    public void testListaPorPeriodoAnualFechaInvalida() {
-        // Arrange
-        Date fecha = new Date();
-        Date fechaInvalida = new Date(fecha.getTime() + ((365L + 7) * 24 * 60 * 60 * 1000));
-        long idUsuario = 1L;
-        List<Gastos> expectedGastos = Collections.emptyList();
-        List<gastosDTO> expectedDTOs = Collections.emptyList();
-
-        when(reporteDAO.listaPorPeriodoYUsuario(any(Date.class), eq(fechaInvalida), eq(idUsuario)))
-                .thenReturn(expectedGastos);
-        when(consultaReporte.convertirGastosADTOs(expectedGastos)).thenReturn(expectedDTOs);
-
-        // Act
-        List<gastosDTO> actualDTOs = consultaReporte.listaPorPeriodoAnual(fecha, idUsuario);
-
-        // Assert
-        assertEquals(expectedDTOs, actualDTOs, "No debería haberse registrado ningún gasto con una fecha fuera del lapso de un año.");
+        // Verificar que el DAO fue llamado
+        verify(reporteDAO).listaPorPeriodoYUsuario(any(Date.class), any(Date.class), anyLong());
     }
 }
