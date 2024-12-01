@@ -74,4 +74,10 @@ public Map<String, Double> crearHistograma(List<gastosDTO> listaGastos) {
     
     return histograma;
 }
+// Codigo minimo para correr la prueba TDD
+@Override
+public List<gastosDTO> listaPorPeriodoAnual(Date fecha, long idUsuario) {
+    return convertirGastosADTOs(reporte.listaPorPeriodoYUsuario(fecha, new Date(fecha.getTime() + (365L * 24 * 60 * 60 * 1000)), idUsuario));
+}
+
 }

@@ -15,9 +15,14 @@ import java.util.Map;
  * @author delll
  */
 public interface IConsultaReporte {
-     public List<gastosDTO> listaPorPeriodoMensual(Date fecha,long idUsuario);
-    public List<gastosDTO> listaPorPeriodoSemanal(Date fecha,long idUsuario);
-public Map<String, Double> crearHistograma(List<gastosDTO> listaGastos);
+    public List<gastosDTO> listaPorPeriodoMensual(Date fecha, long idUsuario);
+
+    public List<gastosDTO> listaPorPeriodoSemanal(Date fecha, long idUsuario);
+
+    public Map<String, Double> crearHistograma(List<gastosDTO> listaGastos);
+
     public List<gastosDTO> convertirGastosADTOs(List<Gastos> gastos);
+
+    public List<gastosDTO> listaPorPeriodoAnual(Date fecha, long idUsuario);
 
 }
