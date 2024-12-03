@@ -1,3 +1,5 @@
+package Tests;
+
 
 import SistemaControlGastos.Negocio.consultaGastos;
 import SistemaControlGastos.Negocio.gastosDTO;

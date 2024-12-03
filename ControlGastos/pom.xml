@@ -5,7 +5,9 @@
     <artifactId>ControlGastos</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
     <dependencies>
+        <!-- Dependencias originales -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.core</artifactId>
@@ -14,7 +16,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>4.3.1</version> <!-- Ajusta la versión si es necesario -->
+            <version>4.3.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -87,20 +89,16 @@
             <version>5.6.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>3.3.4</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider-spring -->
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-provider-spring</artifactId>
             <version>4.0.10</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider-junit5-spring -->
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-provider-junit5-spring</artifactId>
@@ -118,7 +116,24 @@
             <scope>test</scope>
             <type>jar</type>
         </dependency>
+
+        <!-- Dependencias para Pitest -->
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+<dependency>
+    <groupId>org.junit.platform</groupId>
+    <artifactId>junit-platform-commons</artifactId>
+    <version>1.6.0</version>
+    <scope>test</scope>
+</dependency>
+
     </dependencies>
+
     <repositories>
         <repository>
             <id>netbeans-releases</id>
@@ -136,6 +151,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>com.mycompany.controlgastos.ControlGastos</exec.mainClass>
     </properties>
+
     <build>
         <plugins>
             <!-- Plugin de JaCoCo -->
@@ -145,13 +161,11 @@
                 <version>0.8.9</version>
                 <configuration>
                     <excludes>
-                        <!-- Excluir todas las clases en el paquete presentacion -->
                         <exclude>**/Presentacion/**</exclude>
-                        <!-- Excluir todas las interfaces -->
                         <exclude>**/*DTO*.class</exclude>
-            
                         <exclude>**/Pintar.class</exclude>
                         <exclude>**/I*.class</exclude>
+                         <exclude>**/GastosPorCategoria.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -168,20 +182,13 @@
                         </goals>
                     </execution>
                 </executions>
-                
             </plugin>
-            <!-- Otros plugins pueden ir aquí -->
+
+            <!-- Plugin de Pitest -->
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.15.8</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.pitest</groupId>
-                        <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>1.2.1</version> <!-- Cambia a la última versión disponible -->
-                    </dependency>
-                </dependencies>
                 <executions>
                     <execution>
                         <id>mutationCoverage</id>
@@ -192,28 +199,31 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <targetTests>
+                        <param>Tests.*</param>
+                        
+                    </targetTests>
+                    <excludedClasses>
+                        <param>Presentacion.*</param>
+                        <param>SistemaReporte.Negocio.Pintar</param>
+                        <param>SistemaReporte.Persistencia.Entidades.GastosPorCategoria</param>
+                        
+                    </excludedClasses>
                     <outputFormats>
                         <param>HTML</param>
                         <param>XML</param>
                     </outputFormats>
-                    <timestampedReports>false</timestampedReports>
-                    <reportsDirectory>${project.build.directory}pit-reports</reportsDirectory> <!-- Ubicación de los reportes -->
-                    <targetTests>
-                        <param>com.mycompany.TestNegocio.*</param>
-                        <param>com.mycompany.TestPersistencia.*</param>
-                    </targetTests>
-                    
+                    <reportsDirectory>${project.build.directory}/pit-reports</reportsDirectory>
                 </configuration>
-                
             </plugin>
+
+            <!-- Plugin Surefire -->
             <plugin> 
                 <groupId>org.apache.maven.plugins</groupId> 
                 <artifactId>maven-surefire-plugin</artifactId> 
-                <version>2.22.0</version> 
+                <version>3.0.0</version> 
             </plugin>
-
         </plugins>
-        
     </build>
 
 </project>

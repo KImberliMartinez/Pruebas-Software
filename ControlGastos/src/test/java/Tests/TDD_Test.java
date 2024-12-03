@@ -1,3 +1,5 @@
+package Tests;
+
 import SistemaControlGastos.Negocio.gastosDTO;
 import SistemaControlGastos.Persistencia.Entidades.Gastos;
 import SistemaReporte.Negocio.ConsultaReporte;
