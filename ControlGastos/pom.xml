@@ -12,17 +12,17 @@
             <version>2.7.12</version>
         </dependency>
         <dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-junit-jupiter</artifactId>
-    <version>4.3.1</version> <!-- Ajusta la versión si es necesario -->
-    <scope>test</scope>
-</dependency>
-<dependency>
-    <groupId>org.jfree</groupId>
-    <artifactId>jfreechart</artifactId>
-    <version>1.5.5</version>
-    <type>jar</type>
-</dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>4.3.1</version> <!-- Ajusta la versión si es necesario -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.5</version>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.asm</artifactId>
@@ -69,48 +69,48 @@
             <version>8.0.33</version>
         </dependency>
         <dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-api</artifactId>
-    <version>5.6.0</version>
-    <scope>test</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
             <type>jar</type>
         </dependency>
-<dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-engine</artifactId>
-    <version>5.6.0</version>
-    <scope>test</scope>
-</dependency>
-<dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-params</artifactId>
-    <version>5.6.0</version>
-    <scope>test</scope>
-</dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-jpa</artifactId>
-    <version>3.3.4</version>
-</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>3.3.4</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider-spring -->
-<dependency>
-    <groupId>au.com.dius</groupId>
-    <artifactId>pact-jvm-provider-spring</artifactId>
-    <version>4.0.10</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider-junit5-spring -->
-<dependency>
-    <groupId>au.com.dius</groupId>
-    <artifactId>pact-jvm-provider-junit5-spring</artifactId>
-    <version>4.0.10</version>
-</dependency>
-<dependency>
-        <groupId>org.mindrot</groupId>
-        <artifactId>jbcrypt</artifactId>
-        <version>0.4</version>
-    </dependency>
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-spring</artifactId>
+            <version>4.0.10</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider-junit5-spring -->
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-junit5-spring</artifactId>
+            <version>4.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -120,15 +120,15 @@
         </dependency>
     </dependencies>
     <repositories>
-    <repository>
-        <id>netbeans-releases</id>
-        <url>https://repo.maven.apache.org/maven2</url>
-    </repository>
-    <repository>
-        <id>netbeans</id>
-        <url>https://netbeans.apache.org/maven2</url>
-    </repository>
-</repositories>
+        <repository>
+            <id>netbeans-releases</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>netbeans</id>
+            <url>https://netbeans.apache.org/maven2</url>
+        </repository>
+    </repositories>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -137,49 +137,81 @@
         <exec.mainClass>com.mycompany.controlgastos.ControlGastos</exec.mainClass>
     </properties>
     <build>
-    <plugins>
-        <!-- Plugin de JaCoCo -->
-        <plugin>
-            <groupId>org.jacoco</groupId>
-    <artifactId>jacoco-maven-plugin</artifactId>
-    <version>0.8.9</version>
-    <configuration>
-        <excludes>
-            <!-- Excluir todas las clases en el paquete presentacion -->
-            <exclude>**/Presentacion/**</exclude>
-            <!-- Excluir todas las interfaces -->
-            <exclude>**/*DTO*.class</exclude>
+        <plugins>
+            <!-- Plugin de JaCoCo -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.9</version>
+                <configuration>
+                    <excludes>
+                        <!-- Excluir todas las clases en el paquete presentacion -->
+                        <exclude>**/Presentacion/**</exclude>
+                        <!-- Excluir todas las interfaces -->
+                        <exclude>**/*DTO*.class</exclude>
             
-            <exclude>**/Pintar.class</exclude>
-            <exclude>**/I*.class</exclude>
-        </excludes>
-    </configuration>
-    <executions>
-        <execution>
-            <goals>
-                <goal>prepare-agent</goal>
-            </goals>
-        </execution>
-        <execution>
-            <id>report</id>
-            <phase>verify</phase>
-            <goals>
-                <goal>report</goal>
-            </goals>
-        </execution>
-    </executions>
-        </plugin>
-        <!-- Otros plugins pueden ir aquí -->
-           <plugin>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-maven</artifactId>
-            <version>1.9.11</version> <!-- Cambia a la última versión disponible -->
-            <configuration>
-                <targetClasses>com.mycompany.controlgastos.*</targetClasses> <!-- Paquete objetivo -->
-                <targetTests>com.mycompany.controlgastos.*</targetTests>   <!-- Pruebas objetivo -->
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+                        <exclude>**/Pintar.class</exclude>
+                        <exclude>**/I*.class</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Otros plugins pueden ir aquí -->
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.15.8</version>
+                    <dependencies>
+                     <dependency>
+                         <groupId>org.pitest</groupId>
+                    <artifactId>pitest-junit5-plugin</artifactId>
+                    <version>1.2.1</version> <!-- Cambia a la última versión disponible -->
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>mutationCoverage</id>
+                        <goals>
+                            <goal>mutationCoverage</goal>
+                        </goals>
+                        <phase>test</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputFormats>
+                        <param>HTML</param>
+                        <param>XML</param>
+                    </outputFormats>
+                    <timestampedReports>false</timestampedReports>
+                    <reportsDirectory>$C:\Users\delll\Documents\GitHub\Pruebas-Software\ControlGastos\target\pit-reports</reportsDirectory> <!-- Ubicación de los reportes -->
+                    <targetTests>
+                        <param>com.mycompany.TestNegocio.*</param>
+                        <param>com.mycompany.TestPersistencia.*</param>
+                    </targetTests>
+                    <excludedClasses>
+                        <param>com.mycompany.*</param>
+                        <param>!com.mycompany.TestNegocio.*</param>
+                        <param>!com.mycompany.TestPersistencia.*</param>
+                    </excludedClasses>
+                </configuration>
+                
+            </plugin>
+
+        </plugins>
+        
+    </build>
 
 </project>
