@@ -4,7 +4,6 @@
  */
 package Presentacion;
 
-
 import SistemaUsuario.Negocio.ConsultaUsuario;
 import SistemaUsuario.Negocio.IConsultaUsuario;
 import javax.swing.JDialog;
@@ -15,7 +14,9 @@ import javax.swing.JOptionPane;
  * @author dell
  */
 public class Login extends javax.swing.JFrame {
-        IConsultaUsuario Consulta;
+
+    IConsultaUsuario Consulta;
+
     /**
      * Creates new form Login
      */
@@ -118,38 +119,36 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-       
+
         if (NombreUsuario.getText().isEmpty() || Contraseña.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
-        }else{
-            long id=Consulta.obtenerIDusuario(NombreUsuario.getText(),Contraseña.getText());
-             if (id !=0) {
-                 System.out.println("mandando usuario");
-                 DlgConsultas v = new DlgConsultas(id);
-                 System.out.println(id);
+        } else {
+            long id = Consulta.obtenerIDusuario(NombreUsuario.getText(), Contraseña.getText());
+            if (id != 0) {
+                System.out.println("mandando usuario");
+                DlgConsultas v = new DlgConsultas(id);
+                System.out.println(id);
                 // v.idUsuarioRecibido=id;
-                    //JOptionPane.showMessageDialog(this, "Usuario registrado con éxito,regrese para iniciar sesion", "", JOptionPane.INFORMATION_MESSAGE);
-                       
-                    v.setVisible(true);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Este usuario No existe", "aviso", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(this, "Usuario registrado con éxito,regrese para iniciar sesion", "", JOptionPane.INFORMATION_MESSAGE);
+
+                v.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Este usuario No existe", "aviso", JOptionPane.INFORMATION_MESSAGE);
                 NombreUsuario.setText("");
                 Contraseña.setText("");
-                }
+            }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void NombreUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NombreUsuarioKeyTyped
         // TODO // Obtiene el carácter que se ha escrito
-    char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
 
-    // Permitir solo letras, números y espacios
-    if (!Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
-        evt.consume();  // Ignora el carácter no permitido
-
-        // Opción: mostrar un mensaje de error (opcional)
-        JOptionPane.showMessageDialog(this, "Solo se permiten letras, números y espacios", "Error", JOptionPane.ERROR_MESSAGE);
+        // Permitir solo letras, números y espacios
+        if (!Character.isLetterOrDigit(c) && !Character.isWhitespace(c) && c != '\b') {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Solo se permiten letras, números y espacios", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_NombreUsuarioKeyTyped
 

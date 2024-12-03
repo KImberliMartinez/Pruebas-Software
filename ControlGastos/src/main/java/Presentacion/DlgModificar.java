@@ -1,6 +1,5 @@
 package Presentacion;
 
-
 import SistemaControlGastos.Negocio.IconsultaGastos;
 import SistemaControlGastos.Negocio.consultaGastos;
 import java.awt.event.KeyAdapter;
@@ -20,8 +19,8 @@ public class DlgModificar extends javax.swing.JDialog {
 
     IconsultaGastos Consulta;
     public long guardarId;
-    int vecesC=0;
-   public String idCambio;
+    int vecesC = 0;
+    public String idCambio;
     public String catCambio;
     //public String desCambio;
     public String montCambio;
@@ -40,16 +39,16 @@ public class DlgModificar extends javax.swing.JDialog {
 
     }
 
-    public DlgModificar(String idCambio,String catCambio,String montCambio,long guardarId ) {
-        this.guardarId=guardarId;
-        this.idCambio=idCambio;
-        this.catCambio=catCambio;
-         this.montCambio=montCambio;
+    public DlgModificar(String idCambio, String catCambio, String montCambio, long guardarId) {
+        this.guardarId = guardarId;
+        this.idCambio = idCambio;
+        this.catCambio = catCambio;
+        this.montCambio = montCambio;
         initComponents();
         Consulta = new consultaGastos();
         ingresarSoloNumeros();
         this.setVisible(true);
-        
+
     }
 
     /**
@@ -172,65 +171,75 @@ public class DlgModificar extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    public void pasarInfo(String monto){
-        System.out.println(idCambio+catCambio+montCambio+guardarId);
+    public void pasarInfo(String monto) {
+        System.out.println(idCambio + catCambio + montCambio + guardarId);
         campoMont.setText(monto);
-         //float mon=Float.valueOf(monto);
+        //float mon=Float.valueOf(monto);
     }
     private void BotonRegistro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistro1ActionPerformed
         // Verifica si los campos están vacíos
-        int sele=campoCat.getSelectedIndex();
-         
-        if ( campoCat.getSelectedIndex()!=-1 ){
+        int sele = campoCat.getSelectedIndex();
+
+        if (campoCat.getSelectedIndex() != -1) {
             switch (sele) {
                 case 0:
-                    catCambio="Alimentacion";
+                    catCambio = "Alimentacion";
                     break;
                 case 1:
-                    catCambio="Transporte";
+                    catCambio = "Transporte";
                     break;
                 case 2:
-                    catCambio="Ocio";
+                    catCambio = "Ocio";
                     break;
                 default:
-                    
+
                     return;
             }
-        
-        if(campoMont.getText().isEmpty()){ 
-             campoMont.setText(montCambio);
-             float mont=Float.parseFloat(campoMont.getText());
-            if(mont<1){ 
-             JOptionPane.showMessageDialog(this, "Ingrese una cantidad mayor a 0.99", "Alerta", JOptionPane.WARNING_MESSAGE);
-              }
-        }else{
-        long num= Long.parseLong(idCambio);
-         float mont=Float.parseFloat(campoMont.getText());
-            if(mont<1){ 
-             JOptionPane.showMessageDialog(this, "Ingrese una cantidad mayor a 0.99", "Alerta", JOptionPane.WARNING_MESSAGE);
-           }else{
-                if(mont>10000000){
-                JOptionPane.showMessageDialog(this, "No puede ingresar un gasto mayor a $10,000,00 mxn", "Alerta", JOptionPane.WARNING_MESSAGE);
-                }else{
-         Consulta.actualizarGastos(num,catCambio,mont);
-         
-         JOptionPane.showMessageDialog(this,"Accion realizada","",JOptionPane.INFORMATION_MESSAGE );
-          DlgConsultas dlg=new DlgConsultas(guardarId);
-          System.out.println(guardarId);
-          //dlg.idUsuarioRecibido=guardarId;
-                    dlg.setVisible(true);
-                    
-                    dispose();
+
+            if (campoMont.getText().isEmpty()) {
+                campoMont.setText(montCambio);
+                float mont = Float.parseFloat(campoMont.getText());
+                if (mont < 1) {
+                    JOptionPane.showMessageDialog(this, "Ingrese una cantidad mayor a 0.99", "Alerta", JOptionPane.WARNING_MESSAGE);
                 }
-          }
-        } 
-       }
+            } else {
+                long num = Long.parseLong(idCambio);
+                float mont = Float.parseFloat(campoMont.getText());
+                if (mont < 1) {
+                    JOptionPane.showMessageDialog(this, "Ingrese una cantidad mayor a 0.99", "Alerta", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    if (mont > 10000000) {
+                        JOptionPane.showMessageDialog(this, "No puede ingresar un gasto mayor a $10,000,00 mxn", "Alerta", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        int confirmacion = JOptionPane.showConfirmDialog(this,
+                                "¿Está seguro de que desea eliminar este gasto?",
+                                "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        // Verificar la respuesta del usuario
+                        if (confirmacion == JOptionPane.YES_OPTION) {
+
+                            Consulta.actualizarGastos(num, catCambio, mont);
+
+                            JOptionPane.showMessageDialog(this, "Accion realizada", "", JOptionPane.INFORMATION_MESSAGE);
+                            DlgConsultas dlg = new DlgConsultas(guardarId);
+                            System.out.println(guardarId);
+                            //dlg.idUsuarioRecibido=guardarId;
+                            dlg.setVisible(true);
+
+                            dispose();
+                        } else {
+                            // El usuario ha decidido no eliminar
+                            JOptionPane.showMessageDialog(this, "El gasto no fue eliminado", "", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_BotonRegistro1ActionPerformed
-   
-    
+
+
     private void BotonRegreso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegreso1ActionPerformed
         // TODO add your handling code here:
-        DlgConsultas dlg=new DlgConsultas(guardarId);
+        DlgConsultas dlg = new DlgConsultas(guardarId);
         dlg.setVisible(true);
         dispose();
     }//GEN-LAST:event_BotonRegreso1ActionPerformed
@@ -243,7 +252,7 @@ public class DlgModificar extends javax.swing.JDialog {
     private void campoCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoCatActionPerformed
-private void ingresarSoloNumeros(){
+    private void ingresarSoloNumeros() {
         campoMont.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -253,8 +262,7 @@ private void ingresarSoloNumeros(){
                 }
             }
         });
-}
-    
+    }
 
     /**
      * @param args the command line arguments
