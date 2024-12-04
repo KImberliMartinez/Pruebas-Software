@@ -212,8 +212,8 @@ public class DlgModificar extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(this, "No puede ingresar un gasto mayor a $10,000,00 mxn", "Alerta", JOptionPane.WARNING_MESSAGE);
                     } else {
                         int confirmacion = JOptionPane.showConfirmDialog(this,
-                                "¿Está seguro de que desea eliminar este gasto?",
-                                "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                                "¿Está seguro de que desea Editar este gasto?",
+                                "Confirmar Actualización", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                         // Verificar la respuesta del usuario
                         if (confirmacion == JOptionPane.YES_OPTION) {
 
